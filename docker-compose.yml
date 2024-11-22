@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  scraper:
+    build:
+      context: .
+    volumes:
+      - ./test.db:/data/test.db
+    command: ["./main"]

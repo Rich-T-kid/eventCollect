@@ -1,0 +1,5 @@
+.git
+*json
+*.db
+*.txt
+*_log.txt
