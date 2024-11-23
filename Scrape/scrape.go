@@ -34,6 +34,12 @@ type scrape struct {
 func NewLogger(prefix string) (*Logger, error) {
 	// Open the general log file
 	const folderName = "ScapeLogs"
+	err := os.MkdirAll(folderName, 0755) // Creates the folder if it doesn't exist
+	if err != nil {
+		log.Fatalf("error creating folder: %v\n", err)
+		return nil, err
+	}
+
 	Generalfilename := fmt.Sprintf("%s/%s_general.log", folderName, prefix)
 	generalLogFile, err := os.OpenFile(Generalfilename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
@@ -142,14 +148,18 @@ func configColly(c *colly.Collector, log *Logger) error {
 	return nil
 }
 func (s *scrape) Start() {
+	s.logger.DebugLogger.Println("Starting web scraper ........")
 	var wg sync.WaitGroup
-	ctx, cancel := context.WithTimeout(context.Background(), 35*time.Second)
-	defer cancel()
+	ctx := context.Background()
+	//defer cancel()
 
-	linkChannel := make(chan string, 10)
-	//defer close(linkChannel)
+	linkChannel := make(chan string, 100)
 
-	wg.Add(2)
+	wg.Add(3)
+	go func() {
+		defer wg.Done()
+		s.startSites()
+	}()
 	go func() {
 		defer wg.Done()
 		s.BeginScrape(ctx, linkChannel)
@@ -159,11 +169,14 @@ func (s *scrape) Start() {
 		defer wg.Done()
 		s.ScrapeSidePages(ctx, linkChannel)
 	}()
-	go s.startSites()
 	wg.Wait()
+	s.logger.DebugLogger.Println("Closing link channle")
+	close(linkChannel)
 	print("done waiting !!! \n")
 }
 func csvReader(filename string) [][]string {
+	const foldername = "static_CSV"
+	filename = fmt.Sprintf("%s/%s", foldername, filename)
 	fmt.Printf("opening %s to retrive records\n", filename)
 	file, err := os.Open(filename)
 	if err != nil {
@@ -176,16 +189,17 @@ func csvReader(filename string) [][]string {
 	if err != nil {
 		log.Fatalf("Failed to read CSV: %v", err)
 	}
-	return records
+	// first row of these record as just defining the columns
+	return records[1:]
 
 }
-func (s *scrape) constructUSlinks(links chan string) {
+func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
 	// read in top 3000 in order as well as alll  NJ,Ny,PA,Bostan first Start with jusy new jersey for now and locations that u know
 	// parse form the base url https://www.eventbrite.com/d/nj--piscataway/all-events/ and place on the channle
 	// for now hardcode the state -> nj
 	//const baseUrl = "https://www.eventbrite.com/d/nj--piscataway/all-events/"
-
-	records := csvReader("uscities.csv")
+	defer wg.Done()
+	records := csvReader("us_cities.csv")
 	for _, record := range records {
 		cityName := strings.ToLower(record[0])
 		state_name := strings.ToLower(record[3])
@@ -195,12 +209,13 @@ func (s *scrape) constructUSlinks(links chan string) {
 	}
 	fmt.Println("Done Proccessing US Links")
 }
-func (s *scrape) constructnjlinks(links chan string) {
+func (s *scrape) constructnjlinks(links chan string, wg *sync.WaitGroup) {
 	// read in top 3000 in order as well as alll  NJ,Ny,PA,Bostan first Start with jusy new jersey for now and locations that u know
 	// parse form the base url https://www.eventbrite.com/d/nj--piscataway/all-events/ and place on the channle
 	// for now hardcode the state -> nj
+	defer wg.Done()
 	const state = "nj"
-	records := csvReader("nj-municipalities.csv")
+	records := csvReader("nj_cities.csv")
 	for _, record := range records {
 		cityName := strings.ToLower(record[0])
 		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state, cityName)
@@ -209,7 +224,8 @@ func (s *scrape) constructnjlinks(links chan string) {
 	}
 	fmt.Println("Done Proccessing New Jersey Links")
 }
-func (s *scrape) constructInternationalLinks(links chan string) {
+func (s *scrape) constructInternationalLinks(links chan string, wg *sync.WaitGroup) {
+	defer wg.Done()
 	records := csvReader("non_us_cities.csv")
 	// https://www.eventbrite.com/d/Bangladesh--Dhaka/events/
 	//https://www.eventbrite.com/d/country--city/events/
@@ -227,39 +243,66 @@ func (s *scrape) startSites() {
 	// then  the main scrapper will get all the links on those pages and pass that onto a side scrapper queue
 	// sider scrapers will proccess these sites for all their info and save this is  a data
 	// Data Cleaning neds to be done , As well as using  a custom implementation of a bloom filter to check if a site has already been seen
+	s.logger.DebugLogger.Println("Starting to generate Links")
+	s.mainScraper.Visit("https://www.eventbrite.com/d/nj--piscataway/all-events/")
+	var wg sync.WaitGroup
 	mainsites := make(chan string, 100)
-	go s.constructnjlinks(mainsites)
-	go s.constructInternationalLinks(mainsites)
-	go s.constructUSlinks(mainsites)
+	wg.Add(3)
+	go s.constructnjlinks(mainsites, &wg)
+	go s.constructInternationalLinks(mainsites, &wg)
+	go s.constructUSlinks(mainsites, &wg)
+	go func() {
+		wg.Wait()
+		s.logger.DebugLogger.Println("All producers are done. Closing channel.")
+		close(mainsites)
+	}()
 	for link := range mainsites {
 		// for each link proccess all their pages. assumeing there are 11 pages. wont always be true but any failed request arent a major issue
-		for i := 1; i < 11; i++ {
+		for i := 1; i < 5; i++ {
 			// example link : https://www.eventbrite.com/d/nj--piscataway/all-events/
 			// append ?page=i
 			pageExtention := fmt.Sprintf("?page=%d", i)
 			var completeUrl = link + pageExtention
-			print("visiting ", completeUrl, "\n")
+			print("visiting: ", completeUrl, "\n")
 			err := s.mainScraper.Visit(completeUrl)
 			if err != nil {
 				s.logger.ErrorLogger.Println(err)
 			}
 		}
 	}
-	for i := 1; i < 2; i++ {
-		url := fmt.Sprintf("https://www.eventbrite.com/d/nj--piscataway/all-events/?page=%d", i)
-		print("visiting ", url, "\n")
-		err := s.mainScraper.Visit(url)
-		if err != nil {
-			s.logger.ErrorLogger.Println(err)
+
+	/*
+		for i := 1; i < 2; i++ {
+			url := fmt.Sprintf("https://www.eventbrite.com/d/nj--piscataway/all-events/?page=%d", i)
+			print("visiting ", url, "\n")
+			err := s.mainScraper.Visit(url)
+			if err != nil {
+				s.logger.ErrorLogger.Print	ln(err)
+			}
 		}
-	}
+	*/
 }
 func (s *scrape) BeginScrape(ctx context.Context, link chan string) {
-	s.mainScraper.OnHTML("section.SearchPageContent-module__searchPanel___3TunM ul.SearchResultPanelContentEventCardList-module__eventList___2wk-D", func(e *colly.HTMLElement) {
+	fmt.Println("got inside begin scraper ")
+	s.mainScraper.OnHTML("section", func(e *colly.HTMLElement) {
+		e.ForEach("ul.SearchResultPanelContentEventCardList-module__eventList___2wk-D", func(_ int, el *colly.HTMLElement) {
+			//fmt.Println("Found <li> tag:", el.Text)
+			el.ForEach("li", func(_ int, el *colly.HTMLElement) {
+				event_link := el.ChildAttr("a", "href")
+				fmt.Println(event_link)
+				link <- event_link
+
+			})
+		})
+
+	})
+	s.mainScraper.OnHTML("ul.SearchResultPanelContentEventCardList-module__eventList___2wk-D", func(e *colly.HTMLElement) {
 		// Find the `a` tag inside the nested `section` with class `event-card-actions`
 		e.ForEach("li", func(i int, li *colly.HTMLElement) {
 			//eventTitle := li.ChildText("h3") // Adjust selector as needed
 			eventLink := li.ChildAttr("a", "href")
+			// place sublinks on the channel
+			fmt.Println("link: ->> ", eventLink)
 			link <- eventLink
 		})
 	})
@@ -295,7 +338,7 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 		h.ForEach("li.tags-item", func(_ int, el *colly.HTMLElement) {
 			tags = append(tags, el.Text)
 		})
-		if count >= 2 {
+		if count >= 40 {
 			return
 		}
 		location = s.parseAddress(location)
@@ -337,10 +380,6 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 		}
 	}
 
-}
-
-func paseDate(date string) time.Time {
-	return time.Now()
 }
 
 func (s *scrape) parseAddress(address string) string {
