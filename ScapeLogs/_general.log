@@ -1,0 +1,24 @@
+ERROR: 2024/11/23 12:40:12 scrape.go:387: 
+ERROR: 2024/11/23 12:45:39 scrape.go:377: parsing addrress  no address found in the response
+ERROR: 2024/11/23 12:45:40 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 12:45:41 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 12:45:43 scrape.go:388: 
+ERROR: 2024/11/23 12:45:44 scrape.go:388: 
+ERROR: 2024/11/23 12:45:46 scrape.go:388: 
+ERROR: 2024/11/23 12:45:47 scrape.go:377: parsing addrress  no address found in the response
+ERROR: 2024/11/23 12:45:47 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 12:45:48 scrape.go:388: 
+ERROR: 2024/11/23 12:45:49 scrape.go:377: parsing addrress  no address found in the response
+ERROR: 2024/11/23 12:45:49 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 12:45:51 scrape.go:388: 
+ERROR: 2024/11/23 12:45:52 scrape.go:388: 
+ERROR: 2024/11/23 12:45:54 scrape.go:388: 
+ERROR: 2024/11/23 12:50:24 scrape.go:377: parsing addrress  no address found in the response
+ERROR: 2024/11/23 12:50:24 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 12:50:25 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 12:50:31 scrape.go:377: parsing addrress  no address found in the response
+ERROR: 2024/11/23 12:50:31 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 12:50:34 scrape.go:377: parsing addrress  no address found in the response
+ERROR: 2024/11/23 12:50:34 scrape.go:388: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 15:04:43 scrape.go:400: api service doesnt have geocoding for this street
+ERROR: 2024/11/23 15:04:47 scrape.go:400: api service doesnt have geocoding for this street

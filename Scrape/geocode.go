@@ -15,8 +15,8 @@ import (
 var (
 	once     sync.Once
 	instance *Geocoder
-	apikey   = "6740b9d3ea16b460848865roa6225f6"
-	baseUrl  = "https://geocode.maps.co/search"
+	apikey   = "6740b9d3ea16b460848865roa6225f6" //
+	baseUrl  = "https://geocode.maps.co/search"  //
 )
 
 type GeoAPIResponse []struct {
@@ -49,7 +49,6 @@ func newGeoCoder(apiKey string, baseUrl string) *Geocoder {
 	}
 }
 func (g *Geocoder) streetToCordinates(address string) (float64, float64, error) {
-	fmt.Println("got to street cleaning service ")
 	address = strings.TrimSpace(address)
 
 	// Step 2: Remove punctuation (e.g., commas, extra symbols)
@@ -57,11 +56,8 @@ func (g *Geocoder) streetToCordinates(address string) (float64, float64, error) 
 
 	// Step 3: Replace spaces with "+" for URL encoding
 	address = strings.ReplaceAll(address, " ", "+")
-	fmt.Println(address)
 	// Step 4: Generate the request URL
-	fmt.Println("Got here ")
 	requestURL := fmt.Sprintf("%s?q=%s&api_key=%s", g.baseUrl, address, g.apiKey)
-	fmt.Println("Request url ", requestURL)
 	response, err := http.Get(requestURL)
 	if err != nil {
 		fmt.Println(err)
@@ -81,7 +77,6 @@ func (g *Geocoder) streetToCordinates(address string) (float64, float64, error) 
 		fmt.Printf("Error: %s\n", geoAPIError.Message)
 		return -1, -1, errors.New(geoAPIError.Message)
 	}
-	fmt.Println("size :", len(body))
 	if len(body) < 10 {
 		return -1, -1, fmt.Errorf("api service doesnt have geocoding for this street")
 	}
@@ -90,7 +85,6 @@ func (g *Geocoder) streetToCordinates(address string) (float64, float64, error) 
 	if err != nil {
 		return -1, -1, fmt.Errorf("error unmarshalling JSON: %v", err)
 	}
-	fmt.Println("->>>>>>\n ", geoAPIResponse)
 	Latitude, err := strconv.ParseFloat(geoAPIResponse[0].Lat, 64)
 	if err != nil {
 		fmt.Println("Error converting string to float64:", err)

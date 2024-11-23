@@ -42,7 +42,7 @@ func GetStorage() *Storage {
 // createDatabaseConnection initializes the gorm.DB connection
 func createDatabaseConnection() *gorm.DB {
 	// Replace this with your actual database configuration
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("main.db"), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("failed to connect to the database: %v", err)
 	}
@@ -113,13 +113,13 @@ func NewGeoPoint(Lat, Long float64, streetName string) *GeoPoint {
 // Handle insert statments for the data first and formost we can query the data very easily later
 func (s *Storage) createEvent(event *Event) {
 	s.Database.Create(event)
-	var constMessage = fmt.Sprintf("Created Event %s at %v", event.Name, time.Now())
+	var constMessage = fmt.Sprintf("Created Event %s at %v\n", event.Name, time.Now())
 	s.logFile.Write([]byte(constMessage))
 }
 
 func (s *Storage) createEventInfo(title string, eventInfo *EventInfo) {
 	s.Database.Create(eventInfo)
-	var constMessage = fmt.Sprintf("Created EventInfo %s at %v", title, time.Now())
+	var constMessage = fmt.Sprintf("Created EventInfo %s at %v\n", title, time.Now())
 	s.logFile.Write([]byte(constMessage))
 }
 

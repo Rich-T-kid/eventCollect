@@ -5,8 +5,10 @@ import (
 	"lite/DB"
 	scrape "lite/Scrape"
 	"lite/metrics"
+	"log"
 	"time"
 
+	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -20,6 +22,11 @@ type Collector struct {
 func init() {
 	DB.InitDB()
 	metrics.CollectMetrics("metrics/metrics.json", time.Second*15)
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
+	fmt.Println("env variables set up")
 }
 func main() {
 	webCrawler := scrape.Config()
@@ -33,7 +40,5 @@ https://www.eventbrite.com/d/nj--newark/all-events/?page=2
 url -> https://www.eventbrite.com/d/nj--edison/all-events/
 generic ulr (USA based) -? https://www.eventbrite.com/d/{state}--{city}/all-events/?page=int
 generic ulr (non USA based) -? https://www.eventbrite.com/d/{country}--{city}/all-events/
-
-
 
 */
