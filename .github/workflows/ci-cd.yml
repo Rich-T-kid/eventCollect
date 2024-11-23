@@ -19,7 +19,7 @@ steps:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.21'  # Specify the version of Go
+          go-version: '1.21' 
 
       - name: Install dependencies
         run: go mod tidy
@@ -29,6 +29,6 @@ steps:
       #   run: go test ./...
 
       - name: Build the project
-        run: go build -o app .
+        run: go build -o app ./cmd/
 
  
