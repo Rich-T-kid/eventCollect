@@ -2,6 +2,7 @@ package scrape
 
 import (
 	"context"
+	"encoding/csv"
 	"fmt"
 	"io"
 	"lite/DB"
@@ -162,11 +163,62 @@ func (s *scrape) Start() {
 	wg.Wait()
 	print("done waiting !!! \n")
 }
+func csvReader(filename string) [][]string {
+	fmt.Printf("opening %s to retrive records\n", filename)
+	file, err := os.Open(filename)
+	if err != nil {
+		fmt.Println(err)
+		log.Fatal(err)
+	}
+	defer file.Close()
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+	if err != nil {
+		log.Fatalf("Failed to read CSV: %v", err)
+	}
+	return records
+
+}
 func (s *scrape) constructUSlinks(links chan string) {
 	// read in top 3000 in order as well as alll  NJ,Ny,PA,Bostan first Start with jusy new jersey for now and locations that u know
 	// parse form the base url https://www.eventbrite.com/d/nj--piscataway/all-events/ and place on the channle
+	// for now hardcode the state -> nj
+	//const baseUrl = "https://www.eventbrite.com/d/nj--piscataway/all-events/"
+
+	records := csvReader("uscities.csv")
+	for _, record := range records {
+		cityName := strings.ToLower(record[0])
+		state_name := strings.ToLower(record[3])
+		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state_name, cityName)
+		links <- ValidUrl
+
+	}
+	fmt.Println("Done Proccessing US Links")
+}
+func (s *scrape) constructnjlinks(links chan string) {
+	// read in top 3000 in order as well as alll  NJ,Ny,PA,Bostan first Start with jusy new jersey for now and locations that u know
+	// parse form the base url https://www.eventbrite.com/d/nj--piscataway/all-events/ and place on the channle
+	// for now hardcode the state -> nj
+	const state = "nj"
+	records := csvReader("nj-municipalities.csv")
+	for _, record := range records {
+		cityName := strings.ToLower(record[0])
+		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state, cityName)
+		links <- ValidUrl
+
+	}
+	fmt.Println("Done Proccessing New Jersey Links")
 }
 func (s *scrape) constructInternationalLinks(links chan string) {
+	records := csvReader("non_us_cities.csv")
+	// https://www.eventbrite.com/d/Bangladesh--Dhaka/events/
+	//https://www.eventbrite.com/d/country--city/events/
+	for _, record := range records {
+		city := strings.ToLower(record[0])
+		country := strings.ToLower(record[4])
+		url := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/events/", country, city)
+		links <- url
+	}
 	// this will read in from a csv file of the top 2000 citys and countrys
 	// Checkk what regions areny valid and modify the csv file
 }
@@ -176,8 +228,23 @@ func (s *scrape) startSites() {
 	// sider scrapers will proccess these sites for all their info and save this is  a data
 	// Data Cleaning neds to be done , As well as using  a custom implementation of a bloom filter to check if a site has already been seen
 	mainsites := make(chan string, 100)
-	go s.constructUSlinks(mainsites)
+	go s.constructnjlinks(mainsites)
 	go s.constructInternationalLinks(mainsites)
+	go s.constructUSlinks(mainsites)
+	for link := range mainsites {
+		// for each link proccess all their pages. assumeing there are 11 pages. wont always be true but any failed request arent a major issue
+		for i := 1; i < 11; i++ {
+			// example link : https://www.eventbrite.com/d/nj--piscataway/all-events/
+			// append ?page=i
+			pageExtention := fmt.Sprintf("?page=%d", i)
+			var completeUrl = link + pageExtention
+			print("visiting ", completeUrl, "\n")
+			err := s.mainScraper.Visit(completeUrl)
+			if err != nil {
+				s.logger.ErrorLogger.Println(err)
+			}
+		}
+	}
 	for i := 1; i < 2; i++ {
 		url := fmt.Sprintf("https://www.eventbrite.com/d/nj--piscataway/all-events/?page=%d", i)
 		print("visiting ", url, "\n")

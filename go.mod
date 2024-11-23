@@ -1,6 +1,6 @@
 module lite
 
-go 1.21.5
+go 1.21
 
 require (
 	github.com/gocolly/colly v1.2.0
