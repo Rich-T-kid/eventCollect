@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - omar/dev-op
   pull_request:
     branches:
       - main
