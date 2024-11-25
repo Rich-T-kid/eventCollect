@@ -3,3 +3,5 @@
 *.db
 *.txt
 *_log.txt
+non_us_cities
+.vscode

@@ -3,14 +3,114 @@ package scrape
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"regexp"
 	"strings"
+	"sync"
+	"time"
+
+	"github.com/go-redis/redis/v9"
 )
 
 type Validator interface {
 	Validate(string) string
+}
+type Cache interface {
+	// mutex is up to implementation to handle
+	Get(key string) (value string, found bool)
+	Put(key string, value string) error
+	Exist(key string) bool
+	Delete(key string)
+	IncreaseTTL(key string, extraTime time.Duration) error
+	SetTTl(key string, ttl time.Duration) error
+	Save() error
+}
+
+func newCache() Cache {
+	return newRedis()
+}
+
+// for now just run on local host
+func newRedis() *redCache {
+	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // No password set
+		DB:       0,  // Use default DB
+	})
+
+	fileName := fmt.Sprintf("%s_%s", "DB/cache", ".log")
+	logFile, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("failed to create/open log file: %v", err)
+	}
+	return &redCache{
+		errorLog: logFile,
+		client:   client,
+	}
+}
+
+type redCache struct {
+	errorLog *os.File
+	mu       sync.Mutex
+	client   *redis.Client
+}
+
+func (r *redCache) Get(key string) (value string, found bool) {
+	return "", false
+}
+func (r *redCache) Put(key string, value string) error {
+	return nil
+}
+func (r *redCache) Exist(key string) bool {
+	return false
+}
+func (r *redCache) Delete(key string) {
+
+}
+func (r *redCache) IncreaseTTL(key string, extra time.Duration) error {
+	return nil
+}
+func (r *redCache) SetTTl(key string, ttl time.Duration) error {
+	return nil
+}
+func (r *redCache) Save() error {
+	return nil
+}
+
+type CustomCache struct {
+	// You can add fields like map, TTL handling, or a mutex here.
+	data map[string]string
+	ttl  map[string]time.Time // Tracks key expiration times
+}
+
+// Ensure CustomCache implements the Cache interface
+func (c *CustomCache) Get(key string) (value string, found bool) {
+	return
+}
+
+func (c *CustomCache) Put(key string, value string) error {
+	return nil
+}
+
+func (c *CustomCache) Exist(key string) bool {
+	return false
+}
+
+func (c *CustomCache) Delete(key string) {
+}
+
+func (c *CustomCache) IncreaseTTL(key string, extraTime time.Duration) error {
+	return nil
+}
+
+func (c *CustomCache) SetTTl(key string, ttl time.Duration) error {
+	return nil
+}
+
+func (c *CustomCache) Save() error {
+	return nil
 }
 
 type CLeaner struct {
