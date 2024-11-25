@@ -256,8 +256,14 @@ func (s *scrape) startSites() {
 		s.logger.DebugLogger.Println("All producers are done. Closing channel.")
 		close(mainsites)
 	}()
+	cache := newCache()
 	for link := range mainsites {
 		// for each link proccess all their pages. assumeing there are 11 pages. wont always be true but any failed request arent a major issue
+		if cache.Exist(link) {
+			continue
+		}
+		cache.Put(link, "nil")
+		cache.IncreaseTTL(link, time.Hour*24)
 		for i := 1; i < 5; i++ {
 			// example link : https://www.eventbrite.com/d/nj--piscataway/all-events/
 			// append ?page=i
