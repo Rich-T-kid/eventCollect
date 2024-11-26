@@ -1,6 +1,7 @@
 package scrape
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"log"
@@ -14,6 +15,8 @@ import (
 	"github.com/go-redis/redis/v9"
 )
 
+const linkCooldown = time.Hour * 24
+
 type Validator interface {
 	Validate(string) string
 }
@@ -22,7 +25,7 @@ type Cache interface {
 	Get(key string) (value string, found bool)
 	Put(key string, value string) error
 	Exist(key string) bool
-	Delete(key string)
+	Delete(key string) error
 	IncreaseTTL(key string, extraTime time.Duration) error
 	SetTTl(key string, ttl time.Duration) error
 	Save() error
@@ -57,25 +60,91 @@ type redCache struct {
 	client   *redis.Client
 }
 
+func (r *redCache) contextTimeout(seconds int) (context.Context, context.CancelFunc) {
+	return context.WithDeadline(context.Background(), time.Now().Add(time.Second*time.Duration(seconds)))
+}
+
 func (r *redCache) Get(key string) (value string, found bool) {
-	return "", false
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	ctx, cancle := r.contextTimeout(3)
+	defer cancle()
+	val, err := r.client.Get(ctx, key).Result()
+	if err != nil {
+		return "", false
+	}
+	return val, true
 }
 func (r *redCache) Put(key string, value string) error {
-	return nil
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	ctx, cancle := r.contextTimeout(3)
+	defer cancle()
+	err := r.client.Set(ctx, key, value, linkCooldown).Err()
+	return err
 }
 func (r *redCache) Exist(key string) bool {
-	return false
-}
-func (r *redCache) Delete(key string) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	ctx, cancel := r.contextTimeout(3)
+	defer cancel()
 
+	count, err := r.client.Exists(ctx, key).Result()
+	if err != nil || count == 0 {
+		return false
+	}
+	return true
+}
+func (r *redCache) Delete(key string) error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	ctx, cancel := r.contextTimeout(3)
+	defer cancel()
+
+	_, err := r.client.Del(ctx, key).Result()
+	return err
 }
 func (r *redCache) IncreaseTTL(key string, extra time.Duration) error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	ctx, cancel := r.contextTimeout(3)
+	defer cancel()
+
+	// Check if the key exists
+	if !r.Exist(key) {
+		return fmt.Errorf("key doesn't exist to be updated")
+	}
+
+	// Retrieve current TTL
+	ttl, err := r.client.TTL(ctx, key).Result()
+	if err != nil || ttl <= 0 {
+		return fmt.Errorf("unable to retrieve TTL or key has no TTL")
+	}
+
+	// Extend the TTL
+	newTTL := ttl + extra
+	if _, err := r.client.Expire(ctx, key, newTTL).Result(); err != nil {
+		return err
+	}
 	return nil
 }
+
 func (r *redCache) SetTTl(key string, ttl time.Duration) error {
-	return nil
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	ctx, cancel := r.contextTimeout(3)
+	defer cancel()
+
+	if !r.Exist(key) {
+		return fmt.Errorf("key doesn't exist")
+	}
+
+	_, err := r.client.Expire(ctx, key, ttl).Result()
+	return err
 }
 func (r *redCache) Save() error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
 	return nil
 }
 
