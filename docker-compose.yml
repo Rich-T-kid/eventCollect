@@ -6,3 +6,14 @@ services:
     volumes:
       - ./test.db:/data/test.db
     command: ["./main"]
+  redis:
+    image: redis/redis-stack-server:7.2.0-v8
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+    volumes:
+      - redis_data:/data  
+
+volumes:
+  redis_data:
