@@ -42,7 +42,7 @@ func GetStorage() *Storage {
 // createDatabaseConnection initializes the gorm.DB connection
 func createDatabaseConnection() *gorm.DB {
 	// Replace this with your actual database configuration
-	db, err := gorm.Open(sqlite.Open("main.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("startup.db"), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("failed to connect to the database: %v", err)
 	}
@@ -79,20 +79,9 @@ func updateModels(db *gorm.DB) error {
 	// very easy to just add them in here
 	return db.AutoMigrate(&Event{}, &EventInfo{}, &GeoPoint{})
 }
-func newEvent(title string, start, end time.Time, price float32) *Event {
-	return &Event{
-		Name:        title,
-		StartDate:   start,
-		EndDate:     end,
-		Price:       price,
-		CreatedAt:   time.Now(),
-		LastUpdated: time.Now(),
-	}
-}
 func newEventInfo(EventId int, bio string, maxCapacity, currentCap int, hostname string, eligibal bool, tags string) *EventInfo {
 	return &EventInfo{
 		EventID:         EventId,
-		Bio:             bio,
 		MaxCapacity:     maxCapacity,
 		CurrentCapacity: currentCap,
 		HostName:        hostname,
@@ -113,7 +102,7 @@ func NewGeoPoint(Lat, Long float64, streetName string) *GeoPoint {
 // Handle insert statments for the data first and formost we can query the data very easily later
 func (s *Storage) createEvent(event *Event) {
 	s.Database.Create(event)
-	var constMessage = fmt.Sprintf("Created Event %s at %v\n", event.Name, time.Now())
+	var constMessage = fmt.Sprintf("Created Event %s at %v\n", event.Title, time.Now())
 	s.logFile.Write([]byte(constMessage))
 }
 
@@ -128,11 +117,10 @@ func (s *Storage) createEventGeo(title string, Geo *GeoPoint) {
 	var constMessage = fmt.Sprintf("Created EventGeo Point %s: %v at %v \n", title, Geo, time.Now())
 	s.logFile.Write([]byte(constMessage))
 }
-func (s *Storage) AddEvent(name string, start, end time.Time, price float32, bio string, maxCapacity, currentCap int, hostname string, eligibal bool, tags []string) int {
-	newEvent := newEvent(name, start, end, price)
-	s.createEvent(newEvent)
-	s.createEventInfo(newEvent.Name, newEventInfo(newEvent.ID, bio, maxCapacity, currentCap, hostname, eligibal, ""))
-	return newEvent.ID
+func (s *Storage) AddEvent(event Event) int {
+	s.createEvent(&event)
+	//s.createEventInfo(newEvent.Name, newEventInfo(newEvent.ID, bio, maxCapacity, currentCap, hostname, eligibal, ""))
+	return event.ID
 }
 func (s *Storage) AddGeoPoint(title string, eventId int, Geo *GeoPoint) {
 	Geo.EventID = eventId

@@ -15,19 +15,23 @@ type GeoPoint struct {
 }
 
 type Event struct {
-	ID          int       `db:"id" json:"id"`
-	Name        string    `db:"name" json:"name"`
-	StartDate   time.Time `db:"start_date" json:"start_date"`
-	EndDate     time.Time `db:"end_date" json:"end_date"`
-	Price       float32   `db:"price" json:"price"`
-	CreatedAt   time.Time `db:"created_at" json:"created_at"`
-	LastUpdated time.Time `db:"last_updated" json:"last_updated"`
+	ID             int    `db:"id" json:"id"`
+	ImageUrl       string `json:"image_url" db:"image_url"`
+	Host           string `json:"host" db:"host"`
+	Title          string `json:"title" db:"title"`
+	Date           string `json:"date" db:"date"`
+	Location       string `json:"location" db:"location"`
+	Description    string `json:"description" db:"description"`
+	Tags           string `json:"tags" db:"tags"`
+	ExtraInfo      string `json:"extra_info" db:"extra_info"`
+	Bio            string `json:"bio" db:"bio"`
+	ExactAddress   bool   `json:"exact_address" db:"exact_address"`
+	AcceptsRefunds bool   `json:"accepts_refunds" db:"accepts_refunds"`
 }
 
 type EventInfo struct {
 	ID              int       `db:"id" json:"id"`
 	EventID         int       `db:"event_id" json:"event_id"` // associates with Event ID
-	Bio             string    `db:"bio" json:"bio"`
 	MaxCapacity     int       `db:"max_capacity" json:"max_capacity"`
 	CurrentCapacity int       `db:"current_capacity" json:"current_capacity"`
 	HostName        string    `db:"host_name" json:"host_name"`

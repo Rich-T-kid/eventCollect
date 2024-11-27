@@ -33,7 +33,7 @@ require (
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
-	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirects
+	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect; indirects
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
