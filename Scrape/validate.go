@@ -37,8 +37,13 @@ func newCache() Cache {
 
 // for now just run on local host
 func newRedis() *redCache {
+	redisAddr := os.Getenv("REDIS_ADDR")
+	print("reddisAddr from env  ", redisAddr, "\n")
+	if redisAddr == "" {
+		redisAddr = "redis:6379" // Default to localhost for local development
+	}
 	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     redisAddr,
 		Password: "", // No password set
 		DB:       0,  // Use default DB
 	})
@@ -60,13 +65,13 @@ type redCache struct {
 	client   *redis.Client
 }
 
+// TODO: add better error handling to the error log file. This is where well need a mutext to handle the writing operations
+
 func (r *redCache) contextTimeout(seconds int) (context.Context, context.CancelFunc) {
 	return context.WithDeadline(context.Background(), time.Now().Add(time.Second*time.Duration(seconds)))
 }
 
 func (r *redCache) Get(key string) (value string, found bool) {
-	r.mu.Lock()
-	defer r.mu.Unlock()
 	ctx, cancle := r.contextTimeout(3)
 	defer cancle()
 	val, err := r.client.Get(ctx, key).Result()
@@ -76,16 +81,12 @@ func (r *redCache) Get(key string) (value string, found bool) {
 	return val, true
 }
 func (r *redCache) Put(key string, value string) error {
-	r.mu.Lock()
-	defer r.mu.Unlock()
 	ctx, cancle := r.contextTimeout(3)
 	defer cancle()
 	err := r.client.Set(ctx, key, value, linkCooldown).Err()
 	return err
 }
 func (r *redCache) Exist(key string) bool {
-	r.mu.Lock()
-	defer r.mu.Unlock()
 	ctx, cancel := r.contextTimeout(3)
 	defer cancel()
 
@@ -96,8 +97,6 @@ func (r *redCache) Exist(key string) bool {
 	return true
 }
 func (r *redCache) Delete(key string) error {
-	r.mu.Lock()
-	defer r.mu.Unlock()
 	ctx, cancel := r.contextTimeout(3)
 	defer cancel()
 
@@ -105,8 +104,6 @@ func (r *redCache) Delete(key string) error {
 	return err
 }
 func (r *redCache) IncreaseTTL(key string, extra time.Duration) error {
-	r.mu.Lock()
-	defer r.mu.Unlock()
 	ctx, cancel := r.contextTimeout(3)
 	defer cancel()
 
@@ -130,8 +127,6 @@ func (r *redCache) IncreaseTTL(key string, extra time.Duration) error {
 }
 
 func (r *redCache) SetTTl(key string, ttl time.Duration) error {
-	r.mu.Lock()
-	defer r.mu.Unlock()
 	ctx, cancel := r.contextTimeout(3)
 	defer cancel()
 
@@ -143,8 +138,7 @@ func (r *redCache) SetTTl(key string, ttl time.Duration) error {
 	return err
 }
 func (r *redCache) Save() error {
-	r.mu.Lock()
-	defer r.mu.Unlock()
+	r.errorLog.Close()
 	return nil
 }
 
