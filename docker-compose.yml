@@ -1,21 +1,24 @@
 version: '3.8'
+
 services:
   scraper:
     build:
       context: .
     volumes:
-      - ./test.db:/data/test.db
-    command: ["./main"]
+      - ./test.db:/data/test.db  # Mount local DB file into the container for persistence
+      - ./ .:/app  # Mount source code for development
+    command: ["./main"]  # Command to run the Go application
+    depends_on:
+      - redis  # Ensure Redis starts before the scraper
+
   redis:
     image: redis/redis-stack-server:7.2.0-v6
     ports:
-      - 6379:6379
+      - 6379:6379  # Expose Redis port
     healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "ping"]
-
-      
+      test: ["CMD", "redis-cli", "--raw", "ping"]  # Health check to ensure Redis is running
     volumes:
-      - redis_data:/data  
+      - redis_data:/data  # Redis data persistence
 
 volumes:
-  redis_data:
+  redis_data:  # Redis data volume definition for persistence
