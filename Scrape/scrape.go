@@ -183,7 +183,6 @@ func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
 	}
 	fmt.Println("Done Proccessing US Links")
 }
-
 func (s *scrape) constructnjlinks(links chan string, wg *sync.WaitGroup) {
 	// read in top 3000 in order as well as alll  NJ,Ny,PA,Bostan first Start with jusy new jersey for now and locations that u know
 	// parse form the base url https://www.eventbrite.com/d/nj--piscataway/all-events/ and place on the channle
@@ -325,12 +324,14 @@ func (s *scrape) startSites(mainsites chan string) {
 	// sider scrapers will proccess these sites for all their info and save this is  a data
 	// Data Cleaning neds to be done , As well as using  a custom implementation of a bloom filter to check if a site has already been seen
 	s.logger.DebugLogger.Println("Starting to generate Links")
+
 	var wg sync.WaitGroup
 	//mainsites := make(chan string, 500)
 	wg.Add(3)
 	go s.constructnjlinks(mainsites, &wg)
 	go s.constructUSlinks(mainsites, &wg)
 	go s.constructInternationalLinks(mainsites, &wg)
+
 	go func() {
 		wg.Wait()
 		s.logger.DebugLogger.Println("All producers are done. Closing channel.")
@@ -348,6 +349,7 @@ func (s *scrape) startSites(mainsites chan string) {
 			defer wg1.Done()
 			for link := range mainsites {
 				s.processLink(link, cache)
+
 			}
 		}()
 	}
@@ -377,11 +379,14 @@ func (s *scrape) processLink(link string, cache Cache) {
 			s.logger.ErrorLogger.Println(err)
 		}
 	}
+
 }
 
 // Grab the  main links
 func (s *scrape) BeginScrape(ctx context.Context, link chan string) {
+
 	fmt.Println("Parsing main pages")
+
 	s.mainScraper.OnHTML("section", func(e *colly.HTMLElement) {
 		e.ForEach("ul.SearchResultPanelContentEventCardList-module__eventList___2wk-D", func(_ int, el *colly.HTMLElement) {
 			//fmt.Println("Found <li> tag:", el.Text)
@@ -419,7 +424,9 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 		const prefix = "Refund Policy"
 		refundPolicy := h.ChildText("section[aria-labelledby='refund-policy-heading'] div")
 		// checks if html has certain structre by checking len of parsed string. if long enough removes prefix and check if the refund policy is listed as no refunds. If it isnt then refund flag is Set to true as this means you must contact host for explicit refunds rules.
+
 		if len(refundPolicy) >= len(prefix) {
+
 			policy := refundPolicy[len(prefix):]
 			if policy != noRefunds {
 				validRefunds = true
@@ -470,9 +477,10 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 			ExactAddress:   addressFound,
 			ExtraInfo:      flattenAndJoin(extraInfo), // Store the extracted extra info
 			AcceptsRefunds: validRefunds,
+
 		}
 
-		// Print the collected data
+
 		if !event.ExactAddress {
 			location = s.parseAddress(location)
 		}

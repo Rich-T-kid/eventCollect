@@ -7,3 +7,6 @@
 static_CSV
 .vscode
 ScapeLogs/ScapeLogs/_request.log
+
+.env
+

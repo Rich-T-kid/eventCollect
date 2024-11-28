@@ -29,6 +29,7 @@ type Cache interface {
 	IncreaseTTL(key string, extraTime time.Duration) error
 	SetTTl(key string, ttl time.Duration) error
 	Flush()
+
 	Save() error
 }
 
@@ -72,6 +73,7 @@ func (r *redCache) contextTimeout(seconds int) (context.Context, context.CancelF
 	return context.WithDeadline(context.Background(), time.Now().Add(time.Second*time.Duration(seconds)))
 }
 
+
 func (r *redCache) Flush() {
 	ctx, _ := r.contextTimeout(2)
 	_, err := r.client.FlushAll(ctx).Result()
@@ -81,6 +83,7 @@ func (r *redCache) Flush() {
 	fmt.Println("Just FLushed all keys")
 
 }
+
 func (r *redCache) Get(key string) (value string, found bool) {
 	ctx, cancle := r.contextTimeout(3)
 	defer cancle()
@@ -186,7 +189,9 @@ func (c *CustomCache) Save() error {
 	return nil
 }
 
+
 func (c *CustomCache) Flush() {}
+
 
 type CLeaner struct {
 }
