@@ -147,33 +147,7 @@ func configColly(c *colly.Collector, log *Logger) error {
 	})
 	return nil
 }
-func (s *scrape) Start() {
-	s.logger.DebugLogger.Println("Starting web scraper ........")
-	var wg sync.WaitGroup
-	ctx := context.Background()
-	//defer cancel()
 
-	linkChannel := make(chan string, 100)
-
-	wg.Add(3)
-	go func() {
-		defer wg.Done()
-		s.startSites()
-	}()
-	go func() {
-		defer wg.Done()
-		s.BeginScrape(ctx, linkChannel)
-	}()
-
-	go func() {
-		defer wg.Done()
-		s.ScrapeSidePages(ctx, linkChannel)
-	}()
-	wg.Wait()
-	s.logger.DebugLogger.Println("Closing link channle")
-	close(linkChannel)
-	print("done waiting !!! \n")
-}
 func csvReader(filename string) [][]string {
 	const foldername = "static_CSV"
 	filename = fmt.Sprintf("%s/%s", foldername, filename)
@@ -218,6 +192,7 @@ func (s *scrape) constructnjlinks(links chan string, wg *sync.WaitGroup) {
 	records := csvReader("nj_cities.csv")
 	for _, record := range records {
 		cityName := strings.ToLower(record[0])
+		cityName = strings.Replace(cityName, " ", "-", -1)
 		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state, cityName)
 		links <- ValidUrl
 
@@ -238,53 +213,180 @@ func (s *scrape) constructInternationalLinks(links chan string, wg *sync.WaitGro
 	// this will read in from a csv file of the top 2000 citys and countrys
 	// Checkk what regions areny valid and modify the csv file
 }
-func (s *scrape) startSites() {
+
+/*
+	func (s *scrape) Start() {
+		s.logger.DebugLogger.Println("Starting web scraper ........")
+		var producerWG sync.WaitGroup
+		var consumerWG sync.WaitGroup
+		ctx, cancel := context.WithCancel(context.Background()) // Use cancelable context
+		defer cancel()
+
+		producerChannel := make(chan string, 1000) // Buffered channel for link sharing
+		consumerChannel := make(chan string, 1000) // Buffered channel for link sharing
+		// Re-archetectying this. THe producers will have a seperate channel and this channel will be buffered and sent to the consumer channle. Seperation of conserns
+
+		// Start site processing
+		producerWG.Add(1)
+		go func() {
+			defer producerWG.Done()
+			s.startSites(producerChannel)
+		}()
+
+		// Begin scraping main links (producer)
+		producerWG.Add(1)
+		go func() {
+			defer producerWG.Done()
+			s.BeginScrape(ctx, producerChannel)
+		}()
+		// wait for both to finish and then close the channle
+		go func() {
+			producerWG.Wait()
+			close(producerChannel) // Signal that no more links will be sent
+			s.logger.DebugLogger.Println("Producer channel closed")
+		}()
+		go func() {
+			for link := range producerChannel {
+				consumerChannel <- link
+			}
+		}()
+
+		// Scrape side pages (consumer)
+		consumerWG.Add(1)
+		go func() {
+			defer consumerWG.Done()
+			s.ScrapeSidePages(ctx, consumerChannel)
+		}()
+
+		consumerWG.Wait() // Wait for all goroutines to finish
+		s.logger.DebugLogger.Println("All scraping tasks completed")
+	}
+*/
+func (s *scrape) Start() {
+	s.logger.DebugLogger.Println("Starting web scraper ........")
+
+	var producerWG sync.WaitGroup
+	var consumerWG sync.WaitGroup
+
+	ctx, cancel := context.WithCancel(context.Background()) // Use cancelable context
+	defer cancel()
+
+	producerChannel := make(chan string, 1000) // Buffered channel for producers
+	consumerChannel := make(chan string, 1000) // Buffered channel for consumers
+
+	// Producer: Start site processing
+	producerWG.Add(1)
+	go func() {
+		defer producerWG.Done()
+		s.startSites(producerChannel)
+	}()
+
+	// Producer: Begin scraping main links
+	producerWG.Add(1)
+	go func() {
+		defer producerWG.Done()
+		s.BeginScrape(ctx, producerChannel)
+	}()
+
+	// Close `producerChannel` after all producers are done
+	go func() {
+		producerWG.Wait()
+		close(producerChannel)
+		s.logger.DebugLogger.Println("Producer channel closed")
+	}()
+
+	// Forward links from `producerChannel` to `consumerChannel`
+	consumerWG.Add(1)
+	go func() {
+		defer consumerWG.Done()
+		for link := range producerChannel {
+			consumerChannel <- link
+		}
+		close(consumerChannel) // Close `consumerChannel` after forwarding all links
+		s.logger.DebugLogger.Println("Consumer channel closed")
+	}()
+
+	// Consumer: Scrape side pages
+	consumerWG.Add(1)
+	go func() {
+		defer consumerWG.Done()
+		s.ScrapeSidePages(ctx, consumerChannel)
+	}()
+
+	// Wait for all consumers to finish
+	consumerWG.Wait()
+	s.logger.DebugLogger.Println("All scraping tasks completed")
+}
+
+func (s *scrape) startSites(mainsites chan string) {
 	// Top Level URl will be constructed and then passed onto the main links queue -> for each link go through first 20 pages as is already being done
 	// then  the main scrapper will get all the links on those pages and pass that onto a side scrapper queue
 	// sider scrapers will proccess these sites for all their info and save this is  a data
 	// Data Cleaning neds to be done , As well as using  a custom implementation of a bloom filter to check if a site has already been seen
 	s.logger.DebugLogger.Println("Starting to generate Links")
-	s.mainScraper.Visit("https://www.eventbrite.com/d/nj--piscataway/all-events/")
+
 	var wg sync.WaitGroup
-	mainsites := make(chan string, 100)
+	//mainsites := make(chan string, 500)
 	wg.Add(3)
 	go s.constructnjlinks(mainsites, &wg)
-	go s.constructInternationalLinks(mainsites, &wg)
 	go s.constructUSlinks(mainsites, &wg)
+	go s.constructInternationalLinks(mainsites, &wg)
+
 	go func() {
 		wg.Wait()
 		s.logger.DebugLogger.Println("All producers are done. Closing channel.")
 		close(mainsites)
 	}()
 	cache := newCache()
-	defer cache.Save() // always use save operation after calling caching. This handles all clean up
-	for link := range mainsites {
-		// for each link proccess all their pages. assumeing there are 11 pages. wont always be true but any failed request arent a major issue
-		if cache.Exist(link) {
-			s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
-			continue
-		}
-		cache.Put(link, "nil")
-		cache.IncreaseTTL(link, time.Hour*24)
-		s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
-		for i := 1; i < 5; i++ {
-			// example link : https://www.eventbrite.com/d/nj--piscataway/all-events/
-			// append ?page=i
-			pageExtention := fmt.Sprintf("?page=%d", i)
-			var completeUrl = link + pageExtention
-			s.logger.DebugLogger.Printf("Main page Processing page: %s\n", completeUrl)
-			err := s.mainScraper.Visit(completeUrl)
-			if err != nil {
-				s.logger.ErrorLogger.Println(err)
+	defer cache.Save() // Save after operations
+
+	var wg1 sync.WaitGroup
+	// Worker pool for processing links concurrently
+	numWorkers := 50 // Number of workers, you can adjust this based on your needs
+	for i := 0; i < numWorkers; i++ {
+		wg1.Add(1)
+		go func() {
+			defer wg1.Done()
+			for link := range mainsites {
+				s.processLink(link, cache)
+
 			}
+		}()
+	}
+
+	// Wait for all workers to finish
+	wg1.Wait()
+	s.logger.DebugLogger.Println("Finished processing all links")
+}
+
+func (s *scrape) processLink(link string, cache Cache) {
+	// This function processes a single link concurrently
+	if cache.Exist(link) {
+		s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
+		return
+	}
+	cache.Put(link, "nil")
+	cache.IncreaseTTL(link, time.Hour*24)
+	s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
+
+	// Loop through pages (assuming 2 pages for now)
+	for i := 1; i < 2; i++ {
+		pageExtention := fmt.Sprintf("?page=%d", i)
+		completeUrl := link + pageExtention
+		//s.logger.DebugLogger.Printf("Main page Processing page: %s\n", completeUrl)
+		err := s.mainScraper.Visit(completeUrl)
+		if err != nil {
+			s.logger.ErrorLogger.Println(err)
 		}
 	}
+
 }
 
 // Grab the  main links
 func (s *scrape) BeginScrape(ctx context.Context, link chan string) {
-	fmt.Println("got inside begin scraper ")
-	defer fmt.Println("exiting web scraper")
+
+	fmt.Println("Parsing main pages")
+
 	s.mainScraper.OnHTML("section", func(e *colly.HTMLElement) {
 		e.ForEach("ul.SearchResultPanelContentEventCardList-module__eventList___2wk-D", func(_ int, el *colly.HTMLElement) {
 			//fmt.Println("Found <li> tag:", el.Text)
@@ -322,7 +424,9 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 		const prefix = "Refund Policy"
 		refundPolicy := h.ChildText("section[aria-labelledby='refund-policy-heading'] div")
 		// checks if html has certain structre by checking len of parsed string. if long enough removes prefix and check if the refund policy is listed as no refunds. If it isnt then refund flag is Set to true as this means you must contact host for explicit refunds rules.
-		if len(refundPolicy) <= len(prefix) {
+
+		if len(refundPolicy) >= len(prefix) {
+
 			policy := refundPolicy[len(prefix):]
 			if policy != noRefunds {
 				validRefunds = true
@@ -373,14 +477,10 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 			ExactAddress:   addressFound,
 			ExtraInfo:      flattenAndJoin(extraInfo), // Store the extracted extra info
 			AcceptsRefunds: validRefunds,
+
 		}
 
-		// Print the collected data
-		fmt.Println("Proccesed Event : - >")
-		printEvent(event)
-		if count >= 3 {
-			return
-		}
+
 		if !event.ExactAddress {
 			location = s.parseAddress(location)
 		}
@@ -389,30 +489,33 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 		lat, long := s.addressToCordnites(location)
 		db.AddGeoPoint(title, id, DB.NewGeoPoint(lat, long, location))
 	})
+	var counter int
+	var mu sync.Mutex
+	var wg sync.WaitGroup
+	workerPool := 100
 
-	for {
-		select {
-		case link, ok := <-source:
-			if !ok {
-				fmt.Println("got to not ok case")
-				// Channel is closed and empty
-				return
+	for i := 0; i < workerPool; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for link := range source {
+				// Process the link
+				mu.Lock()
+				if counter%10 == 0 {
+					fmt.Println("processing link -> ", link)
+				}
+				counter++
+				mu.Unlock()
+
+				err := s.sideScraper.Visit(link)
+				if err != nil {
+					s.logger.ErrorLogger.Println(err)
+				}
 			}
-
-			// Process the link
-			fmt.Println("proccessing " + link)
-			err := s.sideScraper.Visit(link)
-			if err != nil {
-				s.logger.ErrorLogger.Println(err)
-			}
-			//LrzXr
-		case <-ctx.Done():
-			// Context cancelled
-			fmt.Println("complete with context cancled")
-
-			return
-		}
+			fmt.Println("Worker exiting")
+		}()
 	}
+	defer fmt.Println("Done proccessing links")
 
 }
 

@@ -908,4 +908,3165 @@
   "allocated_memory_kb": 2099,
   "num_gc": 0
 }
+
+],
+{
+  "time": "2024-11-27T16:24:28-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2502,
+  "memory_usage_percent": 65.52002707840569,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.341087769212435,
+  "allocated_memory_kb": 2226,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:24:43-05:00",
+  "cpu_usage_percent": 2.6614699331295606,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2557,
+  "memory_usage_percent": 66.93959818018388,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3410901642800424,
+  "allocated_memory_kb": 47338,
+  "num_gc": 11
+}
+],
+{
+  "time": "2024-11-27T16:24:58-05:00",
+  "cpu_usage_percent": 1.9134497719806811,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2575,
+  "memory_usage_percent": 67.42195784644866,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3410909626359113,
+  "allocated_memory_kb": 56017,
+  "num_gc": 12
+}
+],
+{
+  "time": "2024-11-27T16:25:13-05:00",
+  "cpu_usage_percent": 4.751595892290913,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2550,
+  "memory_usage_percent": 66.76156379838041,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3411388639880584,
+  "allocated_memory_kb": 52379,
+  "num_gc": 13
+}
+],
+{
+  "time": "2024-11-27T16:25:28-05:00",
+  "cpu_usage_percent": 2.581075819067852,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2557,
+  "memory_usage_percent": 66.94062077858597,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3412119135500826,
+  "allocated_memory_kb": 35940,
+  "num_gc": 15
+}
+],
+{
+  "time": "2024-11-27T16:25:59-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2488,
+  "memory_usage_percent": 65.139109173628,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3413448398022907,
+  "allocated_memory_kb": 2209,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:26:14-05:00",
+  "cpu_usage_percent": 2.560115510630754,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2497,
+  "memory_usage_percent": 65.39322487654681,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3413540208947854,
+  "allocated_memory_kb": 2314,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:26:21-05:00",
+  "cpu_usage_percent": 18.181818201060384,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2495,
+  "memory_usage_percent": 65.33084637401946,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3413847575957463,
+  "allocated_memory_kb": 2206,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:26:36-05:00",
+  "cpu_usage_percent": 2.436040044395805,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2480,
+  "memory_usage_percent": 64.92579514695251,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3413847575957463,
+  "allocated_memory_kb": 2337,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:26:51-05:00",
+  "cpu_usage_percent": 9.073681863870958,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2504,
+  "memory_usage_percent": 65.55162536903019,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3413847575957463,
+  "allocated_memory_kb": 2362,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:27:06-05:00",
+  "cpu_usage_percent": 2.2271591224174636,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2504,
+  "memory_usage_percent": 65.56266943177275,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3413847575957463,
+  "allocated_memory_kb": 2396,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:29:22-05:00",
+  "cpu_usage_percent": 23.07692309758852,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2517,
+  "memory_usage_percent": 65.89992238478129,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3398351488537912,
+  "allocated_memory_kb": 2208,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:29:37-05:00",
+  "cpu_usage_percent": 7.868670005579668,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2527,
+  "memory_usage_percent": 66.15669684354552,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.339849519259435,
+  "allocated_memory_kb": 2339,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:29:55-05:00",
+  "cpu_usage_percent": 19.047619068737472,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2541,
+  "memory_usage_percent": 66.5340356539159,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3398898362308256,
+  "allocated_memory_kb": 2209,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:30:10-05:00",
+  "cpu_usage_percent": 7.607484963280677,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2540,
+  "memory_usage_percent": 66.50008538696657,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3398898362308256,
+  "allocated_memory_kb": 2360,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:30:25-05:00",
+  "cpu_usage_percent": 6.484205851307524,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2529,
+  "memory_usage_percent": 66.22919907025353,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.339932947447758,
+  "allocated_memory_kb": 2376,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:30:40-05:00",
+  "cpu_usage_percent": 5.927448475074346,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2529,
+  "memory_usage_percent": 66.22193862159871,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3400119846788006,
+  "allocated_memory_kb": 2392,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:30:55-05:00",
+  "cpu_usage_percent": 9.318017063510812,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2529,
+  "memory_usage_percent": 66.22705161360915,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3400942153333195,
+  "allocated_memory_kb": 2408,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:31:10-05:00",
+  "cpu_usage_percent": 9.0128755365067,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2519,
+  "memory_usage_percent": 65.95544947801464,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3401780426995766,
+  "allocated_memory_kb": 2424,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:31:34-05:00",
+  "cpu_usage_percent": 22.22222222222222,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2516,
+  "memory_usage_percent": 65.87507324361054,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.340287018275711,
+  "allocated_memory_kb": 2209,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:31:49-05:00",
+  "cpu_usage_percent": 3.67553161950631,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2522,
+  "memory_usage_percent": 66.02815622440308,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3402874174536457,
+  "allocated_memory_kb": 2313,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:32:05-05:00",
+  "cpu_usage_percent": 4.815123714230087,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2522,
+  "memory_usage_percent": 66.03562119273832,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3402950018344022,
+  "allocated_memory_kb": 2331,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:32:20-05:00",
+  "cpu_usage_percent": 1.6948210714490306,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2523,
+  "memory_usage_percent": 66.07417315249702,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3402950018344022,
+  "allocated_memory_kb": 2348,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:32:35-05:00",
+  "cpu_usage_percent": 7.349591689344917,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2524,
+  "memory_usage_percent": 66.07989970354873,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3402950018344022,
+  "allocated_memory_kb": 2364,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:32:50-05:00",
+  "cpu_usage_percent": 8.842515303238654,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2534,
+  "memory_usage_percent": 66.34117359528214,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3403209484001486,
+  "allocated_memory_kb": 2380,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:33:02-05:00",
+  "cpu_usage_percent": 22.222222150360913,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2529,
+  "memory_usage_percent": 66.21293975566034,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3403433023644837,
+  "allocated_memory_kb": 2219,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:33:17-05:00",
+  "cpu_usage_percent": 3.3774353821687355,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2588,
+  "memory_usage_percent": 67.76371023242639,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3403448990762221,
+  "allocated_memory_kb": 44834,
+  "num_gc": 11
+}
+],
+{
+  "time": "2024-11-27T16:33:32-05:00",
+  "cpu_usage_percent": 7.248562014856357,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2591,
+  "memory_usage_percent": 67.83825765593858,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3403460966100258,
+  "allocated_memory_kb": 31172,
+  "num_gc": 13
+}
+],
+{
+  "time": "2024-11-27T16:33:47-05:00",
+  "cpu_usage_percent": 4.007123775641266,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2600,
+  "memory_usage_percent": 68.08439709132111,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.340347693321764,
+  "allocated_memory_kb": 37785,
+  "num_gc": 14
+}
+],
+{
+  "time": "2024-11-27T16:34:02-05:00",
+  "cpu_usage_percent": 2.0178998276799542,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2604,
+  "memory_usage_percent": 68.1776580655915,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3403480924996984,
+  "allocated_memory_kb": 44864,
+  "num_gc": 15
+}
+],
+{
+  "time": "2024-11-27T16:34:17-05:00",
+  "cpu_usage_percent": 1.8753478019010714,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2604,
+  "memory_usage_percent": 68.19013376609698,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3403492900335021,
+  "allocated_memory_kb": 53162,
+  "num_gc": 16
+}
+],
+{
+  "time": "2024-11-27T16:35:05-05:00",
+  "cpu_usage_percent": 28.57142857142857,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2533,
+  "memory_usage_percent": 66.31407473762681,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3394315799619527,
+  "allocated_memory_kb": 2207,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T16:35:20-05:00",
+  "cpu_usage_percent": 4.959091668066157,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2597,
+  "memory_usage_percent": 68.00248695931388,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3394335758516256,
+  "allocated_memory_kb": 37059,
+  "num_gc": 12
+}
+],
+{
+  "time": "2024-11-27T19:27:12-05:00",
+  "cpu_usage_percent": 11.049723760725506,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2920,
+  "memory_usage_percent": 76.44638874487295,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3379713870773386,
+  "allocated_memory_kb": 2210,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T19:27:47-05:00",
+  "cpu_usage_percent": 20.000000023283064,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2916,
+  "memory_usage_percent": 76.35875206181403,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.335744373380438,
+  "allocated_memory_kb": 2228,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T19:28:46-05:00",
+  "cpu_usage_percent": 66.66666666666666,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2919,
+  "memory_usage_percent": 76.43002717043954,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3361243907741374,
+  "allocated_memory_kb": 2225,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T19:29:13-05:00",
+  "cpu_usage_percent": 12.5,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2905,
+  "memory_usage_percent": 76.05759683239918,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363483295954244,
+  "allocated_memory_kb": 2249,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T19:31:01-05:00",
+  "cpu_usage_percent": 16.666666682835462,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2926,
+  "memory_usage_percent": 76.61133386712969,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362720866099238,
+  "allocated_memory_kb": 2223,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T19:31:16-05:00",
+  "cpu_usage_percent": 8.082329317259578,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2980,
+  "memory_usage_percent": 78.03775637820188,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362740824995967,
+  "allocated_memory_kb": 37761,
+  "num_gc": 12
+}
+],
+{
+  "time": "2024-11-27T19:31:31-05:00",
+  "cpu_usage_percent": 2.6349364841886076,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3006,
+  "memory_usage_percent": 78.71717075654897,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362756792113348,
+  "allocated_memory_kb": 43716,
+  "num_gc": 13
+}
+],
+{
+  "time": "2024-11-27T19:31:46-05:00",
+  "cpu_usage_percent": 1.667037119437897,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2995,
+  "memory_usage_percent": 78.42399179467043,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336276477567204,
+  "allocated_memory_kb": 44409,
+  "num_gc": 14
+}
+],
+{
+  "time": "2024-11-27T19:32:01-05:00",
+  "cpu_usage_percent": 1.2738499192960144,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3008,
+  "memory_usage_percent": 78.76134700751916,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336277275923073,
+  "allocated_memory_kb": 55269,
+  "num_gc": 15
+}
+],
+{
+  "time": "2024-11-27T19:32:16-05:00",
+  "cpu_usage_percent": 2.222345685846714,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3008,
+  "memory_usage_percent": 78.76073344847792,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362784734568767,
+  "allocated_memory_kb": 39000,
+  "num_gc": 17
+}
+],
+{
+  "time": "2024-11-27T19:32:31-05:00",
+  "cpu_usage_percent": 2.409571508054868,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3004,
+  "memory_usage_percent": 78.66440467900125,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362792718127459,
+  "allocated_memory_kb": 49093,
+  "num_gc": 18
+}
+],
+{
+  "time": "2024-11-27T19:32:46-05:00",
+  "cpu_usage_percent": 1.9247886070231517,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3007,
+  "memory_usage_percent": 78.73895210251345,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336280070168615,
+  "allocated_memory_kb": 50432,
+  "num_gc": 19
+}
+],
+{
+  "time": "2024-11-27T19:33:01-05:00",
+  "cpu_usage_percent": 1.4731224638094795,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3008,
+  "memory_usage_percent": 78.75306396046226,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362824652362224,
+  "allocated_memory_kb": 42426,
+  "num_gc": 21
+}
+],
+{
+  "time": "2024-11-27T19:33:16-05:00",
+  "cpu_usage_percent": 2.6720330929226566,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3011,
+  "memory_usage_percent": 78.8421322812841,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362844611258953,
+  "allocated_memory_kb": 32198,
+  "num_gc": 23
+}
+],
+{
+  "time": "2024-11-27T19:33:31-05:00",
+  "cpu_usage_percent": 3.9254934667548333,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2982,
+  "memory_usage_percent": 78.08909081798669,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362860578376334,
+  "allocated_memory_kb": 56813,
+  "num_gc": 24
+}
+],
+{
+  "time": "2024-11-27T19:33:46-05:00",
+  "cpu_usage_percent": 4.9256143087918804,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2985,
+  "memory_usage_percent": 78.14942412370986,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362868561935024,
+  "allocated_memory_kb": 36205,
+  "num_gc": 26
+}
+],
+{
+  "time": "2024-11-27T19:34:01-05:00",
+  "cpu_usage_percent": 1.1615628299818546,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2948,
+  "memory_usage_percent": 77.19615789328368,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336287255371437,
+  "allocated_memory_kb": 41608,
+  "num_gc": 27
+}
+],
+{
+  "time": "2024-11-27T19:34:16-05:00",
+  "cpu_usage_percent": 1.7497910281587838,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2977,
+  "memory_usage_percent": 77.93835981351896,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336290049616979,
+  "allocated_memory_kb": 37177,
+  "num_gc": 30
+}
+],
+{
+  "time": "2024-11-27T19:34:31-05:00",
+  "cpu_usage_percent": 1.0681502086565227,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2980,
+  "memory_usage_percent": 78.02885977210371,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362908479728481,
+  "allocated_memory_kb": 45678,
+  "num_gc": 31
+}
+],
+{
+  "time": "2024-11-27T19:34:46-05:00",
+  "cpu_usage_percent": 1.69642360528823,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2985,
+  "memory_usage_percent": 78.15013994259132,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362920455066518,
+  "allocated_memory_kb": 54874,
+  "num_gc": 32
+}
+],
+{
+  "time": "2024-11-27T19:35:01-05:00",
+  "cpu_usage_percent": 7.599299395457158,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2949,
+  "memory_usage_percent": 77.21947313685128,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362932430404555,
+  "allocated_memory_kb": 43218,
+  "num_gc": 34
+}
+],
+{
+  "time": "2024-11-27T20:06:39-05:00",
+  "cpu_usage_percent": 12.255406797112213,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3009,
+  "memory_usage_percent": 78.79171818006118,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3362940413963247,
+  "allocated_memory_kb": 44525,
+  "num_gc": 35
+}
+],
+{
+  "time": "2024-11-27T20:06:54-05:00",
+  "cpu_usage_percent": 4.5962318679344385,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2993,
+  "memory_usage_percent": 78.37163475648353,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336302823310885,
+  "allocated_memory_kb": 32601,
+  "num_gc": 38
+}
+],
+{
+  "time": "2024-11-27T20:07:10-05:00",
+  "cpu_usage_percent": 6.862963375309676,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2995,
+  "memory_usage_percent": 78.40763022023701,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363040208446886,
+  "allocated_memory_kb": 42747,
+  "num_gc": 40
+}
+],
+{
+  "time": "2024-11-27T20:07:25-05:00",
+  "cpu_usage_percent": 1.0230747845398536,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2996,
+  "memory_usage_percent": 78.44669347919677,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363048192005578,
+  "allocated_memory_kb": 33125,
+  "num_gc": 42
+}
+],
+{
+  "time": "2024-11-27T20:07:40-05:00",
+  "cpu_usage_percent": 1.4745979634088948,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2997,
+  "memory_usage_percent": 78.4692929038829,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336306415912296,
+  "allocated_memory_kb": 56304,
+  "num_gc": 43
+}
+],
+{
+  "time": "2024-11-27T20:07:55-05:00",
+  "cpu_usage_percent": 1.089615299008586,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2970,
+  "memory_usage_percent": 77.76952881733426,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336307214268165,
+  "allocated_memory_kb": 36941,
+  "num_gc": 46
+}
+],
+{
+  "time": "2024-11-27T20:08:10-05:00",
+  "cpu_usage_percent": 1.9380708398311075,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2970,
+  "memory_usage_percent": 77.77515310854575,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363084118019686,
+  "allocated_memory_kb": 37957,
+  "num_gc": 48
+}
+],
+{
+  "time": "2024-11-27T21:08:37-05:00",
+  "cpu_usage_percent": 13.589425857109342,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2980,
+  "memory_usage_percent": 78.03335920507291,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363088109799033,
+  "allocated_memory_kb": 39957,
+  "num_gc": 49
+}
+],
+{
+  "time": "2024-11-27T21:09:10-05:00",
+  "cpu_usage_percent": 16.37293916993122,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2974,
+  "memory_usage_percent": 77.86299431128509,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363092101578378,
+  "allocated_memory_kb": 53478,
+  "num_gc": 50
+}
+],
+{
+  "time": "2024-11-27T21:10:17-05:00",
+  "cpu_usage_percent": 5.641111483096639,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2991,
+  "memory_usage_percent": 78.3095630334768,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363116052254451,
+  "allocated_memory_kb": 38707,
+  "num_gc": 54
+}
+],
+{
+  "time": "2024-11-27T21:10:32-05:00",
+  "cpu_usage_percent": 8.213529477310272,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2980,
+  "memory_usage_percent": 78.03274564603166,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363124035813143,
+  "allocated_memory_kb": 52443,
+  "num_gc": 55
+}
+],
+{
+  "time": "2024-11-27T21:10:47-05:00",
+  "cpu_usage_percent": 3.6411140142407357,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2954,
+  "memory_usage_percent": 77.33175444140052,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363132019371833,
+  "allocated_memory_kb": 56486,
+  "num_gc": 57
+}
+],
+{
+  "time": "2024-11-27T21:11:02-05:00",
+  "cpu_usage_percent": 5.05674232304389,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2971,
+  "memory_usage_percent": 77.78077739975724,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3363143994709872,
+  "allocated_memory_kb": 37366,
+  "num_gc": 60
+}
+],
+{
+  "time": "2024-11-27T21:13:22-05:00",
+  "cpu_usage_percent": 52.94117643836253,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2909,
+  "memory_usage_percent": 76.17816118400533,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3368960017216385,
+  "allocated_memory_kb": 2217,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T21:13:37-05:00",
+  "cpu_usage_percent": 5.273698264327036,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2967,
+  "memory_usage_percent": 77.68802772468788,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3368975984333766,
+  "allocated_memory_kb": 43563,
+  "num_gc": 11
+}
+],
+{
+  "time": "2024-11-27T21:13:52-05:00",
+  "cpu_usage_percent": 1.246938321096525,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2968,
+  "memory_usage_percent": 77.70316218103878,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3368983967892458,
+  "allocated_memory_kb": 45030,
+  "num_gc": 12
+}
+],
+{
+  "time": "2024-11-27T21:14:56-05:00",
+  "cpu_usage_percent": 33.33333339800851,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2876,
+  "memory_usage_percent": 75.30936158159159,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3375259045023715,
+  "allocated_memory_kb": 2211,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T21:15:11-05:00",
+  "cpu_usage_percent": 5.404051647417186,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2965,
+  "memory_usage_percent": 77.63495486761953,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.33753189217139,
+  "allocated_memory_kb": 51710,
+  "num_gc": 11
+}
+],
+{
+  "time": "2024-11-27T21:15:26-05:00",
+  "cpu_usage_percent": 4.057292537463388,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2955,
+  "memory_usage_percent": 77.3736809758861,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.337539875730081,
+  "allocated_memory_kb": 41395,
+  "num_gc": 13
+}
+],
+{
+  "time": "2024-11-27T21:15:41-05:00",
+  "cpu_usage_percent": 7.865356704263278,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2968,
+  "memory_usage_percent": 77.71983053499281,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3375438675094264,
+  "allocated_memory_kb": 46998,
+  "num_gc": 14
+}
+],
+{
+  "time": "2024-11-27T21:15:56-05:00",
+  "cpu_usage_percent": 8.093965709115203,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2952,
+  "memory_usage_percent": 77.29494089892535,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3375498551784448,
+  "allocated_memory_kb": 51105,
+  "num_gc": 15
+}
+],
+{
+  "time": "2024-11-27T21:16:11-05:00",
+  "cpu_usage_percent": 4.2200200423480725,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2946,
+  "memory_usage_percent": 77.13398391043674,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.337554246135725,
+  "allocated_memory_kb": 33764,
+  "num_gc": 17
+}
+],
+{
+  "time": "2024-11-27T21:16:26-05:00",
+  "cpu_usage_percent": 2.1541887002846956,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2954,
+  "memory_usage_percent": 77.33420867756551,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.337559834626809,
+  "allocated_memory_kb": 42747,
+  "num_gc": 18
+}
+],
+{
+  "time": "2024-11-27T21:16:41-05:00",
+  "cpu_usage_percent": 2.782260308275019,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2956,
+  "memory_usage_percent": 77.4039498885879,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.33756342722822,
+  "allocated_memory_kb": 45769,
+  "num_gc": 19
+}
+],
+{
+  "time": "2024-11-27T21:16:56-05:00",
+  "cpu_usage_percent": 6.464747880417722,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2979,
+  "memory_usage_percent": 78.0017609144484,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.335909633045345,
+  "allocated_memory_kb": 42297,
+  "num_gc": 21
+}
+],
+{
+  "time": "2024-11-27T21:17:11-05:00",
+  "cpu_usage_percent": 10.398353176792194,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2989,
+  "memory_usage_percent": 78.25812633385179,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.336056929703197,
+  "allocated_memory_kb": 46425,
+  "num_gc": 22
+}
+],
+{
+  "time": "2024-11-27T21:17:26-05:00",
+  "cpu_usage_percent": 5.320866032155404,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2988,
+  "memory_usage_percent": 78.23317493284085,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3361886584216012,
+  "allocated_memory_kb": 42241,
+  "num_gc": 24
+}
+],
+{
+  "time": "2024-11-27T21:31:35-05:00",
+  "cpu_usage_percent": 14.2857142975934,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2804,
+  "memory_usage_percent": 73.42982571855433,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383354373536556,
+  "allocated_memory_kb": 2239,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T21:31:50-05:00",
+  "cpu_usage_percent": 6.253477244904455,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2865,
+  "memory_usage_percent": 75.01945493459972,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383398283109358,
+  "allocated_memory_kb": 37755,
+  "num_gc": 11
+}
+],
+{
+  "time": "2024-11-27T21:31:59-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2810,
+  "memory_usage_percent": 73.56869458155785,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.338334239819852,
+  "allocated_memory_kb": 2252,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-27T21:32:14-05:00",
+  "cpu_usage_percent": 5.196253345270996,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2855,
+  "memory_usage_percent": 74.73967201178851,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383390299550666,
+  "allocated_memory_kb": 43094,
+  "num_gc": 12
+}
+],
+{
+  "time": "2024-11-27T21:32:29-05:00",
+  "cpu_usage_percent": 3.461282449457157,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2843,
+  "memory_usage_percent": 74.43861904221389,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.338345017624085,
+  "allocated_memory_kb": 52976,
+  "num_gc": 13
+}
+],
+{
+  "time": "2024-11-27T21:32:44-05:00",
+  "cpu_usage_percent": 1.7259618061661293,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2858,
+  "memory_usage_percent": 74.82321830123908,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383498077592997,
+  "allocated_memory_kb": 33776,
+  "num_gc": 15
+}
+],
+{
+  "time": "2024-11-27T21:32:59-05:00",
+  "cpu_usage_percent": 2.3087621696647296,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2871,
+  "memory_usage_percent": 75.15975543536616,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383545978945144,
+  "allocated_memory_kb": 39340,
+  "num_gc": 16
+}
+],
+{
+  "time": "2024-11-27T21:33:14-05:00",
+  "cpu_usage_percent": 2.7926123720373406,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2854,
+  "memory_usage_percent": 74.7382403740256,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383601863855983,
+  "allocated_memory_kb": 35254,
+  "num_gc": 18
+}
+],
+{
+  "time": "2024-11-27T21:33:29-05:00",
+  "cpu_usage_percent": 4.098542987407188,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2828,
+  "memory_usage_percent": 74.05371300366807,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383641781649438,
+  "allocated_memory_kb": 39410,
+  "num_gc": 19
+}
+],
+{
+  "time": "2024-11-27T21:33:44-05:00",
+  "cpu_usage_percent": 5.5849729669914865,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2835,
+  "memory_usage_percent": 74.22152140145066,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.338368569122224,
+  "allocated_memory_kb": 46424,
+  "num_gc": 20
+}
+],
+{
+  "time": "2024-11-27T21:33:59-05:00",
+  "cpu_usage_percent": 1.9784874324181179,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2838,
+  "memory_usage_percent": 74.31212361987563,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383725609015695,
+  "allocated_memory_kb": 52067,
+  "num_gc": 21
+}
+],
+{
+  "time": "2024-11-27T21:34:14-05:00",
+  "cpu_usage_percent": 5.023390510113294,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2821,
+  "memory_usage_percent": 73.86708879528705,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383769518588498,
+  "allocated_memory_kb": 30551,
+  "num_gc": 23
+}
+],
+{
+  "time": "2024-11-27T21:34:29-05:00",
+  "cpu_usage_percent": 18.133154901323536,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2820,
+  "memory_usage_percent": 73.84857976420926,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383789477485224,
+  "allocated_memory_kb": 49302,
+  "num_gc": 24
+}
+],
+{
+  "time": "2024-11-27T21:34:44-05:00",
+  "cpu_usage_percent": 7.4327710037875026,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2859,
+  "memory_usage_percent": 74.8700533080547,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3383977091114467,
+  "allocated_memory_kb": 43821,
+  "num_gc": 26
+}
+],
+{
+  "time": "2024-11-27T21:34:59-05:00",
+  "cpu_usage_percent": 2.1907144843431956,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2866,
+  "memory_usage_percent": 75.03867978455897,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384013017128578,
+  "allocated_memory_kb": 53548,
+  "num_gc": 28
+}
+],
+{
+  "time": "2024-11-27T21:35:14-05:00",
+  "cpu_usage_percent": 3.695664273376769,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2889,
+  "memory_usage_percent": 75.65520436117767,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384048943142688,
+  "allocated_memory_kb": 53085,
+  "num_gc": 29
+}
+],
+{
+  "time": "2024-11-27T21:35:29-05:00",
+  "cpu_usage_percent": 2.9086257716699713,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2876,
+  "memory_usage_percent": 75.31099773903493,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384168696523056,
+  "allocated_memory_kb": 43564,
+  "num_gc": 31
+}
+],
+{
+  "time": "2024-11-27T21:35:44-05:00",
+  "cpu_usage_percent": 2.0748734493669767,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2875,
+  "memory_usage_percent": 75.26702600774516,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384204622537166,
+  "allocated_memory_kb": 48216,
+  "num_gc": 32
+}
+],
+{
+  "time": "2024-11-27T21:35:59-05:00",
+  "cpu_usage_percent": 1.4187948590146466,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2894,
+  "memory_usage_percent": 75.78579017712427,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384256515668658,
+  "allocated_memory_kb": 49148,
+  "num_gc": 34
+}
+],
+{
+  "time": "2024-11-27T21:36:14-05:00",
+  "cpu_usage_percent": 1.4073538410263813,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2899,
+  "memory_usage_percent": 75.89612854470954,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384304417020805,
+  "allocated_memory_kb": 39060,
+  "num_gc": 36
+}
+],
+{
+  "time": "2024-11-27T21:36:29-05:00",
+  "cpu_usage_percent": 1.2294170004343694,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2902,
+  "memory_usage_percent": 75.97466410198987,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384348326593607,
+  "allocated_memory_kb": 38092,
+  "num_gc": 38
+}
+],
+{
+  "time": "2024-11-27T21:36:44-05:00",
+  "cpu_usage_percent": 1.4759120022342416,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2861,
+  "memory_usage_percent": 74.90696911037007,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.338446408819463,
+  "allocated_memory_kb": 28417,
+  "num_gc": 41
+}
+],
+{
+  "time": "2024-11-27T21:36:59-05:00",
+  "cpu_usage_percent": 1.7877963466887792,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2891,
+  "memory_usage_percent": 75.69385858077659,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.338450799776743,
+  "allocated_memory_kb": 36725,
+  "num_gc": 43
+}
+],
+{
+  "time": "2024-11-27T21:37:14-05:00",
+  "cpu_usage_percent": 1.2454823463591567,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2896,
+  "memory_usage_percent": 75.83098902649654,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384631742927142,
+  "allocated_memory_kb": 37033,
+  "num_gc": 45
+}
+],
+{
+  "time": "2024-11-27T21:37:29-05:00",
+  "cpu_usage_percent": 1.986202292229871,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2898,
+  "memory_usage_percent": 75.8746539782657,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384683636058636,
+  "allocated_memory_kb": 53323,
+  "num_gc": 47
+}
+],
+{
+  "time": "2024-11-27T21:37:44-05:00",
+  "cpu_usage_percent": 1.619455729298855,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2868,
+  "memory_usage_percent": 75.0939000982717,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384751496307512,
+  "allocated_memory_kb": 40917,
+  "num_gc": 51
+}
+],
+{
+  "time": "2024-11-27T21:37:59-05:00",
+  "cpu_usage_percent": 0.9845914223519244,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2838,
+  "memory_usage_percent": 74.2978072422464,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.338479939765966,
+  "allocated_memory_kb": 55505,
+  "num_gc": 52
+}
+],
+{
+  "time": "2024-11-27T21:38:14-05:00",
+  "cpu_usage_percent": 1.7537022603798604,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2837,
+  "memory_usage_percent": 74.28788803774616,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384863266129188,
+  "allocated_memory_kb": 39060,
+  "num_gc": 55
+}
+],
+{
+  "time": "2024-11-27T21:38:29-05:00",
+  "cpu_usage_percent": 1.7912772586017893,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2815,
+  "memory_usage_percent": 73.70868830280367,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384923142819372,
+  "allocated_memory_kb": 58993,
+  "num_gc": 58
+}
+],
+{
+  "time": "2024-11-27T21:38:44-05:00",
+  "cpu_usage_percent": 1.2406809835483275,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2827,
+  "memory_usage_percent": 74.02027403591978,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3384971044171519,
+  "allocated_memory_kb": 50197,
+  "num_gc": 61
+}
+],
+{
+  "time": "2024-11-27T21:38:59-05:00",
+  "cpu_usage_percent": 2.0502278031449985,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2830,
+  "memory_usage_percent": 74.08592485333384,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3385026929082355,
+  "allocated_memory_kb": 53381,
+  "num_gc": 64
+}
+],
+{
+  "time": "2024-11-28T12:25:23-05:00",
+  "cpu_usage_percent": 10.230547550239967,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2598,
+  "memory_usage_percent": 68.01925757310812,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3675428876473505,
+  "allocated_memory_kb": 2223,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:25:38-05:00",
+  "cpu_usage_percent": 45.916015515235934,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2892,
+  "memory_usage_percent": 75.71308343073582,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.366452732708072,
+  "allocated_memory_kb": 233614,
+  "num_gc": 22
+}
+],
+{
+  "time": "2024-11-28T12:25:53-05:00",
+  "cpu_usage_percent": 45.60706895588184,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2711,
+  "memory_usage_percent": 70.98264548251817,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3665852597823454,
+  "allocated_memory_kb": 32112,
+  "num_gc": 99
+}
+],
+{
+  "time": "2024-11-28T12:26:08-05:00",
+  "cpu_usage_percent": 17.872696817438687,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2729,
+  "memory_usage_percent": 71.45099555067435,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.367021960442752,
+  "allocated_memory_kb": 39947,
+  "num_gc": 224
+}
+],
+{
+  "time": "2024-11-28T12:26:23-05:00",
+  "cpu_usage_percent": 18.82551278449904,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2712,
+  "memory_usage_percent": 71.00667654496723,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3671636686095203,
+  "allocated_memory_kb": 38929,
+  "num_gc": 316
+}
+],
+{
+  "time": "2024-11-28T12:26:38-05:00",
+  "cpu_usage_percent": 10.629018730778437,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2737,
+  "memory_usage_percent": 71.65950336486004,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3672934014382516,
+  "allocated_memory_kb": 39323,
+  "num_gc": 420
+}
+],
+{
+  "time": "2024-11-28T12:26:53-05:00",
+  "cpu_usage_percent": 23.095656113691557,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2725,
+  "memory_usage_percent": 71.35630293864102,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3693008672711453,
+  "allocated_memory_kb": 37634,
+  "num_gc": 483
+}
+],
+{
+  "time": "2024-11-28T12:27:08-05:00",
+  "cpu_usage_percent": 33.65559599635018,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2754,
+  "memory_usage_percent": 72.10699242561364,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.37312818530769,
+  "allocated_memory_kb": 34483,
+  "num_gc": 500
+}
+],
+{
+  "time": "2024-11-28T12:27:23-05:00",
+  "cpu_usage_percent": 32.14710715701427,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2764,
+  "memory_usage_percent": 72.35865389236743,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3768381450314746,
+  "allocated_memory_kb": 33141,
+  "num_gc": 516
+}
+],
+{
+  "time": "2024-11-28T12:27:38-05:00",
+  "cpu_usage_percent": 34.91147689351533,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2774,
+  "memory_usage_percent": 72.64078879150343,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3806103765130506,
+  "allocated_memory_kb": 42265,
+  "num_gc": 532
+}
+],
+{
+  "time": "2024-11-28T12:27:53-05:00",
+  "cpu_usage_percent": 54.55470737912217,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2781,
+  "memory_usage_percent": 72.82250452755441,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3843091592546675,
+  "allocated_memory_kb": 37861,
+  "num_gc": 546
+}
+],
+{
+  "time": "2024-11-28T12:28:08-05:00",
+  "cpu_usage_percent": 35.675396870896485,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2759,
+  "memory_usage_percent": 72.22765903706,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.387787994954343,
+  "allocated_memory_kb": 5378,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:28:23-05:00",
+  "cpu_usage_percent": 5.704735375988358,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2699,
+  "memory_usage_percent": 70.6763772610929,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.387787994954343,
+  "allocated_memory_kb": 5399,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:28:38-05:00",
+  "cpu_usage_percent": 1.625020869303712,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2699,
+  "memory_usage_percent": 70.67146878876287,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.387787994954343,
+  "allocated_memory_kb": 5416,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:28:53-05:00",
+  "cpu_usage_percent": 4.479021950535618,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2688,
+  "memory_usage_percent": 70.37890338592557,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878897853276553,
+  "allocated_memory_kb": 5432,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:29:08-05:00",
+  "cpu_usage_percent": 1.8475366178831154,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2661,
+  "memory_usage_percent": 69.67801444113464,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878897853276553,
+  "allocated_memory_kb": 5474,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:29:23-05:00",
+  "cpu_usage_percent": 2.234450558636743,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2659,
+  "memory_usage_percent": 69.61379526148352,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878897853276553,
+  "allocated_memory_kb": 5491,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:29:38-05:00",
+  "cpu_usage_percent": 1.6050205486597333,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2678,
+  "memory_usage_percent": 70.11486847850652,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878897853276553,
+  "allocated_memory_kb": 5507,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:29:53-05:00",
+  "cpu_usage_percent": 3.0639431616499455,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2678,
+  "memory_usage_percent": 70.1088351479342,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878905836835245,
+  "allocated_memory_kb": 5523,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:30:08-05:00",
+  "cpu_usage_percent": 1.0830926460593229,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2676,
+  "memory_usage_percent": 70.05545551134522,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878905836835245,
+  "allocated_memory_kb": 5539,
+  "num_gc": 580
+}
+],
+{
+  "time": "2024-11-28T12:30:23-05:00",
+  "cpu_usage_percent": 2.7822158559094583,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2675,
+  "memory_usage_percent": 70.03602614170555,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878905836835245,
+  "allocated_memory_kb": 4121,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:30:38-05:00",
+  "cpu_usage_percent": 2.527918217645761,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2672,
+  "memory_usage_percent": 69.9736476391782,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.387890982861459,
+  "allocated_memory_kb": 4137,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:30:53-05:00",
+  "cpu_usage_percent": 1.0937153009010798,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2670,
+  "memory_usage_percent": 69.90533806591874,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.387890982861459,
+  "allocated_memory_kb": 4153,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:31:08-05:00",
+  "cpu_usage_percent": 5.016387978471008,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2699,
+  "memory_usage_percent": 70.67760437917539,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.387890982861459,
+  "allocated_memory_kb": 4169,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:31:23-05:00",
+  "cpu_usage_percent": 1.0829723426003406,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2702,
+  "memory_usage_percent": 70.75215180268759,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.387890982861459,
+  "allocated_memory_kb": 4185,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:31:38-05:00",
+  "cpu_usage_percent": 0.9161068235028057,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2705,
+  "memory_usage_percent": 70.83324385597315,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878913820393937,
+  "allocated_memory_kb": 4201,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:31:53-05:00",
+  "cpu_usage_percent": 4.169214519990178,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2722,
+  "memory_usage_percent": 71.26641653909752,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878913820393937,
+  "allocated_memory_kb": 4217,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:32:09-05:00",
+  "cpu_usage_percent": 3.4216519469818074,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2719,
+  "memory_usage_percent": 71.192687194307,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878913820393937,
+  "allocated_memory_kb": 4233,
+  "num_gc": 581
+}
+],
+{
+  "time": "2024-11-28T12:32:24-05:00",
+  "cpu_usage_percent": 3.2956737392806286,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2718,
+  "memory_usage_percent": 71.17540528131171,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878913820393937,
+  "allocated_memory_kb": 4016,
+  "num_gc": 582
+}
+],
+{
+  "time": "2024-11-28T12:32:39-05:00",
+  "cpu_usage_percent": 4.472630173599412,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2713,
+  "memory_usage_percent": 71.02661721380794,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878913820393937,
+  "allocated_memory_kb": 4034,
+  "num_gc": 582
+}
+],
+{
+  "time": "2024-11-28T12:32:54-05:00",
+  "cpu_usage_percent": 0.7949744273016426,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2713,
+  "memory_usage_percent": 71.0342867018236,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878913820393937,
+  "allocated_memory_kb": 4051,
+  "num_gc": 582
+}
+],
+{
+  "time": "2024-11-28T12:33:09-05:00",
+  "cpu_usage_percent": 2.9903840809354443,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2691,
+  "memory_usage_percent": 70.45253047087589,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3878917812173281,
+  "allocated_memory_kb": 4067,
+  "num_gc": 582
+}
+],
+{
+  "time": "2024-11-28T12:33:24-05:00",
+  "cpu_usage_percent": 6.633784083360554,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2703,
+  "memory_usage_percent": 70.77638738481707,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3879823946084728,
+  "allocated_memory_kb": 4083,
+  "num_gc": 582
+}
+],
+{
+  "time": "2024-11-28T12:33:39-05:00",
+  "cpu_usage_percent": 26.790185277937518,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2707,
+  "memory_usage_percent": 70.87159129605143,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3881871728889013,
+  "allocated_memory_kb": 4099,
+  "num_gc": 582
+}
+],
+{
+  "time": "2024-11-28T12:44:37-05:00",
+  "cpu_usage_percent": 17.500000019826984,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2657,
+  "memory_usage_percent": 69.56246082169872,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3895982668875648,
+  "allocated_memory_kb": 2166,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:45:42-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2663,
+  "memory_usage_percent": 69.7231110306667,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3898948560929416,
+  "allocated_memory_kb": 2208,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:45:57-05:00",
+  "cpu_usage_percent": 57.6302470973539,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3096,
+  "memory_usage_percent": 81.05564878244321,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3894685340588333,
+  "allocated_memory_kb": 403546,
+  "num_gc": 20
+}
+],
+{
+  "time": "2024-11-28T12:46:12-05:00",
+  "cpu_usage_percent": 59.394112603598025,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2986,
+  "memory_usage_percent": 78.17171676887537,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3897184194458667,
+  "allocated_memory_kb": 106004,
+  "num_gc": 38
+}
+],
+{
+  "time": "2024-11-28T12:46:28-05:00",
+  "cpu_usage_percent": 63.10268891980305,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2836,
+  "memory_usage_percent": 74.2546535896783,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.390284054579136,
+  "allocated_memory_kb": 40382,
+  "num_gc": 144
+}
+],
+{
+  "time": "2024-11-28T12:46:43-05:00",
+  "cpu_usage_percent": 33.922459743054475,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 3038,
+  "memory_usage_percent": 79.54343026543586,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3903614950984402,
+  "allocated_memory_kb": 176459,
+  "num_gc": 280
+}
+],
+{
+  "time": "2024-11-28T12:46:58-05:00",
+  "cpu_usage_percent": 27.50740347542247,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2816,
+  "memory_usage_percent": 73.72412953867519,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.3905626807774576,
+  "allocated_memory_kb": 49596,
+  "num_gc": 436
+}
+],
+{
+  "time": "2024-11-28T12:47:13-05:00",
+  "cpu_usage_percent": 51.63571067840063,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2836,
+  "memory_usage_percent": 74.24248466869345,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.396225019779167,
+  "allocated_memory_kb": 32966,
+  "num_gc": 470
+}
+],
+{
+  "time": "2024-11-28T12:47:28-05:00",
+  "cpu_usage_percent": 47.385157004132786,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2854,
+  "memory_usage_percent": 74.73404772057704,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4020083096950473,
+  "allocated_memory_kb": 43395,
+  "num_gc": 494
+}
+],
+{
+  "time": "2024-11-28T12:47:43-05:00",
+  "cpu_usage_percent": 47.98400720802844,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2876,
+  "memory_usage_percent": 75.3106909595143,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4078778220447923,
+  "allocated_memory_kb": 18202,
+  "num_gc": 519
+}
+],
+{
+  "time": "2024-11-28T12:47:58-05:00",
+  "cpu_usage_percent": 20.819782438069243,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2845,
+  "memory_usage_percent": 74.48381789158616,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4105048120321202,
+  "allocated_memory_kb": 5768,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:48:13-05:00",
+  "cpu_usage_percent": 2.026764395608134,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2845,
+  "memory_usage_percent": 74.48473823014804,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4109858214432631,
+  "allocated_memory_kb": 5788,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:48:28-05:00",
+  "cpu_usage_percent": 1.0469454808772345,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2840,
+  "memory_usage_percent": 74.36918461071213,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4109858214432631,
+  "allocated_memory_kb": 5805,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:48:43-05:00",
+  "cpu_usage_percent": 1.4053213352946494,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2840,
+  "memory_usage_percent": 74.37225240591839,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4109862206211976,
+  "allocated_memory_kb": 5823,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:48:58-05:00",
+  "cpu_usage_percent": 0.6117228339383518,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2830,
+  "memory_usage_percent": 74.1053542229735,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4109862206211976,
+  "allocated_memory_kb": 5840,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:49:13-05:00",
+  "cpu_usage_percent": 3.0831620465827205,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2768,
+  "memory_usage_percent": 72.48249055886026,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4109862206211976,
+  "allocated_memory_kb": 5856,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:49:28-05:00",
+  "cpu_usage_percent": 1.8635607321150038,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2762,
+  "memory_usage_percent": 72.32715786158312,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4109862206211976,
+  "allocated_memory_kb": 5872,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:49:43-05:00",
+  "cpu_usage_percent": 1.5364135559537235,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2764,
+  "memory_usage_percent": 72.35998327029014,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.410986619799132,
+  "allocated_memory_kb": 5888,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:49:58-05:00",
+  "cpu_usage_percent": 2.0920269292409874,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2766,
+  "memory_usage_percent": 72.43197419779712,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.410986619799132,
+  "allocated_memory_kb": 5904,
+  "num_gc": 541
+}
+],
+{
+  "time": "2024-11-28T12:50:13-05:00",
+  "cpu_usage_percent": 1.2377742167614882,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2760,
+  "memory_usage_percent": 72.258030209602,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.410986619799132,
+  "allocated_memory_kb": 4161,
+  "num_gc": 542
+}
+],
+{
+  "time": "2024-11-28T12:50:28-05:00",
+  "cpu_usage_percent": 0.7115855013962037,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2761,
+  "memory_usage_percent": 72.2963776496803,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.410986619799132,
+  "allocated_memory_kb": 4178,
+  "num_gc": 542
+}
+],
+{
+  "time": "2024-11-28T12:50:43-05:00",
+  "cpu_usage_percent": 17.92284535625169,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2843,
+  "memory_usage_percent": 74.4260410818682,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.411181019453262,
+  "allocated_memory_kb": 4194,
+  "num_gc": 542
+}
+],
+{
+  "time": "2024-11-28T12:51:03-05:00",
+  "cpu_usage_percent": 4.761904764544565,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2735,
+  "memory_usage_percent": 71.6205423657405,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4116975557005804,
+  "allocated_memory_kb": 2210,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:51:18-05:00",
+  "cpu_usage_percent": 31.513562799196837,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2787,
+  "memory_usage_percent": 72.96802028017152,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4152642105458586,
+  "allocated_memory_kb": 43888,
+  "num_gc": 19
+}
+],
+{
+  "time": "2024-11-28T12:51:33-05:00",
+  "cpu_usage_percent": 44.08721155440214,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2775,
+  "memory_usage_percent": 72.66062720050394,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4208203682169753,
+  "allocated_memory_kb": 30252,
+  "num_gc": 35
+}
+],
+{
+  "time": "2024-11-28T12:51:52-05:00",
+  "cpu_usage_percent": 14.2857142975934,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2702,
+  "memory_usage_percent": 70.75276536172885,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4229060729250425,
+  "allocated_memory_kb": 2317,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:52:11-05:00",
+  "cpu_usage_percent": 27.27272727272727,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2688,
+  "memory_usage_percent": 70.37665366944098,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4266060532004632,
+  "allocated_memory_kb": 2221,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:52:26-05:00",
+  "cpu_usage_percent": 28.735696973079694,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2771,
+  "memory_usage_percent": 72.54578939994948,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4332731230634557,
+  "allocated_memory_kb": 31698,
+  "num_gc": 29
+}
+],
+{
+  "time": "2024-11-28T12:52:41-05:00",
+  "cpu_usage_percent": 35.627666741505855,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2779,
+  "memory_usage_percent": 72.75787630854248,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4395793360736073,
+  "allocated_memory_kb": 50283,
+  "num_gc": 46
+}
+],
+{
+  "time": "2024-11-28T12:52:52-05:00",
+  "cpu_usage_percent": 14.285714153559137,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2713,
+  "memory_usage_percent": 71.03183246565858,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.440292667042663,
+  "allocated_memory_kb": 2263,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:53:07-05:00",
+  "cpu_usage_percent": 24.114285714338102,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2781,
+  "memory_usage_percent": 72.81258532305418,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4473832646942217,
+  "allocated_memory_kb": 29717,
+  "num_gc": 29
+}
+],
+{
+  "time": "2024-11-28T12:53:22-05:00",
+  "cpu_usage_percent": 31.612062124482616,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2779,
+  "memory_usage_percent": 72.77157912713047,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4541824624535529,
+  "allocated_memory_kb": 42899,
+  "num_gc": 48
+}
+],
+{
+  "time": "2024-11-28T12:53:29-05:00",
+  "cpu_usage_percent": 10.000000011641532,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2720,
+  "memory_usage_percent": 71.20894650890018,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4549935920165755,
+  "allocated_memory_kb": 2218,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T12:53:44-05:00",
+  "cpu_usage_percent": 26.200799594524703,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2762,
+  "memory_usage_percent": 72.30752397226304,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4616694437941282,
+  "allocated_memory_kb": 33179,
+  "num_gc": 28
+}
+],
+{
+  "time": "2024-11-28T12:53:59-05:00",
+  "cpu_usage_percent": 27.615983745370805,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2768,
+  "memory_usage_percent": 72.47175327563833,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4689356797368924,
+  "allocated_memory_kb": 56225,
+  "num_gc": 48
+}
+],
+{
+  "time": "2024-11-28T12:54:14-05:00",
+  "cpu_usage_percent": 22.020373514457546,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2747,
+  "memory_usage_percent": 71.91678912282532,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4742367627078266,
+  "allocated_memory_kb": 4825,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:54:29-05:00",
+  "cpu_usage_percent": 3.1865874646177383,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2753,
+  "memory_usage_percent": 72.08122294588102,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4742367627078266,
+  "allocated_memory_kb": 4845,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:54:44-05:00",
+  "cpu_usage_percent": 2.122222222205243,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2750,
+  "memory_usage_percent": 72.01158399469885,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747536981330795,
+  "allocated_memory_kb": 4861,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:54:59-05:00",
+  "cpu_usage_percent": 2.1368707331440024,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2756,
+  "memory_usage_percent": 72.16476923533159,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.474754097311014,
+  "allocated_memory_kb": 4877,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:55:14-05:00",
+  "cpu_usage_percent": 2.6299694190193232,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2738,
+  "memory_usage_percent": 71.68854515947933,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 4893,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:55:29-05:00",
+  "cpu_usage_percent": 4.443210219388417,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2732,
+  "memory_usage_percent": 71.52942884811449,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 4909,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:55:44-05:00",
+  "cpu_usage_percent": 1.9080370514071834,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2737,
+  "memory_usage_percent": 71.65592427045273,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 4925,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:55:59-05:00",
+  "cpu_usage_percent": 2.0764119601358484,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2739,
+  "memory_usage_percent": 71.7196321509028,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 4942,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:56:14-05:00",
+  "cpu_usage_percent": 1.895076136460122,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2738,
+  "memory_usage_percent": 71.68752256107724,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 4958,
+  "num_gc": 73
+}
+],
+{
+  "time": "2024-11-28T12:56:30-05:00",
+  "cpu_usage_percent": 1.1879109343287384,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2712,
+  "memory_usage_percent": 70.99716637982782,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 3349,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:56:45-05:00",
+  "cpu_usage_percent": 0.9828964904646869,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2721,
+  "memory_usage_percent": 71.25424761811267,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 3366,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:57:00-05:00",
+  "cpu_usage_percent": 3.542825361434962,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2742,
+  "memory_usage_percent": 71.80051968450795,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 3383,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:57:15-05:00",
+  "cpu_usage_percent": 0.8843159066147339,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2746,
+  "memory_usage_percent": 71.9025750050363,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747544964889485,
+  "allocated_memory_kb": 3399,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:57:30-05:00",
+  "cpu_usage_percent": 7.245892509023964,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2683,
+  "memory_usage_percent": 70.24269327876749,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4747213647203803,
+  "allocated_memory_kb": 3414,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:57:45-05:00",
+  "cpu_usage_percent": 25.73138669803596,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2750,
+  "memory_usage_percent": 72.01056139629675,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4752706335583325,
+  "allocated_memory_kb": 3430,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:58:00-05:00",
+  "cpu_usage_percent": 2.5350862594810533,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2757,
+  "memory_usage_percent": 72.18542572305377,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4752706335583325,
+  "allocated_memory_kb": 3446,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:58:15-05:00",
+  "cpu_usage_percent": 1.2774938902407076,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2758,
+  "memory_usage_percent": 72.20955904534303,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3462,
+  "num_gc": 74
+}
+],
+{
+  "time": "2024-11-28T12:58:30-05:00",
+  "cpu_usage_percent": 7.512539271348776,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2725,
+  "memory_usage_percent": 71.34372497829536,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3256,
+  "num_gc": 75
+}
+],
+{
+  "time": "2024-11-28T12:58:45-05:00",
+  "cpu_usage_percent": 2.72777777780195,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2725,
+  "memory_usage_percent": 71.3431114192541,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3274,
+  "num_gc": 75
+}
+],
+{
+  "time": "2024-11-28T12:59:00-05:00",
+  "cpu_usage_percent": 0.9879009879202517,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2723,
+  "memory_usage_percent": 71.30691143582018,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3291,
+  "num_gc": 75
+}
+],
+{
+  "time": "2024-11-28T12:59:15-05:00",
+  "cpu_usage_percent": 0.46609699255268444,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2724,
+  "memory_usage_percent": 71.332783175393,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3307,
+  "num_gc": 75
+}
+],
+{
+  "time": "2024-11-28T12:59:30-05:00",
+  "cpu_usage_percent": 1.1434915348185277,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2723,
+  "memory_usage_percent": 71.30179844380974,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3323,
+  "num_gc": 75
+}
+],
+{
+  "time": "2024-11-28T12:59:45-05:00",
+  "cpu_usage_percent": 3.3205406307278507,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2720,
+  "memory_usage_percent": 71.22295610700878,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3339,
+  "num_gc": 75
+}
+],
+{
+  "time": "2024-11-28T13:00:00-05:00",
+  "cpu_usage_percent": 2.7770063871341772,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2717,
+  "memory_usage_percent": 71.14574992765115,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.475271032736267,
+  "allocated_memory_kb": 3355,
+  "num_gc": 75
+}
+],
+{
+  "time": "2024-11-28T13:05:54-05:00",
+  "cpu_usage_percent": 30,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2686,
+  "memory_usage_percent": 70.33564747351726,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4751249336122187,
+  "allocated_memory_kb": 2209,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T13:07:36-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2701,
+  "memory_usage_percent": 70.7265868426354,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4758921536024399,
+  "allocated_memory_kb": 2217,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:12:13-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 989,
+  "memory_usage_percent": 25.909166674336152,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.450225411588277,
+  "allocated_memory_kb": 2217,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:15:05-05:00",
+  "cpu_usage_percent": 11.111111111335678,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1044,
+  "memory_usage_percent": 27.3304761933979,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4509203803723427,
+  "allocated_memory_kb": 2237,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:15:39-05:00",
+  "cpu_usage_percent": 1.5158245029217932e-9,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1053,
+  "memory_usage_percent": 27.584796415997122,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4509147918812588,
+  "allocated_memory_kb": 2237,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:30:16-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1090,
+  "memory_usage_percent": 28.547061512361683,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.453083525599714,
+  "allocated_memory_kb": 2210,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:31:58-05:00",
+  "cpu_usage_percent": 0,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1119,
+  "memory_usage_percent": 29.311965117123307,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4536523541564597,
+  "allocated_memory_kb": 2279,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:32:37-05:00",
+  "cpu_usage_percent": 28.571428572171016,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1136,
+  "memory_usage_percent": 29.748205595453936,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.45397289403791,
+  "allocated_memory_kb": 2270,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:32:56-05:00",
+  "cpu_usage_percent": 11.111111111335678,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1127,
+  "memory_usage_percent": 29.51525767945835,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4544239651039608,
+  "allocated_memory_kb": 2237,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-11-28T14:33:11-05:00",
+  "cpu_usage_percent": 15.2223394215291,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1896,
+  "memory_usage_percent": 49.64643660247817,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.455498152925857,
+  "allocated_memory_kb": 213746,
+  "num_gc": 42
+}
+],
+{
+  "time": "2024-11-28T14:33:26-05:00",
+  "cpu_usage_percent": 14.567015995587068,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 2039,
+  "memory_usage_percent": 53.391805509964705,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4570290003048882,
+  "allocated_memory_kb": 391476,
+  "num_gc": 79
+}
+],
+{
+  "time": "2024-11-28T14:33:41-05:00",
+  "cpu_usage_percent": 13.823252725360618,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1617,
+  "memory_usage_percent": 42.33966424004066,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4574054250971766,
+  "allocated_memory_kb": 57582,
+  "num_gc": 241
+}
+],
+{
+  "time": "2024-11-28T14:33:56-05:00",
+  "cpu_usage_percent": 10.281155862992547,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1588,
+  "memory_usage_percent": 41.584986619299904,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4580840275859257,
+  "allocated_memory_kb": 56708,
+  "num_gc": 534
+}
+],
+{
+  "time": "2024-11-28T14:34:11-05:00",
+  "cpu_usage_percent": 9.170840289370446,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1591,
+  "memory_usage_percent": 41.66669223162672,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.458716325434266,
+  "allocated_memory_kb": 33726,
+  "num_gc": 814
+}
+],
+{
+  "time": "2024-11-28T14:34:26-05:00",
+  "cpu_usage_percent": 9.115206860071774,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1589,
+  "memory_usage_percent": 41.60390468973853,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4593713764248761,
+  "allocated_memory_kb": 58438,
+  "num_gc": 1091
+}
+],
+{
+  "time": "2024-11-28T14:34:41-05:00",
+  "cpu_usage_percent": 9.354588730211505,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1558,
+  "memory_usage_percent": 40.80413047946571,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4600220364582062,
+  "allocated_memory_kb": 44183,
+  "num_gc": 1370
+}
+],
+{
+  "time": "2024-11-28T14:34:56-05:00",
+  "cpu_usage_percent": 8.902737591808718,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1542,
+  "memory_usage_percent": 40.38895552821809,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4606986430572824,
+  "allocated_memory_kb": 42441,
+  "num_gc": 1640
+}
+],
+{
+  "time": "2024-11-28T14:35:11-05:00",
+  "cpu_usage_percent": 9.529640968548875,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1524,
+  "memory_usage_percent": 39.90741394067497,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4613612784286492,
+  "allocated_memory_kb": 54486,
+  "num_gc": 1915
+}
+],
+{
+  "time": "2024-11-28T14:35:26-05:00",
+  "cpu_usage_percent": 8.799062028922815,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1514,
+  "memory_usage_percent": 39.642151915173415,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4619999631239424,
+  "allocated_memory_kb": 31331,
+  "num_gc": 2199
+}
+],
+{
+  "time": "2024-11-28T14:35:41-05:00",
+  "cpu_usage_percent": 9.277718995376262,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1509,
+  "memory_usage_percent": 39.52138304388686,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4626598042497674,
+  "allocated_memory_kb": 43129,
+  "num_gc": 2487
+}
+],
+{
+  "time": "2024-11-28T14:35:56-05:00",
+  "cpu_usage_percent": 9.473451082441773,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1513,
+  "memory_usage_percent": 39.63213045083296,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4633236371549376,
+  "allocated_memory_kb": 40891,
+  "num_gc": 2782
+}
+],
+{
+  "time": "2024-11-28T14:36:11-05:00",
+  "cpu_usage_percent": 9.804681015881645,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1474,
+  "memory_usage_percent": 38.59255691527056,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4639770914338097,
+  "allocated_memory_kb": 48157,
+  "num_gc": 3057
+}
+],
+{
+  "time": "2024-11-28T14:36:26-05:00",
+  "cpu_usage_percent": 10.807805637405515,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1473,
+  "memory_usage_percent": 38.58069477380634,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 13,
+  "disk_usage_percent": 1.4646856322676505,
+  "allocated_memory_kb": 41827,
+  "num_gc": 3321
+}
+],
+{
+  "time": "2024-11-28T14:36:41-05:00",
+  "cpu_usage_percent": 8.933637425597798,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1477,
+  "memory_usage_percent": 38.67017213398902,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.465349465172821,
+  "allocated_memory_kb": 39540,
+  "num_gc": 3608
+}
+],
+{
+  "time": "2024-11-28T14:36:56-05:00",
+  "cpu_usage_percent": 8.983832435137465,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1493,
+  "memory_usage_percent": 39.08861940012333,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4660132980779914,
+  "allocated_memory_kb": 47714,
+  "num_gc": 3890
+}
+],
+{
+  "time": "2024-11-28T14:37:11-05:00",
+  "cpu_usage_percent": 8.90879750709303,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1481,
+  "memory_usage_percent": 38.78807772974974,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4666775301610964,
+  "allocated_memory_kb": 50352,
+  "num_gc": 4173
+}
+],
+{
+  "time": "2024-11-28T14:37:26-05:00",
+  "cpu_usage_percent": 9.864603481623737,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1501,
+  "memory_usage_percent": 39.304183143283424,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.467305037874222,
+  "allocated_memory_kb": 54918,
+  "num_gc": 4446
+}
+],
+{
+  "time": "2024-11-28T14:37:41-05:00",
+  "cpu_usage_percent": 9.054616024399,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1495,
+  "memory_usage_percent": 39.15273631993423,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4679261587403947,
+  "allocated_memory_kb": 44358,
+  "num_gc": 4694
+}
+],
+{
+  "time": "2024-11-28T14:37:57-05:00",
+  "cpu_usage_percent": 7.120535714286379,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1499,
+  "memory_usage_percent": 39.241804640756065,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4684702382651975,
+  "allocated_memory_kb": 55701,
+  "num_gc": 4944
+}
+],
+{
+  "time": "2024-11-28T14:38:12-05:00",
+  "cpu_usage_percent": 9.193878114810301,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1499,
+  "memory_usage_percent": 39.258779774230725,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4690973468003887,
+  "allocated_memory_kb": 42245,
+  "num_gc": 5230
+}
+],
+{
+  "time": "2024-11-28T14:38:27-05:00",
+  "cpu_usage_percent": 9.453536754508175,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1493,
+  "memory_usage_percent": 39.09557306925752,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4697851303816325,
+  "allocated_memory_kb": 41179,
+  "num_gc": 5518
+}
+],
+{
+  "time": "2024-11-28T14:38:42-05:00",
+  "cpu_usage_percent": 9.400288216382718,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1491,
+  "memory_usage_percent": 39.0521126371688,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4704613378027742,
+  "allocated_memory_kb": 43347,
+  "num_gc": 5804
+}
+],
+{
+  "time": "2024-11-28T14:38:57-05:00",
+  "cpu_usage_percent": 10.194609104127972,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1493,
+  "memory_usage_percent": 39.09117589612855,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4711004216760022,
+  "allocated_memory_kb": 53638,
+  "num_gc": 6095
+}
+],
+{
+  "time": "2024-11-28T14:39:12-05:00",
+  "cpu_usage_percent": 12.814785861857999,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1661,
+  "memory_usage_percent": 43.48630382830164,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.47174389650651,
+  "allocated_memory_kb": 38891,
+  "num_gc": 6383
+}
+],
+{
+  "time": "2024-11-28T14:39:27-05:00",
+  "cpu_usage_percent": 10.581891709729586,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1620,
+  "memory_usage_percent": 42.40930319122283,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4723710050417012,
+  "allocated_memory_kb": 26003,
+  "num_gc": 6704
+}
+],
+{
+  "time": "2024-11-28T14:39:42-05:00",
+  "cpu_usage_percent": 9.00145365089885,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1618,
+  "memory_usage_percent": 42.371467050345586,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.473031644523395,
+  "allocated_memory_kb": 30939,
+  "num_gc": 7151
+}
+],
+{
+  "time": "2024-11-28T14:39:57-05:00",
+  "cpu_usage_percent": 9.271302317823917,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1623,
+  "memory_usage_percent": 42.49244044131257,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4736795103111833,
+  "allocated_memory_kb": 24495,
+  "num_gc": 7595
+}
+],
+{
+  "time": "2024-11-28T14:40:12-05:00",
+  "cpu_usage_percent": 8.755297791657336,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1617,
+  "memory_usage_percent": 42.35050378310279,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 14,
+  "disk_usage_percent": 1.4743437423942882,
+  "allocated_memory_kb": 34589,
+  "num_gc": 8011
+}
+
 ]
