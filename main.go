@@ -21,7 +21,7 @@ type Collector struct {
 
 func init() {
 	DB.InitDB()
-	metrics.CollectMetrics("metrics/metrics.json", time.Second*15)
+	metrics.StartMetricsJob(time.Second*15, "metrics/metrics.json")
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error loading .env file: %v", err)

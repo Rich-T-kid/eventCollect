@@ -28,6 +28,7 @@ type Cache interface {
 	Delete(key string) error
 	IncreaseTTL(key string, extraTime time.Duration) error
 	SetTTl(key string, ttl time.Duration) error
+	Flush()
 	Save() error
 }
 
@@ -38,12 +39,12 @@ func newCache() Cache {
 // for now just run on local host
 func newRedis() *redCache {
 	redisAddr := os.Getenv("REDIS_ADDR")
-	print("reddisAddr from env  ", redisAddr, "\n")
+	fmt.Println("reddisAddr from env  ", redisAddr)
 	if redisAddr == "" {
-		redisAddr = "redis:6379" // Default to localhost for local development
+		redisAddr = "localhost:6379" // Default to localhost for local development
 	}
 	client := redis.NewClient(&redis.Options{
-		Addr:     redisAddr,
+		Addr:     "localhost:6379",
 		Password: "", // No password set
 		DB:       0,  // Use default DB
 	})
@@ -71,6 +72,15 @@ func (r *redCache) contextTimeout(seconds int) (context.Context, context.CancelF
 	return context.WithDeadline(context.Background(), time.Now().Add(time.Second*time.Duration(seconds)))
 }
 
+func (r *redCache) Flush() {
+	ctx, _ := r.contextTimeout(2)
+	_, err := r.client.FlushAll(ctx).Result()
+	if err != nil {
+		log.Fatalf("Error flushing all keys: %v", err)
+	}
+	fmt.Println("Just FLushed all keys")
+
+}
 func (r *redCache) Get(key string) (value string, found bool) {
 	ctx, cancle := r.contextTimeout(3)
 	defer cancle()
@@ -175,6 +185,8 @@ func (c *CustomCache) SetTTl(key string, ttl time.Duration) error {
 func (c *CustomCache) Save() error {
 	return nil
 }
+
+func (c *CustomCache) Flush() {}
 
 type CLeaner struct {
 }

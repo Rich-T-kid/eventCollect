@@ -73,7 +73,8 @@ func (g *Geocoder) streetToCordinates(address string) (float64, float64, error) 
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(geoAPIError)
+		response := fmt.Sprintf("Api Response %s , api Code %d", geoAPIError.Message, geoAPIError.Code)
+		fmt.Println(response)
 		fmt.Printf("Error: %s\n", geoAPIError.Message)
 		return -1, -1, errors.New(geoAPIError.Message)
 	}
@@ -109,6 +110,5 @@ func geoCoderInstance() *Geocoder {
 	once.Do(func() {
 		instance = newGeoCoder(apikey, baseUrl)
 	})
-	fmt.Println(instance)
 	return instance
 }

@@ -3,6 +3,8 @@ package metrics
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
 	"os"
 	"time"
 
@@ -26,6 +28,8 @@ type Metrics struct {
 	NumGC           uint32  `json:"num_gc"`
 }
 
+var currentMetrics Metrics
+
 func CollectMetrics(fileName string, interval time.Duration) {
 	fmt.Println("Metrics is up and running")
 	go func() {
@@ -37,7 +41,7 @@ func CollectMetrics(fileName string, interval time.Duration) {
 			var appMem runtime.MemStats
 			runtime.ReadMemStats(&appMem)
 
-			metrics := Metrics{
+			currentMetrics = Metrics{
 				Time:            time.Now().Format(time.RFC3339),
 				CPUUsage:        cpuPercent[0],
 				TotalMemory:     memStats.Total / 1024 / 1024,
@@ -49,40 +53,76 @@ func CollectMetrics(fileName string, interval time.Duration) {
 				AllocatedMemory: appMem.Alloc / 1024,
 				NumGC:           appMem.NumGC,
 			}
-
-			// Open the file in append mode
-			file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-			if err != nil {
-				fmt.Printf("Error opening file: %v\n", err)
-				return
-			}
-
-			// Write the JSON object to the file as part of an array
-			jsonData, err := json.MarshalIndent(metrics, "", "  ")
-			if err != nil {
-				fmt.Printf("Error marshaling JSON: %v\n", err)
-				return
-			}
-
-			// Append the JSON object with a comma if the file already contains data
-			fileStat, _ := file.Stat()
-			if fileStat.Size() == 0 {
-				// File is empty; start a new JSON array
-				file.WriteString("[\n")
-			} else {
-				// Add a comma and newline before appending
-				file.Seek(-2, os.SEEK_END) // Move back 2 bytes to replace "]\n"
-				file.WriteString(",\n")
-			}
-
-			// Write the current JSON object
-			file.Write(jsonData)
-			file.WriteString("\n]") // Close the JSON array
-
-			file.Close()
+			saveMetricsToFile(fileName)
 
 			// Wait for the next interval
 			time.Sleep(interval)
 		}
 	}()
+}
+func saveMetricsToFile(fileName string) {
+	// Open the file in append mode
+	file, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Printf("Error opening file: %v\n", err)
+		return
+	}
+	defer file.Close()
+
+	// Marshal the metrics to JSON
+	metricsJSON, err := json.MarshalIndent(currentMetrics, "", "  ")
+	if err != nil {
+		log.Printf("Error marshaling JSON: %v\n", err)
+		return
+	}
+
+	// Append the JSON object with a comma if the file already contains data
+	fileStat, _ := file.Stat()
+	if fileStat.Size() == 0 {
+		// File is empty; start a new JSON array
+		file.WriteString("[\n")
+	} else {
+		// Add a comma and newline before appending
+		file.Seek(-2, os.SEEK_END) // Move back 2 bytes to replace "]\n"
+		file.WriteString(",\n")
+	}
+
+	// Write the current JSON object
+	file.Write(metricsJSON)
+	file.WriteString("\n]") // Close the JSON array
+
+	log.Printf("Metrics saved to file: %s", currentMetrics.Time)
+}
+
+// API handler to serve the latest metrics as JSON
+func metricsHandler(w http.ResponseWriter, r *http.Request) {
+	// Set the response header to indicate JSON
+	w.Header().Set("Content-Type", "application/json")
+
+	// Return the latest metrics as JSON
+	err := json.NewEncoder(w).Encode(currentMetrics)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	var message = fmt.Sprintf("Sever is Live %v", time.Now())
+	w.Write([]byte(message))
+}
+func StartMetricsJob(interval time.Duration, fileName string) {
+	// Start collecting metrics every 5 seconds in a separate goroutine
+	go CollectMetrics(fileName, interval)
+
+	go func() {
+		http.HandleFunc("/metrics", metricsHandler)
+		http.HandleFunc("/Life", healthCheck)
+
+		// Start the HTTP server (blocking operation)
+		port := ":8080"
+		fmt.Printf("Starting server on http://localhost%s...\n", port)
+		log.Fatal(http.ListenAndServe(port, nil))
+	}()
+
 }
