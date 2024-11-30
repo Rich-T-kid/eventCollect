@@ -11,9 +11,8 @@ type GeoPoint struct {
 	Latitude  float64 `db:"latitude" json:"latitude"`
 	Longitude float64 `db:"longitude" json:"longitude"`
 	Address   string  `db:"address" json:"address"` // street name, etc.
-	EventID   int     `db:"event_id" json:"event_id"`
+	Title     string  `json:"title" db:"title"`     //  foreign key
 }
-
 type Event struct {
 	ID             int    `db:"id" json:"id"`
 	ImageUrl       string `json:"image_url" db:"image_url"`

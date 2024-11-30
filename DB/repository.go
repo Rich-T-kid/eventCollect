@@ -7,6 +7,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/fatih/color"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -65,21 +66,21 @@ func InitDB() {
 	if err != nil {
 		log.Fatalf("Error opening database: %v\n", err)
 	}
-
 	// Optionally, auto-migrate your schema
 	err = updateModels(db)
 	if err != nil {
 		log.Fatal("Error migrating Database tables -> Repo.go in database file")
 	}
 	gormConnection = db
-	fmt.Println("Database Connection is ready to go")
+	boldRed := color.New(color.FgRed, color.Bold, color.Underline)
+	boldRed.Println("Database Connection is ready to go")
 }
 
 func updateModels(db *gorm.DB) error {
 	// very easy to just add them in here
 	return db.AutoMigrate(&Event{}, &EventInfo{}, &GeoPoint{})
 }
-func newEventInfo(EventId int, bio string, maxCapacity, currentCap int, hostname string, eligibal bool, tags string) *EventInfo {
+func newEventInfo(EventId int, maxCapacity, currentCap int, hostname string, eligibal bool, tags string) *EventInfo {
 	return &EventInfo{
 		EventID:         EventId,
 		MaxCapacity:     maxCapacity,
@@ -91,16 +92,20 @@ func newEventInfo(EventId int, bio string, maxCapacity, currentCap int, hostname
 		LastUpdated:     time.Now(),
 	}
 }
-func NewGeoPoint(Lat, Long float64, streetName string) *GeoPoint {
+func NewGeoPoint(Lat, Long float64, streetName, title string) *GeoPoint {
 	return &GeoPoint{
 		Latitude:  Lat,
 		Longitude: Long,
 		Address:   streetName,
+		Title:     title,
 	}
 }
 
 // Handle insert statments for the data first and formost we can query the data very easily later
 func (s *Storage) createEvent(event *Event) {
+	if event.Host == "" || event.Title == "" {
+		return
+	}
 	s.Database.Create(event)
 	var constMessage = fmt.Sprintf("Created Event %s at %v\n", event.Title, time.Now())
 	s.logFile.Write([]byte(constMessage))
@@ -112,17 +117,19 @@ func (s *Storage) createEventInfo(title string, eventInfo *EventInfo) {
 	s.logFile.Write([]byte(constMessage))
 }
 
-func (s *Storage) createEventGeo(title string, Geo *GeoPoint) {
+func (s *Storage) createEventGeo(Geo *GeoPoint) {
 	s.Database.Create(Geo)
-	var constMessage = fmt.Sprintf("Created EventGeo Point %s: %v at %v \n", title, Geo, time.Now())
+	var constMessage = fmt.Sprintf("Created EventGeo Point %s: %v at %v \n", Geo.Title, Geo, time.Now())
 	s.logFile.Write([]byte(constMessage))
 }
 func (s *Storage) AddEvent(event Event) int {
 	s.createEvent(&event)
-	//s.createEventInfo(newEvent.Name, newEventInfo(newEvent.ID, bio, maxCapacity, currentCap, hostname, eligibal, ""))
 	return event.ID
 }
-func (s *Storage) AddGeoPoint(title string, eventId int, Geo *GeoPoint) {
-	Geo.EventID = eventId
-	s.createEventGeo(title, Geo)
+func (s *Storage) AddGeoPoint(eventId int, Geo *GeoPoint) {
+	Geo.ID = eventId
+	if Geo.Latitude == -1 && Geo.Longitude == -1 {
+		return
+	}
+	s.createEventGeo(Geo)
 }

@@ -1,38 +1,38 @@
 package main
 
 import (
-	"fmt"
 	"lite/DB"
 	scrape "lite/Scrape"
 	"lite/metrics"
 	"log"
+	"os"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type Collector struct {
-	ID         uint
-	Name       string
-	Age        int
-	SuperPower string
-}
-
 func init() {
+	boldRed := color.New(color.FgRed, color.Bold)
 	DB.InitDB()
 	metrics.StartMetricsJob(time.Second*15, "metrics/metrics.json")
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
-	fmt.Println("env variables set up")
+	x := os.Getenv("REDIS_ADDR")
+	x2 := os.Getenv("GEOCODE_API_KEY")
+	x3 := os.Getenv("GELOKY_KEY")
+	boldRed.Printf("env Variables reddisaddr : %s , geoCodeAPi : %s , gelokKey : %s", x, x2, x3)
+	boldRed.Println("Complete setting up enviroment")
 }
 func main() {
+	underlineGreen := color.New(color.FgGreen, color.Underline)
 	webCrawler := scrape.Config()
-	fmt.Println("configed")
+	underlineGreen.Println("Scraper is configed")
 	webCrawler.Start()
-	fmt.Println("Done here")
+	underlineGreen.Println("Done here")
 }
 
 /*

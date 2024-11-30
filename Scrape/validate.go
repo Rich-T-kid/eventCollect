@@ -2,10 +2,12 @@ package scrape
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -28,6 +30,7 @@ type Cache interface {
 	Delete(key string) error
 	IncreaseTTL(key string, extraTime time.Duration) error
 	SetTTl(key string, ttl time.Duration) error
+	Valid(key string) bool
 	Flush()
 
 	Save() error
@@ -40,7 +43,6 @@ func newCache() Cache {
 // for now just run on local host
 func newRedis() *redCache {
 	redisAddr := os.Getenv("REDIS_ADDR")
-	fmt.Println("reddisAddr from env  ", redisAddr)
 	if redisAddr == "" {
 		redisAddr = "localhost:6379" // Default to localhost for local development
 	}
@@ -73,7 +75,9 @@ func (r *redCache) contextTimeout(seconds int) (context.Context, context.CancelF
 	return context.WithDeadline(context.Background(), time.Now().Add(time.Second*time.Duration(seconds)))
 }
 
-
+func (r *redCache) Valid(key string) bool {
+	return false
+}
 func (r *redCache) Flush() {
 	ctx, _ := r.contextTimeout(2)
 	_, err := r.client.FlushAll(ctx).Result()
@@ -122,9 +126,12 @@ func (r *redCache) IncreaseTTL(key string, extra time.Duration) error {
 
 	// Check if the key exists
 	if !r.Exist(key) {
-		return fmt.Errorf("key doesn't exist to be updated")
+		// Set the key with the given extra duration
+		if _, err := r.client.Set(ctx, key, "", extra).Result(); err != nil {
+			return fmt.Errorf("unable to set key with duration: %v", err)
+		}
+		return nil // Key is now set with the given duration
 	}
-
 	// Retrieve current TTL
 	ttl, err := r.client.TTL(ctx, key).Result()
 	if err != nil || ttl <= 0 {
@@ -170,6 +177,7 @@ func (c *CustomCache) Put(key string, value string) error {
 	return nil
 }
 
+func (c *CustomCache) Valid(key string) bool { return false }
 func (c *CustomCache) Exist(key string) bool {
 	return false
 }
@@ -189,9 +197,7 @@ func (c *CustomCache) Save() error {
 	return nil
 }
 
-
 func (c *CustomCache) Flush() {}
-
 
 type CLeaner struct {
 }
@@ -219,7 +225,6 @@ func (c *CLeaner) fetchAndExtractAddress(address string) (string, error) {
 	// Replace spaces with '+' for the search query
 	newAddress := strings.ReplaceAll(address, " ", "+")
 	url := googleURL + newAddress
-	fmt.Println("Requesting:", url)
 
 	// Make HTTP GET request
 	response, err := http.Get(url)
@@ -235,9 +240,6 @@ func (c *CLeaner) fetchAndExtractAddress(address string) (string, error) {
 	}
 
 	// Save response body to a file for debugging (optional)
-	f, _ := os.Create("test.html")
-	defer f.Close()
-	f.Write(bodyBytes)
 
 	// Convert response body to string
 	bodyString := string(bodyBytes)
@@ -253,4 +255,83 @@ func (c *CLeaner) fetchAndExtractAddress(address string) (string, error) {
 
 func (c *CLeaner) ParseAddress(address string) (string, error) {
 	return c.fetchAndExtractAddress(address)
+}
+
+type Geospatial struct {
+	Address   string  `json:"address"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+}
+
+func BatchCoordinates(addresses []string) *[]Geospatial {
+	apiKey := os.Getenv("GELOKY_KEY")
+
+	// Convert addresses slice to a JSON array string
+	addressesJSON, err := json.Marshal(addresses)
+	if err != nil {
+		log.Fatal("Error marshalling addresses:", err)
+	}
+
+	// Escape the JSON string for use in the query parameter
+	escapedAddresses := url.QueryEscape(string(addressesJSON))
+	apiURL := fmt.Sprintf("https://geloky.com/api/geo/geocode-batch?addresses=%s&key=%s&format=geloky", escapedAddresses, apiKey)
+
+	// Make the HTTP GET request
+	response, err := http.Get(apiURL)
+	if err != nil {
+		log.Fatal("Error making HTTP request:", err)
+	}
+	defer response.Body.Close()
+
+	// Read the response body
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		log.Fatal("Error reading response body:", err)
+	}
+
+	// Debug: Print raw response body
+
+	// Parse the response into the Geospatial struct
+	var geoResponse []Geospatial
+	err = json.Unmarshal(body, &geoResponse)
+	if err != nil {
+		log.Fatal("Error unmarshalling response:", err)
+	}
+
+	return &geoResponse
+}
+func Cordniates(address string) (*Geospatial, error) {
+	apiKey := os.Getenv("GELOKY_KEY")
+	normalizedAddress := strings.ReplaceAll(address, ",", "")
+
+	// Escape spaces and format the address for the API
+	escapedAddress := url.QueryEscape(normalizedAddress)
+	apiURL := fmt.Sprintf("https://geloky.com/api/geo/geocode?address=%s&key=%s&format=geloky", escapedAddress, apiKey)
+	response, err := http.Get(apiURL)
+	if err != nil {
+		return nil, fmt.Errorf("issue making request to %s response returned %v", apiURL, err)
+	}
+	if response.StatusCode != 200 {
+		return nil, fmt.Errorf("did not recieve 200 status code from deocoding api")
+	}
+	defer response.Body.Close()
+	body, _ := io.ReadAll(response.Body)
+	var geoResponse []Geospatial
+	err = json.Unmarshal(body, &geoResponse)
+	if err != nil {
+		return nil, fmt.Errorf("issue with geocoding service response %v", err)
+	}
+	if len(geoResponse) < 1 {
+		return nil, fmt.Errorf("issue with geocoding service response %v", err)
+	}
+
+	return &geoResponse[0], nil
+}
+
+func GeoPoints(address string) (float64, float64) {
+	geoObj, err := Cordniates(address)
+	if err != nil {
+		return -1, -1
+	}
+	return geoObj.Latitude, geoObj.Longitude
 }

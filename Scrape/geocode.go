@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -15,8 +16,8 @@ import (
 var (
 	once     sync.Once
 	instance *Geocoder
-	apikey   = "6740b9d3ea16b460848865roa6225f6" //
-	baseUrl  = "https://geocode.maps.co/search"  //
+	apikey   = os.Getenv("GEOCODE_API_KEY")     //
+	baseUrl  = "https://geocode.maps.co/search" //
 )
 
 type GeoAPIResponse []struct {
@@ -73,9 +74,6 @@ func (g *Geocoder) streetToCordinates(address string) (float64, float64, error) 
 		if err != nil {
 			fmt.Println(err)
 		}
-		response := fmt.Sprintf("Api Response %s , api Code %d", geoAPIError.Message, geoAPIError.Code)
-		fmt.Println(response)
-		fmt.Printf("Error: %s\n", geoAPIError.Message)
 		return -1, -1, errors.New(geoAPIError.Message)
 	}
 	if len(body) < 10 {
@@ -88,12 +86,10 @@ func (g *Geocoder) streetToCordinates(address string) (float64, float64, error) 
 	}
 	Latitude, err := strconv.ParseFloat(geoAPIResponse[0].Lat, 64)
 	if err != nil {
-		fmt.Println("Error converting string to float64:", err)
 		return -1, -1, fmt.Errorf("error converting string latidude to float64: %v", err)
 	}
 	longitude, err := strconv.ParseFloat(geoAPIResponse[0].Lon, 64)
 	if err != nil {
-		fmt.Println("Error converting string to float64:", err)
 		return -1, -1, fmt.Errorf("error converting string longitude to float64: %v", err)
 	}
 	return Latitude, longitude, nil

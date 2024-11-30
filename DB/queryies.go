@@ -3,6 +3,7 @@ package DB
 import (
 	"log"
 
+	"github.com/fatih/color"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -20,8 +21,8 @@ func connect(databasePath string) *sqlx.DB {
 	if err := db.Ping(); err != nil {
 		log.Fatalf("Failed to ping SQLite database: %v", err)
 	}
-
-	log.Println("Connected to SQLite database successfully!")
+	boldRed := color.New(color.FgRed, color.Bold)
+	boldRed.Println("Connected to SQLite database successfully!")
 	return db
 }
 
