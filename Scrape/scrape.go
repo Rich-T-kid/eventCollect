@@ -120,6 +120,135 @@ func Config() *scrape {
 	return c
 }
 
+/*
+	func (s *scrape) Start() {
+		s.logger.DebugLogger.Println("Starting web scraper ........")
+
+		var producerWG sync.WaitGroup
+		var consumerWG sync.WaitGroup
+
+		ctx, cancel := context.WithCancel(context.Background()) // Use cancelable context
+		defer cancel()
+
+		producerChannel := make(chan string, 1500) // Buffered channel for producers
+		consumerChannel := make(chan string, 1500) // Buffered channel for consumers
+
+		// Producer: Start site processing
+		producerWG.Add(1)
+		go func() {
+			defer producerWG.Done()
+			s.startSites(producerChannel)
+		}()
+
+		// Producer: Begin scraping main links
+		producerWG.Add(1)
+		go func() {
+			defer producerWG.Done()
+			s.BeginScrape(ctx, producerChannel)
+		}()
+
+		// Close `producerChannel` after all producers are done
+		go func() {
+			producerWG.Wait()
+			close(producerChannel)
+			s.logger.DebugLogger.Println("Producer channel closed")
+		}()
+
+		// Forward links from `producerChannel` to `consumerChannel`
+		consumerWG.Add(1)
+		go func() {
+			defer consumerWG.Done()
+			for link := range producerChannel {
+				consumerChannel <- link
+			}
+			close(consumerChannel) // Close `consumerChannel` after forwarding all links
+			s.logger.DebugLogger.Println("Consumer channel closed")
+		}()
+
+		// Consumer: Scrape side pages
+		consumerWG.Add(1)
+		go func() {
+			defer consumerWG.Done()
+			s.ScrapeSidePages(ctx, consumerChannel)
+		}()
+
+		// Wait for all consumers to finish
+		consumerWG.Wait()
+		s.logger.DebugLogger.Println("All scraping tasks completed")
+	}
+
+	func (s *scrape) startSites(mainsites chan string) {
+		// Top Level URl will be constructed and then passed onto the main links queue -> for each link go through first 20 pages as is already being done
+		// then  the main scrapper will get all the links on those pages and pass that onto a side scrapper queue
+		// sider scrapers will proccess these sites for all their info and save this is  a data
+		// Data Cleaning neds to be done , As well as using  a custom implementation of a bloom filter to check if a site has already been seen
+		s.logger.DebugLogger.Println("Starting to generate Links")
+
+		var wg sync.WaitGroup
+		//mainsites := make(chan string, 500)
+		wg.Add(3)
+		go s.constructnjlinks(mainsites, &wg)
+		go s.constructUSlinks(mainsites, &wg)
+		go s.constructInternationalLinks(mainsites, &wg)
+
+		wg.Wait()
+		fmt.Println("Size of channel", len(mainsites))
+		s.logger.DebugLogger.Println("All producers are done. Closing channel.")
+		cache := s.DataStore
+		var wg1 sync.WaitGroup
+		// Worker pool for processing links concurrently
+		numWorkers := 25 // Number of workers, you can adjust this based on your needs
+		for i := 0; i < numWorkers; i++ {
+			wg1.Add(1)
+			go func() {
+				defer wg1.Done()
+				for link := range mainsites {
+					print("seen", link, "\n")
+					s.processLink(link, cache)
+
+				}
+			}()
+		}
+
+		// Wait for all workers to finish
+		wg1.Wait()
+		s.logger.DebugLogger.Println("Finished processing all links")
+	}
+
+	func (s *scrape) processLink(link string, cache Cache) {
+		// This function processes a single link concurrently
+		// early return
+		if cache.Exist(link) {
+			s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
+			return
+		}
+		cache.Put(link, "nil")
+		cache.IncreaseTTL(link, time.Hour*24*3) // done check for three days
+		s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
+
+		for i := 1; i < 2; i++ {
+			pageExtention := fmt.Sprintf("?page=%d", i)
+			completeUrl := link + pageExtention
+			//s.logger.DebugLogger.Printf("Main page Processing page: %s\n", completeUrl)
+			if cache.Exist(completeUrl) { // if the url generated is valid I.E there exist page x and hasnt already been marked as not existing well traverse to it. Otherwise just skip and procces next link
+				err := s.mainScraper.Visit(completeUrl)
+				if err != nil {
+					s.logger.ErrorLogger.Println(err)
+				}
+			}
+		}
+
+}
+*/
+func chanSize(producer chan string, consumer chan string) {
+	count := 0
+	fmt.Println("Generating size of channels for debbuing")
+	for count < 50 {
+		fmt.Printf("len:capcity   producer  %d:%d   Consumer %d:%d\n", len(producer), cap(producer), len(consumer), cap(consumer))
+		time.Sleep(time.Second * 2)
+		count++
+	}
+}
 func (s *scrape) Start() {
 	s.logger.DebugLogger.Println("Starting web scraper ........")
 
@@ -129,10 +258,10 @@ func (s *scrape) Start() {
 	ctx, cancel := context.WithCancel(context.Background()) // Use cancelable context
 	defer cancel()
 
-	producerChannel := make(chan string, 1500) // Buffered channel for producers
-	consumerChannel := make(chan string, 1500) // Buffered channel for consumers
-
-	// Producer: Start site processing
+	producerChannel := make(chan string, 15000) // Buffered channel for producers
+	consumerChannel := make(chan string, 15000) // Buffered channel for consumers
+	go chanSize(producerChannel, consumerChannel)
+	time.Sleep(time.Second * 4)
 	producerWG.Add(1)
 	go func() {
 		defer producerWG.Done()
@@ -178,63 +307,65 @@ func (s *scrape) Start() {
 
 func (s *scrape) startSites(mainsites chan string) {
 	// Top Level URl will be constructed and then passed onto the main links queue -> for each link go through first 20 pages as is already being done
-	// then  the main scrapper will get all the links on those pages and pass that onto a side scrapper queue
-	// sider scrapers will proccess these sites for all their info and save this is  a data
-	// Data Cleaning neds to be done , As well as using  a custom implementation of a bloom filter to check if a site has already been seen
+	// then the main scrapper will get all the links on those pages and pass that onto a side scrapper queue
+	// sider scrapers will process these sites for all their info and save this is  a data
+	// Data Cleaning needs to be done, as well as using a custom implementation of a bloom filter to check if a site has already been seen
 	s.logger.DebugLogger.Println("Starting to generate Links")
 
 	var wg sync.WaitGroup
-	//mainsites := make(chan string, 500)
+
+	// Add producers for generating links
 	wg.Add(3)
 	go s.constructnjlinks(mainsites, &wg)
 	go s.constructUSlinks(mainsites, &wg)
 	go s.constructInternationalLinks(mainsites, &wg)
 
+	// Wait for producers to finish
 	wg.Wait()
-	s.logger.DebugLogger.Println("All producers are done. Closing channel.")
+
+	// Close mainsites channel to signal that no more links will be sent
+	close(mainsites)
+	s.logger.DebugLogger.Println("All producers are done. Mainsites channel closed.")
+
 	cache := s.DataStore
-	var wg1 sync.WaitGroup
+	var workerWG sync.WaitGroup
+
 	// Worker pool for processing links concurrently
-	numWorkers := 75 // Number of workers, you can adjust this based on your needs
+	numWorkers := 25 // Number of workers
 	for i := 0; i < numWorkers; i++ {
-		wg1.Add(1)
+		workerWG.Add(1)
 		go func() {
-			defer wg1.Done()
+			defer workerWG.Done()
 			for link := range mainsites {
 				s.processLink(link, cache)
-
 			}
 		}()
 	}
 
 	// Wait for all workers to finish
-	wg1.Wait()
+	workerWG.Wait()
 	s.logger.DebugLogger.Println("Finished processing all links")
 }
 
 func (s *scrape) processLink(link string, cache Cache) {
 	// This function processes a single link concurrently
-	// early return
+	// Early return if link exists in cache
 	if cache.Exist(link) {
 		s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
 		return
 	}
 	cache.Put(link, "nil")
-	cache.IncreaseTTL(link, time.Hour*24*3) // done check for three days
-	s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
+	cache.IncreaseTTL(link, time.Hour*24*3) // TTL set to 3 days
+	s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 3 days\n", link)
 
 	for i := 1; i < 2; i++ {
-		pageExtention := fmt.Sprintf("?page=%d", i)
-		completeUrl := link + pageExtention
-		//s.logger.DebugLogger.Printf("Main page Processing page: %s\n", completeUrl)
-		if cache.Exist(completeUrl) { // if the url generated is valid I.E there exist page x and hasnt already been marked as not existing well traverse to it. Otherwise just skip and procces next link
-			err := s.mainScraper.Visit(completeUrl)
-			if err != nil {
-				s.logger.ErrorLogger.Println(err)
-			}
+		pageExtension := fmt.Sprintf("?page=%d", i)
+		completeURL := link + pageExtension
+		err := s.mainScraper.Visit(completeURL)
+		if err != nil {
+			s.logger.ErrorLogger.Println(err)
 		}
 	}
-
 }
 
 // Grab the  main links
@@ -329,7 +460,7 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 	//var counter int
 	//var mu sync.Mutex
 	var wg sync.WaitGroup
-	workerPool := 200
+	workerPool := 10000
 
 	for i := 0; i < workerPool; i++ {
 		wg.Add(1)

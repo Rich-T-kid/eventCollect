@@ -10,6 +10,7 @@ import (
 
 	"runtime"
 
+	"github.com/fatih/color"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
@@ -31,7 +32,8 @@ type Metrics struct {
 var currentMetrics Metrics
 
 func CollectMetrics(fileName string, interval time.Duration) {
-	fmt.Println("Metrics is up and running")
+	boldRed := color.New(color.FgRed, color.Bold)
+	boldRed.Println("Metrics is up and running")
 	go func() {
 		for {
 			// Collect metrics
@@ -105,7 +107,6 @@ func metricsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
@@ -115,6 +116,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 }
 func StartMetricsJob(interval time.Duration, fileName string) {
 	// Start collecting metrics every 5 seconds in a separate goroutine
+	boldRed := color.New(color.FgRed, color.Bold)
 	go CollectMetrics(fileName, interval)
 
 	go func() {
@@ -122,8 +124,8 @@ func StartMetricsJob(interval time.Duration, fileName string) {
 		http.HandleFunc("/Life", healthCheck)
 
 		// Start the HTTP server (blocking operation)
-		port := ":8080"
-		fmt.Printf("Starting server on http://localhost%s...\n", port)
+		port := ":9999"
+		boldRed.Printf("Starting server on http://localhost%s...\n", port)
 		log.Fatal(http.ListenAndServe(port, nil))
 	}()
 
