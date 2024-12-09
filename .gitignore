@@ -7,6 +7,6 @@
 static_CSV
 .vscode
 /ScapeLogs
-
+*_.log
 .env
 
