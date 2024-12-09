@@ -146,7 +146,8 @@ func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
 		cityName := strings.ToLower(record[0])
 		state_name := strings.ToLower(record[3])
 		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state_name, cityName)
-		links <- ValidUrl
+		fmt.Sprintf(ValidUrl)
+		//links <- ValidUrl
 
 	}
 	fmt.Println("Done Proccessing US Links")
@@ -171,79 +172,47 @@ func (s *scrape) constructInternationalLinks(links chan string, wg *sync.WaitGro
 		city := strings.ToLower(record[0])
 		country := strings.ToLower(record[4])
 		url := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/events/", country, city)
-		links <- url
+		fmt.Sprint(url)
+		//links <- url
 	}
+	fmt.Println("Done with Internatinal links")
 }
 
 func (s *scrape) Start() error {
 	s.logger.DebugLogger.Println("Starting web scraper ........")
-
-	var producerWG sync.WaitGroup
+	ctx, cancle := context.WithTimeout(context.Background(), time.Second*45)
+	defer cancle()
+	//	var producerWG sync.WaitGroup
 	var consumerWG sync.WaitGroup
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute*10)
-	defer cancel()
-
-	producerChannel := make(chan string, 100) // Buffered channel for producers
-	consumerChannel := make(chan string, 100) // Buffered channel for consumers
-	go func(chan1 chan string, chan2 chan string) {
-		for {
-			size := pkg.ConcurencyHelp(chan1, "producer (Main Links)")
-			size2 := pkg.ConcurencyHelp(chan2, "Consumder (Side links)")
-			if size == 0 && size2 == 0 {
-				break
+	cache := newCache()
+	cache.Flush()
+	cache.Save()
+	producerChannel := make(chan string, 33000) // Buffered channel for producers
+	SideProducer := make(chan string, 33000)    // Buffered channel for producers
+	done := make(chan bool)
+	s.BeginScrape(SideProducer)
+	go s.startSites(producerChannel, done)
+	go s.ScrapeSidePages(ctx, SideProducer)
+	fmt.Println("consuming now")
+	consumerWG.Add(1000)
+	for i := 0; i < 1000; i++ {
+		go func() {
+			defer consumerWG.Done()
+			for link := range producerChannel {
+				s.processLink(link, cache)
 			}
-			time.Sleep(time.Second * 2)
-		}
-	}(producerChannel, consumerChannel)
-	// Producer: Start site processing
-	producerWG.Add(1)
-	go func() {
-		defer producerWG.Done()
-		s.startSites(producerChannel)
-	}()
-	fmt.Println("Starting to sleep now")
-	time.Sleep(time.Second * 60 * 5)
-	log.Fatal("Need program to crash here")
-	// Producer: Begin scraping main links
-	producerWG.Add(1)
-	go func() {
-		defer producerWG.Done()
-		s.BeginScrape(ctx, producerChannel)
-	}()
-
-	// Close `producerChannel` after all producers are done
-	go func() {
-		producerWG.Wait()
-		close(producerChannel)
-		s.logger.DebugLogger.Println("Producer channel closed")
-	}()
-
-	// Forward links from `producerChannel` to `consumerChannel`
-	consumerWG.Add(1)
-	go func() {
-		defer consumerWG.Done()
-		for link := range producerChannel {
-			consumerChannel <- link
-		}
-		close(consumerChannel) // Close `consumerChannel` after forwarding all links
-		s.logger.DebugLogger.Println("Consumer channel closed")
-	}()
-
-	// Consumer: Scrape side pages
-	consumerWG.Add(1)
-	go func() {
-		defer consumerWG.Done()
-		s.ScrapeSidePages(ctx, consumerChannel)
-	}()
-
-	// Wait for all consumers to finish
+		}()
+	}
 	consumerWG.Wait()
+	fmt.Println("waiting to get messaeg to close channel")
+	<-done
+	fmt.Println("just go the message to close the channel")
+	close(SideProducer)
 	s.logger.DebugLogger.Println("All scraping tasks completed")
 	return nil
 }
 
-func (s *scrape) startSites(mainsites chan string) {
+func (s *scrape) startSites(mainsites chan string, done chan bool) {
 	s.logger.DebugLogger.Println("Starting to generate Links")
 
 	var wg sync.WaitGroup
@@ -252,71 +221,61 @@ func (s *scrape) startSites(mainsites chan string) {
 	go s.constructUSlinks(mainsites, &wg)
 	go s.constructInternationalLinks(mainsites, &wg)
 
-	cache := newCache()
-	defer cache.Save()
-
-	numWorkers := 50
-	var wg1 sync.WaitGroup
-	wg1.Add(numWorkers)
-
-	// Start workers BEFORE waiting for producers
-	for i := 0; i < numWorkers; i++ {
-		go func() {
-			defer wg1.Done()
-			for link := range mainsites {
-				fmt.Println("Link:", link)
-				// s.processLink(link, cache)
-			}
-		}()
-	}
-
-	wg.Wait() // Wait for all producers
-	s.logger.DebugLogger.Println("All producers done. Closing mainsites.")
-	close(mainsites) // After producers finish, close the channel
-
-	wg1.Wait() // Wait for all workers to consume remaining links
+	wg.Wait()
+	close(mainsites)
+	//time.Sleep(time.Second * 15)
+	fmt.Println("sending close the other channel message")
+	done <- true
 	s.logger.DebugLogger.Println("Finished processing all links")
 }
 
 func (s *scrape) processLink(link string, cache Cache) {
 	// This function processes a single link concurrently
 	if cache.Exist(link) {
-		//s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
+		s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
 		return
 	}
 	cache.Put(link, "nil")
 	cache.IncreaseTTL(link, time.Hour*24)
 	//s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
 
+	workerPool := 50
 	// Loop through pages (assuming 2 pages for now)
-	for i := 1; i < 2; i++ {
-		pageExtention := fmt.Sprintf("?page=%d", i)
-		completeUrl := link + pageExtention
-		//s.logger.DebugLogger.Printf("Main page Processing page: %s\n", completeUrl)
-		err := s.mainScraper.Visit(completeUrl)
-		if err != nil {
-			s.logger.ErrorLogger.Println(err)
-		}
-	}
+	var wg sync.WaitGroup
+	wg.Add(workerPool)
+	for x := 0; x < workerPool; x++ {
+		go func() {
+			defer wg.Done()
+			for i := 1; i < 4; i++ {
+				pageExtention := fmt.Sprintf("?page=%d", i)
+				completeUrl := link + pageExtention
+				s.logger.DebugLogger.Printf("Main page Processing page: %s\n", completeUrl)
 
+				//fmt.Println("visiting", completeUrl)
+				err := s.mainScraper.Visit(completeUrl)
+				if err != nil {
+					s.logger.ErrorLogger.Println(err)
+				}
+			}
+		}()
+	}
 }
 
 // Grab the  main links
-func (s *scrape) BeginScrape(ctx context.Context, link chan string) {
-
-	fmt.Println("Parsing main pages")
+func (s *scrape) BeginScrape(links chan string) {
 
 	s.mainScraper.OnHTML("section", func(e *colly.HTMLElement) {
 		e.ForEach("ul.SearchResultPanelContentEventCardList-module__eventList___2wk-D", func(_ int, el *colly.HTMLElement) {
 			//fmt.Println("Found <li> tag:", el.Text)
 			el.ForEach("li", func(_ int, el *colly.HTMLElement) {
 				event_link := el.ChildAttr("a", "href")
-				link <- event_link
+				links <- event_link
 
 			})
 		})
 
 	})
+	fmt.Println("set up call back all done!")
 	// Set up callbacks to handle scraping events
 	// Visit the URL and start scraping
 
@@ -330,6 +289,7 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 	defer fmt.Println("exiting side scraper")
 
 	c.OnHTML("body", func(h *colly.HTMLElement) {
+		fmt.Println("Set up the webscraper behavoir")
 		// Extract data using CSS selectors
 		var addressFound bool
 		var validRefunds bool

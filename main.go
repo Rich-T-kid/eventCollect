@@ -14,7 +14,6 @@ func main() {
 	webCrawler := scrape.Config()
 	fmt.Println("configed")
 	webCrawler.Start()
-	fmt.Println("Done here")
 }
 
 /*

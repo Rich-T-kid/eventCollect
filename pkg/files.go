@@ -4,13 +4,21 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/fatih/color"
 )
 
 func ConcurencyHelp(inputchan chan string, name string) (size int) {
 	currsize := len(inputchan)
-	fmt.Printf("%s   -> size: %d , capacity: %d \n", name, currsize, cap(inputchan))
+	var count int
+	for count < 10 {
+		currsize = len(inputchan)
+		str := fmt.Sprintf("%s   -> size: %d , capacity: %d \n", name, currsize, cap(inputchan))
+		fmt.Println(str)
+		time.Sleep(2 * time.Second)
+		count++
+	}
 	return currsize
 }
 
