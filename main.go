@@ -2,31 +2,13 @@ package main
 
 import (
 	"fmt"
-	"lite/DB"
 	scrape "lite/Scrape"
-	"lite/metrics"
-	"log"
-	"time"
 
-	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type Collector struct {
-	ID         uint
-	Name       string
-	Age        int
-	SuperPower string
-}
-
 func init() {
-	DB.InitDB()
-	metrics.StartMetricsJob(time.Second*15, "metrics/metrics.json")
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
-	fmt.Println("env variables set up")
+	fmt.Println("Configing project")
 }
 func main() {
 	webCrawler := scrape.Config()

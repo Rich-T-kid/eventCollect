@@ -2,6 +2,7 @@ package DB
 
 import (
 	"fmt"
+	"lite/pkg"
 	"log"
 	"os"
 	"sync"
@@ -16,12 +17,17 @@ type Storage struct {
 	logFile  *os.File
 }
 
+func (s Storage) Start() error {
+	GetStorage()
+	return nil
+}
+
 var (
+	colorOutput *pkg.TextStyler
 	// Singleton instance of Storage
 	storageInstance *Storage
 	// Mutex to synchronize creation
-	once           sync.Once
-	gormConnection *gorm.DB
+	once sync.Once
 )
 
 // Storage struct encapsulates the database connection and log file
@@ -31,9 +37,11 @@ func GetStorage() *Storage {
 	// Ensure the instance is created only once
 	once.Do(func() {
 		// Initialize the Storage instance
+		colorOutput = pkg.NewTextStyler()
+		colorOutput.Red("Configed Color Ouput")
 		storageInstance = &Storage{
 			Database: createDatabaseConnection(),
-			logFile:  createLogFile("DB/Database"),
+			logFile:  pkg.CreateLogFile("DB/_Database"),
 		}
 	})
 	return storageInstance
@@ -42,38 +50,18 @@ func GetStorage() *Storage {
 // createDatabaseConnection initializes the gorm.DB connection
 func createDatabaseConnection() *gorm.DB {
 	// Replace this with your actual database configuration
-	db, err := gorm.Open(sqlite.Open("startup.db"), &gorm.Config{})
+	db, err := gorm.Open(sqlite.Open("DataStore.db"), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("failed to connect to the database: %v", err)
 	}
-	updateModels(db)
+	err = updateModels(db)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return db
 }
 
 // createLogFile initializes the log file
-func createLogFile(prefix string) *os.File {
-	fileName := fmt.Sprintf("%s_%s", prefix, ".log")
-	logFile, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		log.Fatalf("failed to create/open log file: %v", err)
-	}
-	return logFile
-}
-
-func InitDB() {
-	db, err := gorm.Open(sqlite.Open("startup.db"), &gorm.Config{})
-	if err != nil {
-		log.Fatalf("Error opening database: %v\n", err)
-	}
-
-	// Optionally, auto-migrate your schema
-	err = updateModels(db)
-	if err != nil {
-		log.Fatal("Error migrating Database tables -> Repo.go in database file")
-	}
-	gormConnection = db
-	fmt.Println("Database Connection is ready to go")
-}
 
 func updateModels(db *gorm.DB) error {
 	// very easy to just add them in here

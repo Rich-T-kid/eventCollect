@@ -10,6 +10,7 @@ import (
 
 	"runtime"
 
+	"github.com/joho/godotenv"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/disk"
 	"github.com/shirou/gopsutil/v3/mem"
@@ -105,7 +106,6 @@ func metricsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
@@ -127,4 +127,13 @@ func StartMetricsJob(interval time.Duration, fileName string) {
 		log.Fatal(http.ListenAndServe(port, nil))
 	}()
 
+}
+
+func (m *Metrics) Start() error {
+	StartMetricsJob(time.Second*15, "metrics/metrics.json")
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file: %v", err)
+	}
+	return nil // this cant fail but must fufil the interface
 }

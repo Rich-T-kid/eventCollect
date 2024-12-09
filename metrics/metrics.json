@@ -4069,4 +4069,17 @@
   "num_gc": 8011
 }
 
+],
+{
+  "time": "2024-12-08T15:13:23-05:00",
+  "cpu_usage_percent": 8.333333256278921,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 389,
+  "memory_usage_percent": 10.20675917091812,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 11,
+  "disk_usage_percent": 1.2542398235243932,
+  "allocated_memory_kb": 2316,
+  "num_gc": 0
+}
 ]
