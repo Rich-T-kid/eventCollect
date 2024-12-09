@@ -8,6 +8,12 @@ import (
 	"github.com/fatih/color"
 )
 
+func ConcurencyHelp(inputchan chan string, name string) (size int) {
+	currsize := len(inputchan)
+	fmt.Printf("%s   -> size: %d , capacity: %d \n", name, currsize, cap(inputchan))
+	return currsize
+}
+
 func CreateLogFile(prefix string) *os.File {
 	fileName := fmt.Sprintf("%s_%s", prefix, ".log")
 	logFile, err := os.OpenFile(fileName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)

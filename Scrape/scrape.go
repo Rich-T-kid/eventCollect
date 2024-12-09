@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"io"
 	"lite/DB"
+	"lite/pkg"
 	"log"
-	"math/rand"
 	"os"
 	"strings"
 	"sync"
@@ -21,7 +21,6 @@ type Logger struct {
 	ErrorLogger   *log.Logger // Logs errors
 	InfoLogger    *log.Logger // Logs general information
 	DebugLogger   *log.Logger // Logs debugging information
-	ScrapeLogger  *log.Logger // Logs scraping-specific messages
 	RequestLogger *log.Logger // Logs HTTP requests (separate file)
 }
 type scrape struct {
@@ -39,51 +38,25 @@ func NewLogger(prefix string) (*Logger, error) {
 		log.Fatalf("error creating folder: %v\n", err)
 		return nil, err
 	}
-
-	Generalfilename := fmt.Sprintf("%s/%s_general.log", folderName, prefix)
-	generalLogFile, err := os.OpenFile(Generalfilename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		return nil, fmt.Errorf("failed to open general log file: %w", err)
-	}
-
-	Requestfilename := fmt.Sprintf("%s/%s_request.log", folderName, prefix)
-	// Open the request log file
-	requestLogFile, err := os.OpenFile(Requestfilename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		return nil, fmt.Errorf("failed to open request log file: %w", err)
-	}
-	Debugfilename := fmt.Sprintf("%s/%s_debug.log", folderName, prefix)
-	debugFile, err := os.OpenFile(Debugfilename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		return nil, fmt.Errorf("failed to open general log file: %w", err)
-	}
-	multiWriter := io.MultiWriter(debugFile, os.Stdout)
+	debug_file := pkg.CreateLogFile(folderName + "/" + prefix + "general")
+	info_file := pkg.CreateLogFile(folderName + "/" + prefix + "info")
+	request_file := pkg.CreateLogFile(folderName + "/" + prefix + "request")
+	error_file := pkg.CreateLogFile(folderName + "/" + prefix + "error")
+	multiWriter := io.MultiWriter(info_file, os.Stdout)
 	// Create loggers for each purpose
-	errorLogger := log.New(generalLogFile, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
-	infoLogger := log.New(generalLogFile, "INFO: ", log.Ldate|log.Ltime)
-	debugLogger := log.New(multiWriter, "DEBUG: ", log.Ldate|log.Ltime|log.Lshortfile)
-	scrapeLogger := log.New(generalLogFile, "SCRAPER: ", log.Ldate|log.Ltime)
-	requestLogger := log.New(requestLogFile, "REQUEST: ", log.Ldate|log.Ltime)
+	errorLogger := log.New(error_file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+	infoLogger := log.New(multiWriter, "INFO: ", log.Ldate|log.Ltime)
+	debugLogger := log.New(debug_file, "DEBUG: ", log.Ldate|log.Ltime|log.Lshortfile)
+	requestLogger := log.New(request_file, "REQUEST: ", log.Ldate|log.Ltime)
 
 	return &Logger{
 		ErrorLogger:   errorLogger,
 		InfoLogger:    infoLogger,
 		DebugLogger:   debugLogger,
-		ScrapeLogger:  scrapeLogger,
 		RequestLogger: requestLogger,
 	}, nil
 }
 
-// for constructuing a random user agent to not get blocked
-const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-func RandomString() string {
-	b := make([]byte, rand.Intn(10)+10)
-	for i := range b {
-		b[i] = letterBytes[rand.Intn(len(letterBytes))]
-	}
-	return string(b)
-}
 func NewScraper(c *colly.Collector, s *colly.Collector, l *Logger) *scrape {
 	return &scrape{
 		mainScraper: c,
@@ -94,7 +67,7 @@ func NewScraper(c *colly.Collector, s *colly.Collector, l *Logger) *scrape {
 func initScrape() (*scrape, error) {
 	mainPage := colly.NewCollector()
 	sidePage := colly.NewCollector()
-	log, err := NewLogger("")
+	log, err := NewLogger("__")
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +115,7 @@ func configColly(c *colly.Collector, log *Logger) error {
 			time.Now().Format(time.RFC3339))
 		log.ErrorLogger.Println(str)
 		if len(r.Body) > 0 {
-			log.ErrorLogger.Printf("Response Body: %s\n", string(r.Body))
+			log.ErrorLogger.Printf("first 100 bytes of Response Body: %s\n", string(r.Body)[:100])
 		}
 	})
 	return nil
@@ -151,7 +124,6 @@ func configColly(c *colly.Collector, log *Logger) error {
 func csvReader(filename string) [][]string {
 	const foldername = "static_CSV"
 	filename = fmt.Sprintf("%s/%s", foldername, filename)
-	fmt.Printf("opening %s to retrive records\n", filename)
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println(err)
@@ -168,10 +140,6 @@ func csvReader(filename string) [][]string {
 
 }
 func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
-	// read in top 3000 in order as well as alll  NJ,Ny,PA,Bostan first Start with jusy new jersey for now and locations that u know
-	// parse form the base url https://www.eventbrite.com/d/nj--piscataway/all-events/ and place on the channle
-	// for now hardcode the state -> nj
-	//const baseUrl = "https://www.eventbrite.com/d/nj--piscataway/all-events/"
 	defer wg.Done()
 	records := csvReader("us_cities.csv")
 	for _, record := range records {
@@ -184,9 +152,6 @@ func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
 	fmt.Println("Done Proccessing US Links")
 }
 func (s *scrape) constructnjlinks(links chan string, wg *sync.WaitGroup) {
-	// read in top 3000 in order as well as alll  NJ,Ny,PA,Bostan first Start with jusy new jersey for now and locations that u know
-	// parse form the base url https://www.eventbrite.com/d/nj--piscataway/all-events/ and place on the channle
-	// for now hardcode the state -> nj
 	defer wg.Done()
 	const state = "nj"
 	records := csvReader("nj_cities.csv")
@@ -202,85 +167,44 @@ func (s *scrape) constructnjlinks(links chan string, wg *sync.WaitGroup) {
 func (s *scrape) constructInternationalLinks(links chan string, wg *sync.WaitGroup) {
 	defer wg.Done()
 	records := csvReader("non_us_cities.csv")
-	// https://www.eventbrite.com/d/Bangladesh--Dhaka/events/
-	//https://www.eventbrite.com/d/country--city/events/
 	for _, record := range records {
 		city := strings.ToLower(record[0])
 		country := strings.ToLower(record[4])
 		url := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/events/", country, city)
 		links <- url
 	}
-	// this will read in from a csv file of the top 2000 citys and countrys
-	// Checkk what regions areny valid and modify the csv file
 }
 
-/*
-	func (s *scrape) Start() {
-		s.logger.DebugLogger.Println("Starting web scraper ........")
-		var producerWG sync.WaitGroup
-		var consumerWG sync.WaitGroup
-		ctx, cancel := context.WithCancel(context.Background()) // Use cancelable context
-		defer cancel()
-
-		producerChannel := make(chan string, 1000) // Buffered channel for link sharing
-		consumerChannel := make(chan string, 1000) // Buffered channel for link sharing
-		// Re-archetectying this. THe producers will have a seperate channel and this channel will be buffered and sent to the consumer channle. Seperation of conserns
-
-		// Start site processing
-		producerWG.Add(1)
-		go func() {
-			defer producerWG.Done()
-			s.startSites(producerChannel)
-		}()
-
-		// Begin scraping main links (producer)
-		producerWG.Add(1)
-		go func() {
-			defer producerWG.Done()
-			s.BeginScrape(ctx, producerChannel)
-		}()
-		// wait for both to finish and then close the channle
-		go func() {
-			producerWG.Wait()
-			close(producerChannel) // Signal that no more links will be sent
-			s.logger.DebugLogger.Println("Producer channel closed")
-		}()
-		go func() {
-			for link := range producerChannel {
-				consumerChannel <- link
-			}
-		}()
-
-		// Scrape side pages (consumer)
-		consumerWG.Add(1)
-		go func() {
-			defer consumerWG.Done()
-			s.ScrapeSidePages(ctx, consumerChannel)
-		}()
-
-		consumerWG.Wait() // Wait for all goroutines to finish
-		s.logger.DebugLogger.Println("All scraping tasks completed")
-	}
-*/
-func (s *scrape) Start() {
+func (s *scrape) Start() error {
 	s.logger.DebugLogger.Println("Starting web scraper ........")
 
 	var producerWG sync.WaitGroup
 	var consumerWG sync.WaitGroup
 
-	ctx, cancel := context.WithCancel(context.Background()) // Use cancelable context
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute*10)
 	defer cancel()
 
-	producerChannel := make(chan string, 1000) // Buffered channel for producers
-	consumerChannel := make(chan string, 1000) // Buffered channel for consumers
-
+	producerChannel := make(chan string, 100) // Buffered channel for producers
+	consumerChannel := make(chan string, 100) // Buffered channel for consumers
+	go func(chan1 chan string, chan2 chan string) {
+		for {
+			size := pkg.ConcurencyHelp(chan1, "producer (Main Links)")
+			size2 := pkg.ConcurencyHelp(chan2, "Consumder (Side links)")
+			if size == 0 && size2 == 0 {
+				break
+			}
+			time.Sleep(time.Second * 2)
+		}
+	}(producerChannel, consumerChannel)
 	// Producer: Start site processing
 	producerWG.Add(1)
 	go func() {
 		defer producerWG.Done()
 		s.startSites(producerChannel)
 	}()
-
+	fmt.Println("Starting to sleep now")
+	time.Sleep(time.Second * 60 * 5)
+	log.Fatal("Need program to crash here")
 	// Producer: Begin scraping main links
 	producerWG.Add(1)
 	go func() {
@@ -316,58 +240,53 @@ func (s *scrape) Start() {
 	// Wait for all consumers to finish
 	consumerWG.Wait()
 	s.logger.DebugLogger.Println("All scraping tasks completed")
+	return nil
 }
 
 func (s *scrape) startSites(mainsites chan string) {
-	// Top Level URl will be constructed and then passed onto the main links queue -> for each link go through first 20 pages as is already being done
-	// then  the main scrapper will get all the links on those pages and pass that onto a side scrapper queue
-	// sider scrapers will proccess these sites for all their info and save this is  a data
-	// Data Cleaning neds to be done , As well as using  a custom implementation of a bloom filter to check if a site has already been seen
 	s.logger.DebugLogger.Println("Starting to generate Links")
 
 	var wg sync.WaitGroup
-	//mainsites := make(chan string, 500)
 	wg.Add(3)
 	go s.constructnjlinks(mainsites, &wg)
 	go s.constructUSlinks(mainsites, &wg)
 	go s.constructInternationalLinks(mainsites, &wg)
 
-	go func() {
-		wg.Wait()
-		s.logger.DebugLogger.Println("All producers are done. Closing channel.")
-		close(mainsites)
-	}()
 	cache := newCache()
-	defer cache.Save() // Save after operations
+	defer cache.Save()
 
+	numWorkers := 50
 	var wg1 sync.WaitGroup
-	// Worker pool for processing links concurrently
-	numWorkers := 50 // Number of workers, you can adjust this based on your needs
+	wg1.Add(numWorkers)
+
+	// Start workers BEFORE waiting for producers
 	for i := 0; i < numWorkers; i++ {
-		wg1.Add(1)
 		go func() {
 			defer wg1.Done()
 			for link := range mainsites {
-				s.processLink(link, cache)
-
+				fmt.Println("Link:", link)
+				// s.processLink(link, cache)
 			}
 		}()
 	}
 
-	// Wait for all workers to finish
-	wg1.Wait()
+	wg.Wait() // Wait for all producers
+	s.logger.DebugLogger.Println("All producers done. Closing mainsites.")
+	close(mainsites) // After producers finish, close the channel
+
+	wg1.Wait() // Wait for all workers to consume remaining links
 	s.logger.DebugLogger.Println("Finished processing all links")
 }
 
 func (s *scrape) processLink(link string, cache Cache) {
 	// This function processes a single link concurrently
 	if cache.Exist(link) {
-		s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
+		//s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
 		return
 	}
 	cache.Put(link, "nil")
 	cache.IncreaseTTL(link, time.Hour*24)
-	s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
+	//s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
 
 	// Loop through pages (assuming 2 pages for now)
 	for i := 1; i < 2; i++ {
@@ -477,9 +396,7 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 			ExactAddress:   addressFound,
 			ExtraInfo:      flattenAndJoin(extraInfo), // Store the extracted extra info
 			AcceptsRefunds: validRefunds,
-
 		}
-
 
 		if !event.ExactAddress {
 			location = s.parseAddress(location)
