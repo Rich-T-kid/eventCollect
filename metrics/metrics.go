@@ -133,7 +133,7 @@ func (m *Metrics) Start() error {
 	StartMetricsJob(time.Second*15, "metrics/metrics.json")
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		return err
 	}
 	return nil // this cant fail but must fufil the interface
 }
