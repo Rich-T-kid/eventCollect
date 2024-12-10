@@ -4,10 +4,10 @@ import (
 	"context"
 	"encoding/csv"
 	"fmt"
-	"io"
 	"lite/DB"
 	"lite/pkg"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 	"sync"
@@ -44,10 +44,10 @@ func NewLogger(prefix string) (*Logger, error) {
 	info_file := pkg.CreateLogFile(folderName + "/" + prefix + "info")
 	request_file := pkg.CreateLogFile(folderName + "/" + prefix + "request")
 	error_file := pkg.CreateLogFile(folderName + "/" + prefix + "error")
-	multiWriter := io.MultiWriter(info_file, os.Stdout)
+	//multiWriter := io.MultiWriter(info_file, os.Stdout)
 	// Create loggers for each purpose
 	errorLogger := log.New(error_file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
-	infoLogger := log.New(multiWriter, "INFO: ", log.Ldate|log.Ltime)
+	infoLogger := log.New(info_file, "INFO: ", log.Ldate|log.Ltime)
 	debugLogger := log.New(debug_file, "DEBUG: ", log.Ldate|log.Ltime|log.Lshortfile)
 	requestLogger := log.New(request_file, "REQUEST: ", log.Ldate|log.Ltime)
 
@@ -70,12 +70,13 @@ func initScrape() (*scrape, error) {
 	mainPage := colly.NewCollector()
 	sidePage := colly.NewCollector()
 	log, err := NewLogger("__")
+	cache := newCache()
 	if err != nil {
 		return nil, err
 	}
 
-	configColly(mainPage, log, "Main Page Scraper")
-	configColly(sidePage, log, "Side Page Scraper")
+	configColly(mainPage, log, "Main Page Scraper", cache)
+	configColly(sidePage, log, "Side Page Scraper", cache)
 	return NewScraper(mainPage, sidePage, log), nil
 }
 func Config() *scrape {
@@ -88,7 +89,20 @@ func Config() *scrape {
 
 	return c
 }
-func configColly(c *colly.Collector, log *Logger, name string) error {
+func configColly(c *colly.Collector, log *Logger, name string, cache Cache) error {
+	httpClient := &http.Client{
+		Transport: &http.Transport{
+			Proxy:               http.ProxyFromEnvironment,
+			MaxIdleConns:        10,
+			IdleConnTimeout:     30 * time.Second,
+			TLSHandshakeTimeout: 10 * time.Second,
+		},
+	}
+
+	// Wrap the HTTP client to respect context
+	str := fmt.Sprintf("colly configured with max Idle Connections: %d , idle Connection Timeout: %d seconds, TLS Handshake %d seconds", 10, 30, 30)
+	colorOutput.Yellow(str)
+	c.WithTransport(httpClient.Transport)
 
 	c.OnRequest(func(r *colly.Request) {
 		// can add more stuff later but this is just the grounds work right now
@@ -110,6 +124,9 @@ func configColly(c *colly.Collector, log *Logger, name string) error {
 			len(r.Body),
 			time.Now().Format(time.RFC3339))
 		log.RequestLogger.Println(str)
+		if r.StatusCode == 404 { // if URL doesnt Exist never visit it again
+			cache.IncreaseTTL(r.Request.URL.String(), time.Hour*24*30*12) // 1 year
+		}
 
 	})
 	c.OnError(func(r *colly.Response, err error) {
@@ -118,6 +135,11 @@ func configColly(c *colly.Collector, log *Logger, name string) error {
 			r.Request.URL,
 			r.StatusCode,
 			time.Now().Format(time.RFC3339))
+		if r.StatusCode == 404 || err == colly.ErrAlreadyVisited { // if URL doesnt Exist never visit it again
+			cache.IncreaseTTL(r.Request.URL.String(), time.Hour*24*30*12) // 1 year
+			log.InfoLogger.Printf("%s does not exist, blacklisting URL\n", r.Request.URL.String())
+			return
+		}
 		log.ErrorLogger.Println(str)
 		if len(r.Body) > 0 {
 			log.ErrorLogger.Printf("first 100 bytes of Response Body: %s\n", string(r.Body)[:100])
@@ -185,7 +207,9 @@ func (s *scrape) constructInternationalLinks(links chan string, wg *sync.WaitGro
 func (s *scrape) Start() error {
 	colorOutput.Green("Starting web scrapper .....")
 	// Context handling -> for later
-	ctx, cancle := context.WithTimeout(context.Background(), time.Second*45)
+	mainCtx, cancle := context.WithTimeout(context.Background(), time.Second*45)
+	defer cancle()
+	sideCtx, cancle := context.WithTimeout(context.Background(), time.Second*45)
 	defer cancle()
 
 	var consumerWG sync.WaitGroup
@@ -197,10 +221,10 @@ func (s *scrape) Start() error {
 
 	// set call back functions for colly
 	s.BeginScrape(SideProducer)
-	s.BeginSideScrape(ctx, SideProducer)
+	s.BeginSideScrape(mainCtx, SideProducer)
 	// Start Workers that will construct the URL's for main page as well as the side page workers that will proccess the links on the main page
 	go s.startSites(producerChannel, done)
-	go s.ScrapeSidePages(ctx, SideProducer)
+	go s.ScrapeSidePages(sideCtx, SideProducer)
 	//
 	workers := 5
 	consumerWG.Add(workers)
@@ -208,14 +232,20 @@ func (s *scrape) Start() error {
 		go func() {
 			defer consumerWG.Done()
 			for link := range producerChannel {
-				s.processLink(link, cache)
+				select {
+				case <-mainCtx.Done():
+					msg := "(Main Page Scraper): Context canelled, stopping wokrer"
+					colorOutput.BoldRed(msg)
+					s.logger.ErrorLogger.Println(msg)
+					return
+				default:
+					s.processLink(mainCtx, link, cache)
+				}
 			}
 		}()
 	}
 	consumerWG.Wait()
-	colorOutput.Green("Waiting for Producer to send signal to close sider producer channel")
 	<-done
-	colorOutput.UnderlineGreen("Closing sider Producer channel")
 	close(SideProducer)
 	colorOutput.BoldRed("Done with Init of Web scraper")
 	return nil
@@ -235,7 +265,7 @@ func (s *scrape) startSites(mainsites chan string, done chan bool) {
 
 }
 
-func (s *scrape) processLink(link string, cache Cache) {
+func (s *scrape) processLink(ctx context.Context, link string, cache Cache) {
 	// This function processes a single link concurrently
 	if cache.Exist(link) {
 		s.logger.DebugLogger.Printf("Skipping cached link: %s\n", link)
@@ -244,12 +274,16 @@ func (s *scrape) processLink(link string, cache Cache) {
 	cache.Put(link, "nil")
 	cache.IncreaseTTL(link, time.Hour*24)
 	s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
-	for i := 1; i < 2; i++ {
-		pageExtention := fmt.Sprintf("?page=%d", i)
-		completeUrl := link + pageExtention
-		err := s.mainScraper.Visit(completeUrl)
-		if err != nil {
-			s.logger.ErrorLogger.Println(err)
+	select {
+	case <-ctx.Done():
+		s.logger.ErrorLogger.Printf("(Main Scraper): Context canceled, skipping link: %s\n", link)
+		return
+	default:
+		for i := 1; i < 2; i++ {
+			pageExtention := fmt.Sprintf("?page=%d", i)
+			completeUrl := link + pageExtention
+			s.mainScraper.Visit(completeUrl)
+			// Error handling is handled in the colly conifg
 		}
 	}
 }
@@ -270,11 +304,6 @@ func (s *scrape) BeginScrape(links chan string) {
 	})
 }
 
-// Break this apart like we did above. Current it proccessing the HTML, stores the data and proccesses each link
-/*Split into two functions.
-(1) grab Datbase connection and any constants needed to procces html. And the html proccessing code. proccess html and store to DataStore
-(2) function to proccess the links and call colly.visit as well as setting up the number of workers to proccess the links from the channel
-*/
 func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 	var wg sync.WaitGroup
 	workerPool := 10
@@ -286,10 +315,18 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 		go func() {
 			defer wg.Done()
 			for link := range source {
-				// Process the link
-				err := s.sideScraper.Visit(link)
-				if err != nil {
-					s.logger.ErrorLogger.Printf("%s failed with following error %v", link, err)
+				select {
+				case <-ctx.Done():
+					msg := "(Side Page Scraper): Context cancelled, stopping side page worker"
+					colorOutput.BoldRed(msg)
+					s.logger.ErrorLogger.Println(msg)
+					return
+				default:
+					// Process the link
+					err := s.sideScraper.Visit(link)
+					if err != nil && err != colly.ErrAlreadyVisited {
+						s.logger.ErrorLogger.Printf("%s failed with following error %v", link, err)
+					}
 				}
 			}
 		}()

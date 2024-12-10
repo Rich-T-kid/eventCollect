@@ -6,6 +6,13 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+type DataStore interface {
+	Insert(event) error
+	Update(event) error
+}
+type event interface {
+	isEvent()
+}
 type GeoPoint struct {
 	ID        int     `db:"id" json:"id"` // Primary key
 	Latitude  float64 `db:"latitude" json:"latitude"`
@@ -40,6 +47,10 @@ type EventInfo struct {
 	CreatedAt       time.Time `db:"created_at" json:"created_at"`
 	LastUpdated     time.Time `db:"last_updated" json:"last_updated"`
 }
+
+func (e *EventInfo) isEvent() {}
+func (e *Event) isEvent()     {}
+func (e *GeoPoint) isEvent()  {}
 
 // for raw SQl querys
 type Queries struct {
