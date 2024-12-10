@@ -4082,4 +4082,30 @@
   "allocated_memory_kb": 2316,
   "num_gc": 0
 }
+],
+{
+  "time": "2024-12-09T20:44:16-05:00",
+  "cpu_usage_percent": 17.24137931034483,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1420,
+  "memory_usage_percent": 37.19343778153412,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3340023608740255,
+  "allocated_memory_kb": 2222,
+  "num_gc": 0
+}
+],
+{
+  "time": "2024-12-09T20:45:37-05:00",
+  "cpu_usage_percent": 18.181818181818183,
+  "total_memory_mb": 3819,
+  "used_memory_mb": 1564,
+  "memory_usage_percent": 40.967643963959546,
+  "disk_total_gb": 1006,
+  "disk_used_gb": 12,
+  "disk_usage_percent": 1.3340159329238004,
+  "allocated_memory_kb": 3284,
+  "num_gc": 0
+}
 ]

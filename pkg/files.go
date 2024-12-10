@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/fatih/color"
@@ -39,6 +40,7 @@ type TextStyler struct {
 	blue           *color.Color
 	boldRed        *color.Color
 	underlineGreen *color.Color
+	mu             sync.Mutex
 }
 
 // NewTextStyler initializes the TextStyler with predefined styles
@@ -55,29 +57,41 @@ func NewTextStyler() *TextStyler {
 
 // Red prints text in red
 func (ts *TextStyler) Red(text string) {
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
 	ts.red.Println(text)
 }
 
 // Green prints text in green
 func (ts *TextStyler) Green(text string) {
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
 	ts.green.Println(text)
 }
 
 func (ts *TextStyler) Yellow(text string) {
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
 	ts.yellow.Println(text)
 }
 
 // Blue prints text in blue
 func (ts *TextStyler) Blue(text string) {
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
 	ts.blue.Println(text)
 }
 
 // BoldRed prints text in bold red
 func (ts *TextStyler) BoldRed(text string) {
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
 	ts.boldRed.Println(text)
 }
 
 // UnderlineGreen prints text in underlined green
 func (ts *TextStyler) UnderlineGreen(text string) {
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
 	ts.underlineGreen.Println(text)
 }

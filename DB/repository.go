@@ -106,8 +106,6 @@ func (s *Storage) createEventGeo(title string, Geo *GeoPoint) {
 	s.logFile.Write([]byte(constMessage))
 }
 func (s *Storage) AddEvent(event Event) int {
-	fmt.Println("Commanded to add Event")
-	return 0
 	s.createEvent(&event)
 	//s.createEventInfo(newEvent.Name, newEventInfo(newEvent.ID, bio, maxCapacity, currentCap, hostname, eligibal, ""))
 	return event.ID

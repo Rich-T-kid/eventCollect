@@ -83,6 +83,8 @@ func Config() *scrape {
 	if err != nil {
 		log.Fatalf("Couldnt start Scraping server %v", err)
 	}
+	colorOutput.Red("Colly output files set up complete")
+	colorOutput.UnderlineGreen("Colly Set up complete")
 
 	return c
 }
@@ -143,6 +145,7 @@ func csvReader(filename string) [][]string {
 
 }
 func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
+	defer colorOutput.Red("Done Constructing US Links")
 	defer wg.Done()
 	records := csvReader("us_cities.csv")
 	for _, record := range records {
@@ -150,12 +153,12 @@ func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
 		state_name := strings.ToLower(record[3])
 		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state_name, cityName)
 		fmt.Sprintf(ValidUrl)
-		//links <- ValidUrl
+		links <- ValidUrl
 
 	}
-	//fmt.Println("Done Proccessing US Links")
 }
 func (s *scrape) constructnjlinks(links chan string, wg *sync.WaitGroup) {
+	defer colorOutput.Red("Done Constructing NJ links")
 	defer wg.Done()
 	const state = "nj"
 	records := csvReader("nj.csv")
@@ -166,38 +169,40 @@ func (s *scrape) constructnjlinks(links chan string, wg *sync.WaitGroup) {
 		links <- ValidUrl
 
 	}
-	//fmt.Println("Done Proccessing New Jersey Links")
 }
 func (s *scrape) constructInternationalLinks(links chan string, wg *sync.WaitGroup) {
+	defer colorOutput.Red("Done Proccessing International Links")
 	defer wg.Done()
 	records := csvReader("non_us_cities.csv")
 	for _, record := range records {
 		city := strings.ToLower(record[0])
 		country := strings.ToLower(record[4])
 		url := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/events/", country, city)
-		fmt.Sprint(url)
-		//links <- url
+		links <- url
 	}
-	//fmt.Println("Done with Internatinal links")
 }
 
 func (s *scrape) Start() error {
-	//s.logger.DebugLogger.Println("Starting web scraper ........")
+	colorOutput.Green("Starting web scrapper .....")
+	// Context handling -> for later
 	ctx, cancle := context.WithTimeout(context.Background(), time.Second*45)
 	defer cancle()
-	//	var producerWG sync.WaitGroup
+
 	var consumerWG sync.WaitGroup
 	cache := newCache()
-	cache.Flush()
 	cache.Save()
 	producerChannel := make(chan string, 33000) // Buffered channel for producers
 	SideProducer := make(chan string, 33000)    // Buffered channel for producers
 	done := make(chan bool)
-	workers := 5
+
+	// set call back functions for colly
 	s.BeginScrape(SideProducer)
 	s.BeginSideScrape(ctx, SideProducer)
+	// Start Workers that will construct the URL's for main page as well as the side page workers that will proccess the links on the main page
 	go s.startSites(producerChannel, done)
 	go s.ScrapeSidePages(ctx, SideProducer)
+	//
+	workers := 5
 	consumerWG.Add(workers)
 	for i := 0; i < workers; i++ {
 		go func() {
@@ -208,47 +213,40 @@ func (s *scrape) Start() error {
 		}()
 	}
 	consumerWG.Wait()
-	fmt.Println("waiting to get messaeg to close channel")
-	fmt.Println("Done channel should have one element still on it at this point", len(done))
+	colorOutput.Green("Waiting for Producer to send signal to close sider producer channel")
 	<-done
-	fmt.Println("just go the message to close the channel: done chan size ", len(done))
+	colorOutput.UnderlineGreen("Closing sider Producer channel")
 	close(SideProducer)
-	//	s.logger.DebugLogger.Println("All scraping tasks completed")
+	colorOutput.BoldRed("Done with Init of Web scraper")
 	return nil
 }
 
 func (s *scrape) startSites(mainsites chan string, done chan bool) {
-	//	s.logger.DebugLogger.Println("Starting to generate Links")
-
+	colorOutput.Red("Starting to generate links")
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go s.constructnjlinks(mainsites, &wg)
 	//go s.constructUSlinks(mainsites, &wg)
 	//go s.constructInternationalLinks(mainsites, &wg)
-
+	colorOutput.UnderlineGreen("Waiting for go routines to finish")
 	wg.Wait()
 	close(mainsites)
-	fmt.Println("Size of channel currently", len(mainsites), len(done))
-	//	fmt.Println("sending close the other channel message")
 	done <- true
-	// s.logger.DebugLogger.Println("Finished processing all links")
+
 }
 
 func (s *scrape) processLink(link string, cache Cache) {
 	// This function processes a single link concurrently
 	if cache.Exist(link) {
-		s.logger.InfoLogger.Printf("Skipping cached link: %s\n", link)
+		s.logger.DebugLogger.Printf("Skipping cached link: %s\n", link)
 		return
 	}
 	cache.Put(link, "nil")
 	cache.IncreaseTTL(link, time.Hour*24)
-	//s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
+	s.logger.InfoLogger.Printf("Added new link to cache: %s with TTL of 24 hours\n", link)
 	for i := 1; i < 2; i++ {
 		pageExtention := fmt.Sprintf("?page=%d", i)
 		completeUrl := link + pageExtention
-		s.logger.DebugLogger.Printf("Main page Processing page: %s\n", completeUrl)
-		fmt.Println("going to ->", completeUrl)
-		//fmt.Println("visiting", completeUrl)
 		err := s.mainScraper.Visit(completeUrl)
 		if err != nil {
 			s.logger.ErrorLogger.Println(err)
@@ -258,7 +256,7 @@ func (s *scrape) processLink(link string, cache Cache) {
 
 // Grab the  main links
 func (s *scrape) BeginScrape(links chan string) {
-
+	colorOutput.Green("Creating callback Function on main page")
 	s.mainScraper.OnHTML("section", func(e *colly.HTMLElement) {
 		e.ForEach("ul.SearchResultPanelContentEventCardList-module__eventList___2wk-D", func(_ int, el *colly.HTMLElement) {
 			//fmt.Println("Found <li> tag:", el.Text)
@@ -270,10 +268,6 @@ func (s *scrape) BeginScrape(links chan string) {
 		})
 
 	})
-	//	fmt.Println("set up call back all done!")
-	// Set up callbacks to handle scraping events
-	// Visit the URL and start scraping
-
 }
 
 // Break this apart like we did above. Current it proccessing the HTML, stores the data and proccesses each link
@@ -284,6 +278,8 @@ func (s *scrape) BeginScrape(links chan string) {
 func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 	var wg sync.WaitGroup
 	workerPool := 10
+	str := fmt.Sprintf("Starting Side Scraper with %d go-routines", workerPool)
+	colorOutput.UnderlineGreen(str)
 
 	wg.Add(workerPool)
 	for i := 0; i < workerPool; i++ {
@@ -298,18 +294,18 @@ func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 			}
 		}()
 	}
-	//defer fmt.Println("Done proccessing links")
+	wg.Wait()
+	colorOutput.UnderlineGreen("Done proccessing side Pages.")
 
 }
 
 func (s *scrape) BeginSideScrape(ctx context.Context, source chan string) {
+	colorOutput.UnderlineGreen("Creating Call back function on side pages")
 	const noRefunds = "No Refunds"
 	c := s.sideScraper
 	db := DB.GetStorage()
-	count := 0
 
 	c.OnHTML("body", func(h *colly.HTMLElement) {
-		fmt.Println("Set up the webscraper behavoir")
 		// Extract data using CSS selectors
 		var addressFound bool
 		var validRefunds bool
@@ -379,10 +375,9 @@ func (s *scrape) BeginSideScrape(ctx context.Context, source chan string) {
 		}
 
 		if !event.ExactAddress {
-			location = s.parseAddress(location)
+			location = "Delete this value later"
 		}
 		id := db.AddEvent(event)
-		count++
 		lat, long := -1.1, -1.1 //s.addressToCordnites(location)
 		db.AddGeoPoint(title, id, DB.NewGeoPoint(lat, long, location))
 	})
