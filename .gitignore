@@ -1,4 +1,4 @@
-*.csv
+
 *docker
 *.json
 *.db
