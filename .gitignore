@@ -4,7 +4,6 @@
 *.db
 *.txt
 *_log.txt
-static_CSV
 .vscode
 /ScapeLogs
 *_.log
