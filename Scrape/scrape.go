@@ -174,7 +174,6 @@ func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
 		cityName := strings.ToLower(record[0])
 		state_name := strings.ToLower(record[3])
 		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state_name, cityName)
-		fmt.Sprintf(ValidUrl)
 		links <- ValidUrl
 
 	}
@@ -254,10 +253,10 @@ func (s *scrape) Start() error {
 func (s *scrape) startSites(mainsites chan string, done chan bool) {
 	colorOutput.Red("Starting to generate links")
 	var wg sync.WaitGroup
-	wg.Add(1)
+	wg.Add(3)
 	go s.constructnjlinks(mainsites, &wg)
-	//go s.constructUSlinks(mainsites, &wg)
-	//go s.constructInternationalLinks(mainsites, &wg)
+	go s.constructUSlinks(mainsites, &wg)
+	go s.constructInternationalLinks(mainsites, &wg)
 	colorOutput.UnderlineGreen("Waiting for go routines to finish")
 	wg.Wait()
 	close(mainsites)

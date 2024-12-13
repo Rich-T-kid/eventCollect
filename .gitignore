@@ -1,6 +1,6 @@
 *.csv
 *docker
-*json
+*.json
 *.db
 *.txt
 *_log.txt

@@ -12,6 +12,12 @@ import (
 	"sync"
 )
 
+/*
+Main concern right now is that the location data is there for a street name but we need the Lat and lOng of this
+This will be handled using batch jobs. Every couple of seconds or minutes we iterate through the database and we translate the street Name into Lat Long
+Very simple
+Keep everything general and only accpet interfaces as we will be changing out our datastores as we continue to tesr
+*/
 var (
 	once     sync.Once
 	instance *Geocoder
