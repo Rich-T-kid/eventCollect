@@ -4,8 +4,6 @@ import (
 	"context"
 	"encoding/csv"
 	"fmt"
-	"lite/DB"
-	"lite/pkg"
 	"log"
 	"net/http"
 	"os"
@@ -14,6 +12,9 @@ import (
 	"time"
 
 	"github.com/gocolly/colly"
+
+	"lite/DB"
+	"lite/pkg"
 )
 
 var colorOutput = pkg.NewTextStyler()
@@ -26,10 +27,11 @@ type Logger struct {
 	RequestLogger *log.Logger // Logs HTTP requests (separate file)
 }
 type scrape struct {
-	mainScraper *colly.Collector
-	sideScraper *colly.Collector
-	logger      *Logger
-	mu          sync.Mutex
+	mainScraper    *colly.Collector
+	sideScraper    *colly.Collector
+	addressCleaner *addressCleaner
+	logger         *Logger
+	mu             sync.Mutex
 }
 
 func NewLogger(prefix string) (*Logger, error) {
@@ -59,11 +61,12 @@ func NewLogger(prefix string) (*Logger, error) {
 	}, nil
 }
 
-func NewScraper(c *colly.Collector, s *colly.Collector, l *Logger) *scrape {
+func NewScraper(c *colly.Collector, s *colly.Collector, l *Logger, a *addressCleaner) *scrape {
 	return &scrape{
-		mainScraper: c,
-		sideScraper: s,
-		logger:      l,
+		mainScraper:    c,
+		sideScraper:    s,
+		addressCleaner: a,
+		logger:         l,
 	}
 }
 func initScrape() (*scrape, error) {
@@ -77,7 +80,9 @@ func initScrape() (*scrape, error) {
 
 	configColly(mainPage, log, "Main Page Scraper", cache)
 	configColly(sidePage, log, "Side Page Scraper", cache)
-	return NewScraper(mainPage, sidePage, log), nil
+	Cleaner := newAddressCleaner(log.DebugLogger)
+
+	return NewScraper(mainPage, sidePage, log, Cleaner), nil
 }
 func Config() *scrape {
 	c, err := initScrape()
@@ -174,7 +179,6 @@ func (s *scrape) constructUSlinks(links chan string, wg *sync.WaitGroup) {
 		cityName := strings.ToLower(record[0])
 		state_name := strings.ToLower(record[3])
 		ValidUrl := fmt.Sprintf("https://www.eventbrite.com/d/%s--%s/all-events/", state_name, cityName)
-		fmt.Sprintf(ValidUrl)
 		links <- ValidUrl
 
 	}
@@ -207,9 +211,9 @@ func (s *scrape) constructInternationalLinks(links chan string, wg *sync.WaitGro
 func (s *scrape) Start() error {
 	colorOutput.Green("Starting web scrapper .....")
 	// Context handling -> for later
-	mainCtx, cancle := context.WithTimeout(context.Background(), time.Second*45)
+	mainCtx, cancle := context.WithTimeout(context.Background(), time.Second*120)
 	defer cancle()
-	sideCtx, cancle := context.WithTimeout(context.Background(), time.Second*45)
+	sideCtx, cancle := context.WithTimeout(context.Background(), time.Second*120)
 	defer cancle()
 
 	var consumerWG sync.WaitGroup
@@ -226,7 +230,7 @@ func (s *scrape) Start() error {
 	go s.startSites(producerChannel, done)
 	go s.ScrapeSidePages(sideCtx, SideProducer)
 	//
-	workers := 5
+	workers := 50
 	consumerWG.Add(workers)
 	for i := 0; i < workers; i++ {
 		go func() {
@@ -279,7 +283,7 @@ func (s *scrape) processLink(ctx context.Context, link string, cache Cache) {
 		s.logger.ErrorLogger.Printf("(Main Scraper): Context canceled, skipping link: %s\n", link)
 		return
 	default:
-		for i := 1; i < 2; i++ {
+		for i := 1; i < 5; i++ {
 			pageExtention := fmt.Sprintf("?page=%d", i)
 			completeUrl := link + pageExtention
 			s.mainScraper.Visit(completeUrl)
@@ -306,7 +310,7 @@ func (s *scrape) BeginScrape(links chan string) {
 
 func (s *scrape) ScrapeSidePages(ctx context.Context, source chan string) {
 	var wg sync.WaitGroup
-	workerPool := 10
+	workerPool := 50
 	str := fmt.Sprintf("Starting Side Scraper with %d go-routines", workerPool)
 	colorOutput.UnderlineGreen(str)
 
@@ -412,9 +416,14 @@ func (s *scrape) BeginSideScrape(ctx context.Context, source chan string) {
 		}
 
 		if !event.ExactAddress {
-			location = "Delete this value later"
+			location = "NUllAddress"
 		}
 		id := db.AddEvent(event)
+		if event.ExactAddress && event.Location != "" {
+			eventLoInfo := s.addressCleaner.ReverseGeoCode(event.Location)
+			db.AddGeoPoint(title, id, DB.NewGeoPoint(eventLoInfo.Latitude, eventLoInfo.Longitude, eventLoInfo.Address))
+			return
+		}
 		lat, long := -1.1, -1.1 //s.addressToCordnites(location)
 		db.AddGeoPoint(title, id, DB.NewGeoPoint(lat, long, location))
 	})

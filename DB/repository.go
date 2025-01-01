@@ -2,14 +2,16 @@ package DB
 
 import (
 	"fmt"
-	"lite/pkg"
 	"log"
 	"os"
 	"sync"
 	"time"
 
-	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	"lite/pkg"
+
+	"gorm.io/driver/sqlite"
 )
 
 type Storage struct {
@@ -80,6 +82,7 @@ func newEventInfo(EventId int, bio string, maxCapacity, currentCap int, hostname
 	}
 }
 func NewGeoPoint(Lat, Long float64, streetName string) *GeoPoint {
+	fmt.Printf("New GeoPoint at %s with cordnates %v , %v ", streetName, Lat, Long)
 	return &GeoPoint{
 		Latitude:  Lat,
 		Longitude: Long,
@@ -102,7 +105,7 @@ func (s *Storage) createEventInfo(title string, eventInfo *EventInfo) {
 
 func (s *Storage) createEventGeo(title string, Geo *GeoPoint) {
 	s.Database.Create(Geo)
-	var constMessage = fmt.Sprintf("Created EventGeo Point %s: %v at %v \n", title, Geo, time.Now())
+	var constMessage = fmt.Sprintf("Created EventGeo Point %s: %v at %v \n", title, *Geo, time.Now())
 	s.logFile.Write([]byte(constMessage))
 }
 func (s *Storage) AddEvent(event Event) int {

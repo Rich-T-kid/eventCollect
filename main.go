@@ -1,6 +1,10 @@
 package main
 
 import (
+	"log"
+
+	"github.com/joho/godotenv"
+
 	"lite/DB"
 	scrape "lite/Scrape"
 	"lite/metrics"
@@ -14,6 +18,12 @@ Add notifications on certian conditoons (start , stop, crash) -> textbelt API
 Figure out what to do with the location data we are getting
 Figure out what to do with the Invalid Date Format we  are recieveing
 */
+func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
 func main() {
 	colorOP := pkg.NewTextStyler()
 	db := DB.GetStorage()
