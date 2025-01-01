@@ -9,6 +9,7 @@ import (
 	scrape "lite/Scrape"
 	"lite/metrics"
 	"lite/pkg"
+	api "lite/server"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -29,7 +30,8 @@ func main() {
 	db := DB.GetStorage()
 	webCrawler := scrape.Config()
 	met := &metrics.Metrics{}
-	pkg.SetUp(met, db, webCrawler)
+	s := &api.Server{}
+	pkg.SetUp(met, db, webCrawler, s)
 	colorOP.BoldRed("Complete with webscraper")
 
 }

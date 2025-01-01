@@ -6,9 +6,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
-
 	"runtime"
+	"time"
 
 	"github.com/joho/godotenv"
 	"github.com/shirou/gopsutil/v3/cpu"
@@ -122,7 +121,7 @@ func StartMetricsJob(interval time.Duration, fileName string) {
 		http.HandleFunc("/Life", healthCheck)
 
 		// Start the HTTP server (blocking operation)
-		port := ":8080"
+		port := ":9999"
 		fmt.Printf("Starting server on http://localhost%s...\n", port)
 		log.Fatal(http.ListenAndServe(port, nil))
 	}()
