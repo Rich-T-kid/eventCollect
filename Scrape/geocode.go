@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -117,4 +118,107 @@ func geoCoderInstance() *Geocoder {
 		instance = newGeoCoder(apikey, baseUrl)
 	})
 	return instance
+}
+
+var (
+	gelokyApiKey string = "xZhll25Ktga6TpfHAd1uZMjZqrF06oWq"
+)
+
+type geoResponse struct {
+	Address   string      `json:"address"`
+	Latitude  StringOrInt `json:"latitude"`
+	Longitude StringOrInt `json:"longitude"`
+}
+
+type EventLocation struct {
+	Address   string  `json:"address"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+}
+
+// Custom type to handle Latitude/Longitude that can be string or int
+type StringOrInt string
+
+func (s *StringOrInt) UnmarshalJSON(data []byte) error {
+	// Check if the value is a string
+	if data[0] == '"' {
+		*s = StringOrInt(data[1 : len(data)-1]) // Remove quotes
+		return nil
+	}
+
+	// Otherwise, it's a number; convert to string
+
+	// Otherwise, it's a number; convert to string
+	str := string(data) // Convert the raw bytes to a string
+	*s = StringOrInt(str)
+	return nil
+}
+
+type addressCleaner struct {
+	logger *log.Logger
+}
+
+func newAddressCleaner(l *log.Logger) *addressCleaner {
+	return &addressCleaner{
+		logger: l,
+	}
+}
+
+// The caller of this function must handle checking for empty values
+func (a *addressCleaner) ReverseGeoCode(streetName string) EventLocation {
+	if streetName == "" {
+		return EventLocation{
+			Address:   "",
+			Latitude:  -1,
+			Longitude: -1,
+		}
+	}
+	apiResponse := streetToCord(streetName, a.logger)
+	return geoReponseParse(apiResponse, a.logger)
+}
+
+func streetToCord(streetName string, logger *log.Logger) geoResponse {
+	defualtResponse := geoResponse{Address: "", Latitude: "1", Longitude: "1"}
+	escapedStreet := strings.ReplaceAll(streetName, " ", "%20")
+	url := fmt.Sprintf("https://geloky.com/api/geo/geocode?address=%s&key=%s&format=geloky", escapedStreet, gelokyApiKey)
+	fmt.Println("GeoCode api endpoint : ", url)
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Printf("HTTP Get error %e \n", err)
+		return defualtResponse
+	}
+	defer resp.Body.Close()
+	fmt.Println(resp.StatusCode)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		logger.Println("io read error ", err)
+		return defualtResponse
+	}
+	var location []geoResponse
+	err = json.Unmarshal(body, &location)
+	if err != nil {
+		fmt.Printf("error unmarshaling response %e , current geoReponse %v \n", err, location)
+		return defualtResponse
+	}
+
+	if len(location) < 1 {
+		logger.Printf("Invalid Response url: %s  response json %v\n", url, location)
+	}
+	instance := location[0]
+	return instance
+}
+
+func geoReponseParse(g geoResponse, logger *log.Logger) EventLocation {
+	// In case where geoResponse passed to this isn't valid, use default values
+	lat, err := strconv.ParseFloat(string(g.Latitude), 64)
+	if err != nil {
+		lat = -1
+		logger.Println("Error parsing lat value", err)
+	}
+	long, err := strconv.ParseFloat(string(g.Longitude), 64)
+	if err != nil {
+		long = -1
+		logger.Println("Error parsing long value", err)
+	}
+	return EventLocation{Address: g.Address, Latitude: lat, Longitude: long}
 }

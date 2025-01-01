@@ -6,9 +6,9 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-// this is going to be where we work with raw SQL querys.
-// currently going to handle crud so this isnt needed right now but just ot get the genric code out the way
-
+/*
+This is where well load the local data to a cloud Database
+*/
 func connect(databasePath string) *sqlx.DB {
 	// Open the SQLite database file
 	db, err := sqlx.Open("sqlite3", databasePath)
