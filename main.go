@@ -30,7 +30,7 @@ func main() {
 	db := DB.GetStorage()
 	webCrawler := scrape.Config()
 	met := &metrics.Metrics{}
-	s := &api.Server{}
+	s := api.NewServer()
 	pkg.SetUp(met, db, webCrawler, s)
 	colorOP.BoldRed("Complete with webscraper")
 

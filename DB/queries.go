@@ -25,18 +25,33 @@ func connect(databasePath string) *sqlx.DB {
 	return db
 }
 
-func newQuery() *Queries {
+func NewQuery() *Queries {
 	Connection := connect("./startup.g")
 	return &Queries{db: Connection}
 }
 
-func (q *Queries) GetAllEvents() ([]string, error) {
-	var events []string
-	query := "SELECT name FROM events" // Replace "events" with your table name
-	err := q.db.Select(&events, query)
+func (q *Queries) GetAllEvents(offset, limit uint) ([]Event, error) {
+	var events []Event
+	query := "SELECT * FROM events limit ? offset ? " // Replace "events" with your table name
+	err := q.db.Select(&events, query, limit, offset)
 	if err != nil {
 		log.Printf("Failed to fetch events: %v", err)
 		return nil, err
 	}
 	return events, nil
+}
+
+func (q *Queries) GetAllEventslocations(offset, limit uint) ([]GeoPoint, error) {
+	var GeoPoints []GeoPoint
+	query := "SELECT * FROM GeoPoint limit ? offset ? " // Replace "events" with your table name
+	err := q.db.Select(&GeoPoints, query, limit, offset)
+	if err != nil {
+		log.Printf("Failed to fetch events: %v", err)
+		return nil, err
+	}
+	return GeoPoints, nil
+}
+
+func (q *Queries) EventbyLocation(lat, long float64, offset, limit uint) ([]GeoPoint, error) {
+	return nil, nil
 }
